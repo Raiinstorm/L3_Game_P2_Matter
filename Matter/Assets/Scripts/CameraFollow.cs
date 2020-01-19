@@ -35,7 +35,6 @@ public class CameraFollow : MonoBehaviour
         Cursor.visible = false; // Rend le curseur de la souris invisible
     }
 
-
     void Update()
     {
         // mise en place de la rotation
@@ -56,15 +55,20 @@ public class CameraFollow : MonoBehaviour
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
         transform.rotation = localRotation;
-
-        //14
-        //watch?v=LbDQHv9z-F0
-
-
-
-
-
-
-
     }
-}
+
+    void LateUpdate()
+    {
+        CameraUpdater ();    
+    }
+
+    void CameraUpdater()
+    {
+        // Definition du target (la cible) à suivre
+        Transform target = cameraFollowObj.transform;
+
+        //Deplacer le gameObject vers le target
+        float step = cameraMoveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+    }
+} 
