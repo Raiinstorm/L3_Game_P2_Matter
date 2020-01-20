@@ -43,4 +43,5 @@ public class CameraDetection : MonoBehaviour
 	}
 
 	//To do : Gérer plusieurs détections en même temps
+	//To do : gérer plusieurs mouvements
 }

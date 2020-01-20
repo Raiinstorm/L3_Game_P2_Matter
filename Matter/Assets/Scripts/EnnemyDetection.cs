@@ -16,11 +16,14 @@ public class EnnemyDetection : MonoBehaviour
 	public GameObject player;
 	Transform playerTransform;
 
-	bool canDetect;
-	bool canAttack;
-	bool canEscape;
-	bool canMelee;
-	bool enableAction;
+	[HideInInspector]
+	public bool canDetect;
+	[HideInInspector]
+	public bool canAttack;
+	[HideInInspector]
+	public bool canEscape;
+	[HideInInspector]
+	public bool canMelee;
 
 	float distance;
 
@@ -32,10 +35,7 @@ public class EnnemyDetection : MonoBehaviour
 
 	private void Update()
 	{
-		if (player != null)
-		{
-			Detection();
-		}
+		Detection();
 
 		if (canDetect)
 		{
@@ -63,25 +63,21 @@ public class EnnemyDetection : MonoBehaviour
 		{
 			Desactivate();
 			canDetect = true;
-			enableAction = true;
 		}
 		if (distance < attackingRange && distance > escapeRange)
 		{
 			Desactivate();
 			canAttack = true;
-			enableAction = true;
 		}
 		if (distance < escapeRange && distance > meleeRange)
 		{
 			Desactivate();
 			canEscape = true;
-			enableAction = true;
 		}
 		if (distance < meleeRange)
 		{
 			Desactivate();
 			canMelee = true;
-			enableAction = true;
 		}
 		if(distance > detectionRange)
 		{
