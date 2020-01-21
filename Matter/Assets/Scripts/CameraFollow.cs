@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public GameObject cameraFollowObj; 
-    public GameObject cameraObj; 
-    public GameObject playerObj; 
-
+    public GameObject cameraObj;
 
     Vector3 FollowPos; // position
     
