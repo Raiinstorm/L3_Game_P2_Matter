@@ -10,11 +10,18 @@ public class EnnemyIdlePattern : MonoBehaviour
 	public int minStayingTime;
 	public int maxStayingTime;
 
+	[Header("Time Before Idle Start")]
+	public int timeBeforePattern;
+
 	EnnemyDetection detect;
 
 	IEnumerator idle;
 
 	bool alreadyPlaying;
+
+	Transform place;
+
+	int iIdle;
 
 
 	private void Start()
@@ -26,33 +33,48 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	private void Update()
 	{
-		if(detect.canDetect || detect.canAttack || detect.canEscape || detect.canMelee)
+		if (detect.canDetect || detect.canAttack || detect.canEscape || detect.canMelee)
 		{
 			StopCoroutine(idle);
 			idle = IdleMove();
 			alreadyPlaying = false;
+			place = null;
 		}
 		else
 		{
 			if(!alreadyPlaying)
 			{
-				StartCoroutine(idle);
+				StartCoroutine(WaitBeforeIdleMove());
 			}
+		}
+
+
+		if (place != null)
+		{
+			transform.position = Vector3.Lerp(transform.position, place.position, Time.deltaTime);
 		}
 	}
 
 	IEnumerator IdleMove()
 	{
-		alreadyPlaying = true;
 		while(!detect.canDetect || !detect.canAttack || !detect.canEscape || !detect.canMelee)
 		{
-			foreach(Transform spot in patternSpots)
+			place = patternSpots[iIdle];
+			int time = Random.Range(minStayingTime, maxStayingTime+1);
+			yield return new WaitForSeconds(time);
+			place = null;
+			iIdle++;
+			if(iIdle >= patternSpots.Length)
 			{
-				float time = Random.Range(minStayingTime, maxStayingTime);
-				yield return new WaitForSeconds(time);
-				transform.position = spot.position;
+				iIdle = 0;
 			}
 		}
+	}
+	IEnumerator WaitBeforeIdleMove()
+	{
+		alreadyPlaying = true;
+		yield return new WaitForSeconds(timeBeforePattern);
+		StartCoroutine(idle);
 	}
 
 }
