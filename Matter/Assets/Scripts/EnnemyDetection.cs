@@ -8,7 +8,7 @@ public class EnnemyDetection : MonoBehaviour
 
 	[Header ("Ranges")]
 	public float detectionRange;
-	public float attackingRange;
+	public float longAttackRange;
 	public float escapeRange;
 	public float meleeRange;
 
@@ -19,7 +19,7 @@ public class EnnemyDetection : MonoBehaviour
 	[HideInInspector]
 	public bool canDetect;
 	[HideInInspector]
-	public bool canAttack;
+	public bool canShoot;
 	[HideInInspector]
 	public bool canEscape;
 	[HideInInspector]
@@ -36,38 +36,21 @@ public class EnnemyDetection : MonoBehaviour
 	private void Update()
 	{
 		Detection();
-
-		if (canDetect)
-		{
-			CanDetect();
-		}
-		if (canAttack)
-		{
-			CanAttack();
-		}
-		if (canEscape)
-		{
-			CanEscape();
-		}
-		if (canMelee)
-		{
-			CanMelee();
-		}
 	}
 
 	void Detection()
 	{
 		distance = Vector3.Distance(playerTransform.position, ennemyTransform.position);
 
-		if (distance < detectionRange && distance > attackingRange)
+		if (distance < detectionRange && distance > longAttackRange)
 		{
 			Desactivate();
 			canDetect = true;
 		}
-		if (distance < attackingRange && distance > escapeRange)
+		if (distance < longAttackRange && distance > escapeRange)
 		{
 			Desactivate();
-			canAttack = true;
+			canShoot = true;
 		}
 		if (distance < escapeRange && distance > meleeRange)
 		{
@@ -88,29 +71,9 @@ public class EnnemyDetection : MonoBehaviour
 	void Desactivate()
 	{
 		canDetect = false;
-		canAttack = false;
+		canShoot = false;
 		canEscape = false;
 		canMelee = false;
-	}
-
-	void CanDetect()
-	{
-		Debug.Log("detecte le joueur");
-	}
-
-	void CanAttack()
-	{
-		Debug.Log("peut attaquer le joueur");
-	}
-
-	void CanEscape()
-	{
-		Debug.Log("fuis le joueur");
-	}
-
-	void CanMelee()
-	{
-		Debug.Log("Attaque de mélée au joueur");
 	}
 
 	//To do : activer Calculing() et Detection() que lorsque le player est à proximité

@@ -17,7 +17,7 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	IEnumerator idle;
 
-	bool alreadyPlaying;
+	bool alreadyPlaying = true;
 
 	Transform place;
 
@@ -29,11 +29,12 @@ public class EnnemyIdlePattern : MonoBehaviour
 		detect = GetComponent<EnnemyDetection>();
 		idle = IdleMove();
 		StartCoroutine(idle);
+		transform.position = patternSpots[0].position;
 	}
 
 	private void Update()
 	{
-		if (detect.canDetect || detect.canAttack || detect.canEscape || detect.canMelee)
+		if (detect.canDetect || detect.canShoot || detect.canEscape || detect.canMelee)
 		{
 			StopCoroutine(idle);
 			idle = IdleMove();
@@ -57,24 +58,29 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	IEnumerator IdleMove()
 	{
-		while(!detect.canDetect || !detect.canAttack || !detect.canEscape || !detect.canMelee)
+		place = patternSpots[iIdle];
+		int time = Random.Range(minStayingTime, maxStayingTime + 1);
+		yield return new WaitForSeconds(time);
+		place = null;
+		iIdle++;
+		if (iIdle >= patternSpots.Length)
 		{
-			place = patternSpots[iIdle];
-			int time = Random.Range(minStayingTime, maxStayingTime+1);
-			yield return new WaitForSeconds(time);
-			place = null;
-			iIdle++;
-			if(iIdle >= patternSpots.Length)
-			{
-				iIdle = 0;
-			}
+			iIdle = 0;
 		}
+		ResetIdleMove();
 	}
+
+	void ResetIdleMove()
+	{
+		StopCoroutine(idle);
+		idle = IdleMove();
+		StartCoroutine(idle);
+	}
+
 	IEnumerator WaitBeforeIdleMove()
 	{
 		alreadyPlaying = true;
 		yield return new WaitForSeconds(timeBeforePattern);
 		StartCoroutine(idle);
 	}
-
 }

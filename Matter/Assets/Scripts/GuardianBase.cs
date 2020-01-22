@@ -41,10 +41,10 @@ public class GuardianBase : MonoBehaviour
     {
 		distance = Vector3.Distance(thisTransform.position, player.position);
 
-		while (distance >= playerScript.radiusEnnemy && !chargeAttack)
+		if (distance >= playerScript.radiusEnnemy && !chargeAttack)
 		{
 			distance = Vector3.Distance(thisTransform.position, player.position);
-			thisTransform.position = Vector3.Lerp(thisTransform.position, player.position, Time.deltaTime); //To do : mettre une distance minimale entre l'ennemy et le players
+			thisTransform.position = Vector3.Lerp(thisTransform.position, player.position, Time.deltaTime); //To do : mettre une distance minimale entre l'ennemy et le player
 		}
 		if (distance <= playerScript.radiusEnnemy && !alreadyPlaying)
 		{
@@ -80,7 +80,8 @@ public class GuardianBase : MonoBehaviour
 	IEnumerator Charging()
 	{
 		alreadyPlaying = true;
-		yield return new WaitForSeconds(2f);
+		int time = Random.Range(1, 3);
+		yield return new WaitForSeconds(time);
 		if(distance <= playerScript.radiusEnnemy)
 		{
 			chargeAttack = true;

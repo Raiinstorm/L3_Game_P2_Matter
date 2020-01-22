@@ -23,7 +23,7 @@ public class ShowEnnemyCircles : MonoBehaviour
 		circle4.transform.parent = transform;
 
 		circle1.DrawCircle(attachedTo.detectionRange, .5f);
-		circle2.DrawCircle(attachedTo.attackingRange, .5f);
+		circle2.DrawCircle(attachedTo.longAttackRange, .5f);
 		circle3.DrawCircle(attachedTo.escapeRange, .5f);
 		circle4.DrawCircle(attachedTo.meleeRange, .5f);
 	}
