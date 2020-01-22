@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlatfomeDetector : MonoBehaviour
 {
@@ -8,27 +6,39 @@ public class PlatfomeDetector : MonoBehaviour
     public LayerMask PlatfomeMask;
     public GameObject cam;
 
-    PlatformeController detect;
+    PlatformeController m_detect;
+    bool m_callPlateform;
 
     private void Update()
     {
+        /*
         if(Detector())
         {
-            detect.Detected();
-        }
+            m_detect.Detected();
+        }*/
+        GetInput();
     }
+
+    public void GetInput()
+    {
+        m_callPlateform = Input.GetButtonDown("CallPlateform");
+        
+        if (m_callPlateform)
+            Debug.Log("Test");
+
+        if (m_callPlateform && Detector())
+            m_detect.Detected();
+    } 
     
-    
-    // A Améliorer pour eviter plusieurs Getcomponent d'affiler.
+    // Permet de détected si le Raycast est en collision avec une Plateforme
     public bool Detector()
     {
         if (Physics.Linecast(cam.transform.position,cam.transform.position + transform.forward*Distance,out RaycastHit hitInfo,PlatfomeMask))
         {
-            hitInfo.transform.gameObject.TryGetComponent(out detect);
+            hitInfo.transform.gameObject.TryGetComponent(out m_detect);
             return true;
         }
-
-        detect = null;
+        m_detect = null;
         return false;
     }
 

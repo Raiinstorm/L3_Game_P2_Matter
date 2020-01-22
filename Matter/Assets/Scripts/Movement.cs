@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -27,9 +28,10 @@ public class Movement : MonoBehaviour
     {
         Move();
         Jump();
-        //InputMagnitude();
-
         PlayerRotation();
+
+        if (Input.GetButtonDown("Reset"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public virtual void Move()
@@ -52,7 +54,10 @@ public class Movement : MonoBehaviour
 
     public virtual void Jump()
     {
-
+        if (Input.GetButtonDown("Jump") && m_isGround)
+        {
+            m_velocity = new Vector3(0.0f, 9.0f, 0.0f);
+        }
     }
 
     void PlayerRotation()

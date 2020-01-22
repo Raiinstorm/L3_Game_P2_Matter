@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class PlatformeController : MonoBehaviour
 {
-    public PlatfomeDetector detect;
+    public PlatfomeDetector Detect;
+
+    public float DistanceExtrude;
+
+    public bool ExtrudeGround;
+    public bool ExtrudeWallLeft;
+    public bool ExtrudeWallRight;
+    bool m_actived;
+
+    Transform m_thisTransform;
 
     void Start()
     {
-        detect = GetComponent<PlatfomeDetector>();
+        Detect = GetComponent<PlatfomeDetector>();
+        m_actived = false;
     }
 
     public void Detected()
     {
-        Debug.Log("HelloCoquinouDu59");
+        if (ExtrudeGround && !m_actived)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y + DistanceExtrude, 0), Time.deltaTime);
+            m_actived = true;
+        }
+        else if (ExtrudeWallLeft || ExtrudeWallRight)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(-transform.position.x - DistanceExtrude, 0, 0), Time.deltaTime);
+            m_actived = true;
+        }
     }
 }
