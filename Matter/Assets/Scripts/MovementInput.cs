@@ -43,8 +43,8 @@ public class MovementInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //InputMagnitude ();
-        PlayerMoveAndRotation();
+        InputMagnitude ();
+        //PlayerMoveAndRotation();
         /*
 		//If you don't need the character grounded then get rid of this part.
 		isGrounded = controller.isGrounded;

@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
 
     public float GroundDistance = 0.4f;
     public float Speed = 12f;
-    public float Gravity = 9.81f;
+    public float Gravity = -9.81f;
 
     //test
     public float InputX;
@@ -23,17 +23,21 @@ public class Movement : MonoBehaviour
 
     Vector3 m_velocity;
     bool m_isGround;
-    
+
+    public float allowPlayerRotation = 0.1f;
+
+    public float JumpForce;
+
     void Update()
     {
+        PlayerRotation();
         Move();
         Jump();
-        PlayerRotation();
+
 
         if (Input.GetButtonDown("Reset"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     public virtual void Move()
     {
         InputX = Input.GetAxis("Horizontal");
@@ -62,24 +66,30 @@ public class Movement : MonoBehaviour
 
     void PlayerRotation()
     {
-        InputX = Input.GetAxis("Horizontal");
-        InputZ = Input.GetAxis("Vertical");
+        //Calculate the Input Magnitude
+        float speedMagnitude;
+        speedMagnitude = new Vector2(InputX, InputZ).sqrMagnitude;
 
-        var forward = cam.transform.forward;
-        var right = cam.transform.right;
-
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        desiredMoveDirection = forward * InputZ + right * InputX;
-
-        if (blockRotationPlayer == false)
+        if (speedMagnitude > allowPlayerRotation)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+            InputX = Input.GetAxis("Horizontal");
+            InputZ = Input.GetAxis("Vertical");
+
+            var forward = cam.transform.forward;
+            var right = cam.transform.right;
+
+            forward.y = 0f;
+            right.y = 0f;
+
+            forward.Normalize();
+            right.Normalize();
+
+            desiredMoveDirection = forward * InputZ + right * InputX;
+
+            if (blockRotationPlayer == false)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+            }
         }
     }
-    
 }

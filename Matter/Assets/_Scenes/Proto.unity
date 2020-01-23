@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255226879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.87, y: 2.19, z: 15.37}
+  m_LocalPosition: {x: 0.87, y: 0.85, z: 13.66}
   m_LocalScale: {x: 1, y: 1, z: 2.0591}
   m_Children: []
   m_Father: {fileID: 1541813465}
@@ -739,7 +739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311155490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.09, y: -0.16, z: 20.89}
+  m_LocalPosition: {x: -3.09, y: -0.16, z: 19.33}
   m_LocalScale: {x: 8.5004, y: 1, z: 6.7347}
   m_Children: []
   m_Father: {fileID: 1541813465}
@@ -1324,7 +1324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930360823}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.87, y: 1.05, z: 11.63}
+  m_LocalPosition: {x: 0.87, y: 0.41, z: 10.86}
   m_LocalScale: {x: 1, y: 1, z: 2.0591}
   m_Children: []
   m_Father: {fileID: 1541813465}
@@ -1811,6 +1811,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8650836124789145057, guid: f32f73dce6949a442850edabf875ca02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 805049808880764258, guid: f32f73dce6949a442850edabf875ca02,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5644884210074947570, guid: f32f73dce6949a442850edabf875ca02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1819,7 +1829,7 @@ PrefabInstance:
     - target: {fileID: 5644884210074947570, guid: f32f73dce6949a442850edabf875ca02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5644884210074947570, guid: f32f73dce6949a442850edabf875ca02,
         type: 3}
@@ -1871,5 +1881,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 805049808880764259, guid: f32f73dce6949a442850edabf875ca02,
+        type: 3}
+      propertyPath: theRb
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 805049808880764259, guid: f32f73dce6949a442850edabf875ca02,
+        type: 3}
+      propertyPath: JumpForce
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 805049808880764259, guid: f32f73dce6949a442850edabf875ca02,
+        type: 3}
+      propertyPath: Speed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 805049808880764259, guid: f32f73dce6949a442850edabf875ca02,
+        type: 3}
+      propertyPath: GroundMask.m_Bits
+      value: 768
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2367956097541481096, guid: f32f73dce6949a442850edabf875ca02, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f32f73dce6949a442850edabf875ca02, type: 3}
