@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnnemyIdlePattern : MonoBehaviour
 {
 	public Transform[] patternSpots;
+	EnnemyMovement ennemyMovement;
 
 	[Header ("Staying Time")]
 	public int minStayingTime;
@@ -26,6 +27,8 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	private void Start()
 	{
+		ennemyMovement = GetComponent<EnnemyMovement>();
+
 		detect = GetComponent<EnnemyDetection>();
 		idle = IdleMove();
 		StartCoroutine(idle);
@@ -52,7 +55,7 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 		if (place != null)
 		{
-			transform.position = Vector3.Lerp(transform.position, place.position, Time.deltaTime);
+			ennemyMovement.Move(place);
 		}
 	}
 

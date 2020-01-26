@@ -5,6 +5,7 @@ using UnityEngine;
 public class Guardian : MonoBehaviour
 {
 	EnnemyDetection detect;
+	EnnemyMovement ennemyMovement;
 
 	[Header ("Materials")]
 	public Material standardMaterial;
@@ -33,12 +34,10 @@ public class Guardian : MonoBehaviour
 	GameObject ondeDeChoc;
 	public GameObject attackHitbox;
 
-	[Header("LookAt")]
-	public Transform lookAt;
-	LookTarget lookTarget;
-
 	void Start()
     {
+		ennemyMovement = GetComponent<EnnemyMovement>();
+
 		ondeDeChoc = new GameObject { name = "OndeDeChocRange" };
 		ondeDeChoc.transform.position = transform.position;
 		ondeDeChoc.transform.parent = transform;
@@ -46,8 +45,6 @@ public class Guardian : MonoBehaviour
 		ondeDeChoc.SetActive(false);
 
 		attackHitbox.SetActive(false);
-
-		lookTarget = lookAt.gameObject.GetComponent<LookTarget>();
 
 		rendering = GetComponent<MeshRenderer>();
 		rendering.material = standardMaterial;
@@ -66,13 +63,13 @@ public class Guardian : MonoBehaviour
 			if (distance >= playerScript.radiusEnnemy && !chargeAttack)
 			{
 				distance = Vector3.Distance(thisTransform.position, player.position);
-				lookTarget.LookingTarget();
-				Quaternion target = lookAt.rotation;
-				transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * .2f);
-				thisTransform.position = Vector3.Lerp(thisTransform.position, player.position, Time.deltaTime);
+				LookingTarget();
+
+				ennemyMovement.Move(player);
 			}
 			if (distance <= playerScript.radiusEnnemy && !alreadyPlaying)
 			{
+				ennemyMovement.Stop();
 				StartCoroutine(Charging());
 			}
 
@@ -142,7 +139,7 @@ public class Guardian : MonoBehaviour
 		if(attackType == 2) // normal
 		{
 			distance = Vector3.Distance(thisTransform.position, player.position);
-			lookTarget.LookingTarget();
+			LookingTarget();
 			Debug.Log("Attaque normale");
 			//charge
 			yield return new WaitForSeconds(1);
@@ -153,5 +150,11 @@ public class Guardian : MonoBehaviour
 			attackHitbox.SetActive(false);
 		}
 		
+	}
+
+	void LookingTarget()
+	{
+		Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z); 
+		transform.LookAt(targetPosition);
 	}
 }
