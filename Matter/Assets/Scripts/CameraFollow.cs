@@ -3,7 +3,7 @@
 public class CameraFollow : MonoBehaviour
 {
     public GameObject cameraFollowObj; 
-    public GameObject cameraObj;
+    public GameObject cameraObj; 
 
     Vector3 FollowPos; // position
     
@@ -57,7 +57,7 @@ public class CameraFollow : MonoBehaviour
     {
         CameraUpdater ();    
     }
-
+    
     void CameraUpdater()
     {
         // Definition du target (la cible) à suivre
