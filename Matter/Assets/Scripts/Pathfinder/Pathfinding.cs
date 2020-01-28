@@ -5,13 +5,13 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
 
-	Grid GridReference;
+	PathfinderGrid GridReference;
 	public Transform StartPosition;
 	public Transform TargetPosition;
 
 	private void Awake()
 	{
-		GridReference = GetComponent<Grid>();
+		GridReference = GetComponent<PathfinderGrid>();
 	}
 
 	private void Update()
@@ -21,17 +21,17 @@ public class Pathfinding : MonoBehaviour
 
 	void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
 	{
-		Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);
-		Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);
+		PathfinderNode StartNode = GridReference.NodeFromWorldPoint(a_StartPos);
+		PathfinderNode TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);
 
-		List<Node> OpenList = new List<Node>();//List of nodes for the open list
-		HashSet<Node> ClosedList = new HashSet<Node>();//Hashset of nodes for the closed list
+		List<PathfinderNode> OpenList = new List<PathfinderNode>();//List of nodes for the open list
+		HashSet<PathfinderNode> ClosedList = new HashSet<PathfinderNode>();//Hashset of nodes for the closed list
 
 		OpenList.Add(StartNode);//Add the starting node to the open list to begin the program
 
 		while (OpenList.Count > 0)//Whilst there is something in the open list
 		{
-			Node CurrentNode = OpenList[0];//Create a node and set it to the first item in the open list
+			PathfinderNode CurrentNode = OpenList[0];//Create a node and set it to the first item in the open list
 			for (int i = 1; i < OpenList.Count; i++)//Loop through the open list starting from the second object
 			{
 				if (OpenList[i].FCost < CurrentNode.FCost || OpenList[i].FCost == CurrentNode.FCost && OpenList[i].ihCost < CurrentNode.ihCost)//If the f cost of that object is less than or equal to the f cost of the current node
@@ -47,7 +47,7 @@ public class Pathfinding : MonoBehaviour
 				GetFinalPath(StartNode, TargetNode);//Calculate the final path
 			}
 
-			foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))//Loop through each neighbor of the current node
+			foreach (PathfinderNode NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))//Loop through each neighbor of the current node
 			{
 				if (!NeighborNode.bIsWall || ClosedList.Contains(NeighborNode))//If the neighbor is a wall or has already been checked
 				{
@@ -73,10 +73,10 @@ public class Pathfinding : MonoBehaviour
 
 
 
-	void GetFinalPath(Node a_StartingNode, Node a_EndNode)
+	void GetFinalPath(PathfinderNode a_StartingNode, PathfinderNode a_EndNode)
 	{
-		List<Node> FinalPath = new List<Node>();//List to hold the path sequentially 
-		Node CurrentNode = a_EndNode;//Node to store the current node being checked
+		List<PathfinderNode> FinalPath = new List<PathfinderNode>();//List to hold the path sequentially 
+		PathfinderNode CurrentNode = a_EndNode;//Node to store the current node being checked
 
 		while (CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
 		{
@@ -90,7 +90,7 @@ public class Pathfinding : MonoBehaviour
 
 	}
 
-	int GetManhattenDistance(Node a_nodeA, Node a_nodeB)
+	int GetManhattenDistance(PathfinderNode a_nodeA, PathfinderNode a_nodeB)
 	{
 		int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);//x1-x2
 		int iy = Mathf.Abs(a_nodeA.iGridY - a_nodeB.iGridY);//y1-y2

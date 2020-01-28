@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class PathfinderGrid : MonoBehaviour
 {
 
 	public Transform StartPosition;
@@ -11,8 +11,8 @@ public class Grid : MonoBehaviour
 	public float fNodeRadius;//This stores how big each square on the graph will be
 	public float fDistanceBetweenNodes;//The distance that the squares will spawn from eachother.
 
-	Node[,] NodeArray;
-	public List<Node> FinalPath;//The completed path that the red line will be drawn along
+	PathfinderNode[,] NodeArray;
+	public List<PathfinderNode> FinalPath;//The completed path that the red line will be drawn along
 
 
 	float fNodeDiameter;
@@ -29,7 +29,7 @@ public class Grid : MonoBehaviour
 
 	void CreateGrid()
 	{
-		NodeArray = new Node[iGridSizeX, iGridSizeY];
+		NodeArray = new PathfinderNode[iGridSizeX, iGridSizeY];
 		Vector3 bottomLeft = transform.position - Vector3.right * vGridWorldSize.x / 2 - Vector3.forward * vGridWorldSize.y / 2;//Get the real world position of the bottom left of the grid.
 		for (int x = 0; x < iGridSizeX; x++)//Loop through the array of nodes.
 		{
@@ -46,15 +46,15 @@ public class Grid : MonoBehaviour
 					Wall = false;//Object is not a wall
 				}
 
-				NodeArray[x, y] = new Node(Wall, worldPoint, x, y);//Create a new node in the array.
+				NodeArray[x, y] = new PathfinderNode(Wall, worldPoint, x, y);//Create a new node in the array.
 			}
 		}
 	}
 
 	//Function that gets the neighboring nodes of the given node.
-	public List<Node> GetNeighboringNodes(Node a_NeighborNode)
+	public List<PathfinderNode> GetNeighboringNodes(PathfinderNode a_NeighborNode)
 	{
-		List<Node> NeighborList = new List<Node>();//Make a new list of all available neighbors.
+		List<PathfinderNode> NeighborList = new List<PathfinderNode>();//Make a new list of all available neighbors.
 
 		for (int x = -1; x <= 1; x++)
 		{
@@ -82,7 +82,7 @@ public class Grid : MonoBehaviour
 	}
 
 	//Gets the closest node to the given world position.
-	public Node NodeFromWorldPoint(Vector3 a_vWorldPos)
+	public PathfinderNode NodeFromWorldPoint(Vector3 a_vWorldPos)
 	{
 		float ixPos = ((a_vWorldPos.x + vGridWorldSize.x / 2) / vGridWorldSize.x);
 		float iyPos = ((a_vWorldPos.z + vGridWorldSize.y / 2) / vGridWorldSize.y);
@@ -105,7 +105,7 @@ public class Grid : MonoBehaviour
 
 		if (NodeArray != null)//If the grid is not empty
 		{
-			foreach (Node n in NodeArray)//Loop through every node in the grid
+			foreach (PathfinderNode n in NodeArray)//Loop through every node in the grid
 			{
 				if (n.bIsWall)//If the current node is a wall node
 				{

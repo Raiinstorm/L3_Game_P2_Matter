@@ -1,5 +1,5 @@
 sceneSetups:
-- path: E:/TRAVAIL GAME/MATTER/Matter/Assets/_Scenes/TestDetections.unity
+- path: Assets/Pathfinder.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
