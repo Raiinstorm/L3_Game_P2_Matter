@@ -577,6 +577,7 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 2135253605}
   Player: {fileID: 0}
+  boxRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &669973440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 225283549191382265, guid: f4092d248e7d80646aae6f0e1262bf9a,
@@ -601,6 +602,7 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 669973440}
   Player: {fileID: 2116617418}
+  boxRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1482,7 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 669973440}
   Player: {fileID: 2116617418}
+  boxRadius: {x: 5, y: 5, z: 5}
 --- !u!65 &1683978335
 BoxCollider:
   m_ObjectHideFlags: 0

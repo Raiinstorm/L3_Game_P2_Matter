@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlatfomeDetector : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class PlatfomeDetector : MonoBehaviour
 
     PlatformeController m_detect;
     bool m_callPlateform;
+    List<Collider> Plateformes = new List<Collider>();
+
+    public Vector3 boxRadius;
 
     private void Update()
     {
@@ -44,12 +49,12 @@ public class PlatfomeDetector : MonoBehaviour
         m_detect = null;
         return false;
     }
-    
+    */
     
     public bool Detector()
     {
         RaycastHit hit;
-        if (Physics.BoxCast(cam.transform.position, cam.transform.position, transform.forward, out hit ,Quaternion.Euler(0, 0, 0),Distance, PlatfomeMask))
+        if (Physics.BoxCast(Player.transform.position + new Vector3(0,0,boxRadius.z/3),boxRadius, transform.forward, out hit ,transform.rotation, PlatfomeMask))
         {
             hit.transform.gameObject.TryGetComponent(out m_detect);
             Debug.Log("ok");
@@ -57,7 +62,11 @@ public class PlatfomeDetector : MonoBehaviour
         }
         return false;
     }
-    */
+
+
+    public void List()
+    {
+    }
     public void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Plateforme"))
@@ -70,10 +79,34 @@ public class PlatfomeDetector : MonoBehaviour
         }
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Plateforme"))
+        {
+            Plateformes.Add(other);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Plateforme"))
+        {
+            Plateformes.Remove(other);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(cam.transform.position, cam.transform.position + transform.forward * Distance);
-        Gizmos.DrawWireCube(Player.transform.position, Player.transform.position* Distance);
+        // Gizmos.DrawWireCube(Player.transform.position, Player.transform.position* Distance);
+        Gizmos.DrawWireCube(Player.transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius);
+
     }
 }
+
+public class Plateforme
+{
+
+}
+

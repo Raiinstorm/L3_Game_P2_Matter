@@ -11,8 +11,8 @@ public class PlatformeController : MonoBehaviour
     public bool ExtrudeGround;
     public bool ExtrudeWallLeft;
     public bool ExtrudeWallRight;
-    public float TimerOfDesactived =8f;
-    
+    public float TimerOfDesactived = 8f;
+
     bool m_actived;
     bool m_timer;
     float TimerOfDesactivedTemp;
@@ -29,16 +29,16 @@ public class PlatformeController : MonoBehaviour
     void Update()
     {
         if (m_timer)
-           TimerOfDesactivedTemp -= Time.deltaTime;
+            TimerOfDesactivedTemp -= Time.deltaTime;
 
-        if(ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_actived == true)
+        if (ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_actived == true)
         {
             m_actived = false;
             m_timer = false;
             transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y - DistanceExtrude, 0), Time.deltaTime);
             TimerOfDesactivedTemp = TimerOfDesactived;
         }
-        else if((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_actived == true)
+        else if ((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_actived == true)
         {
             m_actived = false;
             m_timer = false;
@@ -51,7 +51,7 @@ public class PlatformeController : MonoBehaviour
     {
         if (ExtrudeGround && !m_actived)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y + DistanceExtrude, 0),Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y + DistanceExtrude, 0), Time.deltaTime);
             m_actived = true;
             m_timer = true;
         }
