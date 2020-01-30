@@ -13,7 +13,7 @@ public class PlatformeController : MonoBehaviour
     public bool ExtrudeWallRight;
     public float TimerOfDesactived = 8f;
 
-    bool m_actived;
+    public bool m_actived;
     bool m_timer;
     float TimerOfDesactivedTemp;
     Transform m_thisTransform;
@@ -31,14 +31,14 @@ public class PlatformeController : MonoBehaviour
         if (m_timer)
             TimerOfDesactivedTemp -= Time.deltaTime;
 
-        if (ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_actived == true)
+        if (ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_actived)
         {
             m_actived = false;
             m_timer = false;
             transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y - DistanceExtrude, 0), Time.deltaTime);
             TimerOfDesactivedTemp = TimerOfDesactived;
         }
-        else if ((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_actived == true)
+        else if ((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_actived)
         {
             m_actived = false;
             m_timer = false;

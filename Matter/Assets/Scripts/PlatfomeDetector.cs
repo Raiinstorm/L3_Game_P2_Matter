@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class PlatfomeDetector : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class PlatfomeDetector : MonoBehaviour
 
     PlatformeController m_detect;
     bool m_callPlateform;
-    List<Collider> Plateformes = new List<Collider>();
+    public List<Collider> Plateformes = new List<Collider>();
 
     public Vector3 boxRadius;
 
@@ -30,7 +32,10 @@ public class PlatfomeDetector : MonoBehaviour
         m_callPlateform = Input.GetButtonDown("CallPlateform");
         
         if (m_callPlateform)
+        {
             Debug.Log("Test");
+            Detector();
+        }
         /*
         if (m_callPlateform && Detector())
             m_detect.Detected();
@@ -50,51 +55,104 @@ public class PlatfomeDetector : MonoBehaviour
         return false;
     }
     */
-    
+   /* 
     public bool Detector()
     {
         RaycastHit hit;
+ 
         if (Physics.BoxCast(Player.transform.position + new Vector3(0,0,boxRadius.z/3),boxRadius, transform.forward, out hit ,transform.rotation, PlatfomeMask))
         {
             hit.transform.gameObject.TryGetComponent(out m_detect);
+            if(m_detect.m_actived == false)
+            {
+                Plateformes.Add(hit.collider); //Ajout de la plateform dans la list
+            }
             Debug.Log("ok");
             return true;
         }
+        for(int i = 0; i<= Plateformes.Count; i++)
+        {
+            if(!Physics.BoxCast(Player.transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatfomeMask))
+            {
+                Plateformes[i] 
+            }
+        }
+        
         return false;
     }
-
-
-    public void List()
+*/
+    public void Detector()
     {
-    }
-    public void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Plateforme"))
+        RaycastHit hit;
+        float distance = 0f ;
+        if (Physics.BoxCast(Player.transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatfomeMask))
         {
-            if (m_callPlateform)
+            hit.transform.gameObject.TryGetComponent(out m_detect);
+            //if ( SI N'EST PAS ENCORE DANS LA LIST )
+                Plateformes.Add(hit.collider);
+
+            if(m_detect.m_actived == false && (Vector3.Distance(transform.position,m_detect.transform.position) < distance ))
             {
-                other.transform.gameObject.TryGetComponent(out m_detect);
                 m_detect.Detected();
             }
         }
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void Detector()
     {
-        if (other.gameObject.CompareTag("Plateforme"))
+        RaycastHit hit;
+
+    }
+
+    private void CheckList()
+    {
+        RaycastHit hit;
+        if (!Physics.BoxCast(Player.transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatfomeMask))
         {
-            Plateformes.Add(other);
+            foreach (var valeur in Plateformes)
+            {
+                if (valeur != hit.collider)
+                {
+                    RemoveList(valeur);
+                }
+            }
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    private void RemoveList(Collider valeur)
     {
-        if (other.gameObject.CompareTag("Plateforme"))
-        {
-            Plateformes.Remove(other);
-        }
+        Plateformes.Remove(valeur);
     }
 
+    /*
+public void OnTriggerStay(Collider other)
+{
+   if (other.gameObject.CompareTag("Plateforme"))
+   {
+       if (m_callPlateform)
+       {
+           other.transform.gameObject.TryGetComponent(out m_detect);
+           m_detect.Detected();
+       }
+   }
+}
+
+public void OnTriggerEnter(Collider other)
+{
+   if (other.gameObject.CompareTag("Plateforme"))
+   {
+       Plateformes.Add(other);
+   }
+}
+
+public void OnTriggerExit(Collider other)
+{
+   if (other.gameObject.CompareTag("Plateforme"))
+   {
+       Plateformes.Remove(other);
+   }
+}
+*/
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

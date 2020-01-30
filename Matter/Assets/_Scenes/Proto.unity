@@ -172,6 +172,7 @@ MonoBehaviour:
   ExtrudeWallLeft: 0
   ExtrudeWallRight: 1
   TimerOfDesactived: 8
+  m_actived: 0
 --- !u!65 &255226882
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -577,6 +578,7 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 2135253605}
   Player: {fileID: 0}
+  Plateformes: []
   boxRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &669973440 stripped
 GameObject:
@@ -602,6 +604,7 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 669973440}
   Player: {fileID: 2116617418}
+  Plateformes: []
   boxRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1384,6 +1387,7 @@ MonoBehaviour:
   ExtrudeWallLeft: 0
   ExtrudeWallRight: 0
   TimerOfDesactived: 8
+  m_actived: 0
 --- !u!65 &1553116559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1482,7 +1486,8 @@ MonoBehaviour:
     m_Bits: 512
   cam: {fileID: 669973440}
   Player: {fileID: 2116617418}
-  boxRadius: {x: 5, y: 5, z: 5}
+  Plateformes: []
+  boxRadius: {x: 10, y: 15, z: 20}
 --- !u!65 &1683978335
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1717,6 +1722,7 @@ MonoBehaviour:
   ExtrudeWallLeft: 0
   ExtrudeWallRight: 1
   TimerOfDesactived: 8
+  m_actived: 0
 --- !u!65 &1930360826
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2012,6 +2018,7 @@ MonoBehaviour:
   ExtrudeWallLeft: 0
   ExtrudeWallRight: 1
   TimerOfDesactived: 8
+  m_actived: 0
 --- !u!65 &2003766603
 BoxCollider:
   m_ObjectHideFlags: 0
