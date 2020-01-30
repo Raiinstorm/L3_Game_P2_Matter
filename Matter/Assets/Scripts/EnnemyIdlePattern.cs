@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnnemyIdlePattern : MonoBehaviour
 {
 	public Transform[] patternSpots;
-	EnnemyMovement ennemyMovement;
 
 	[Header ("Staying Time")]
 	public int minStayingTime;
@@ -24,14 +24,21 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	int iIdle;
 
+	NavMeshAgent agent;
+
+
+	Vector3 direction;
+	Vector3 saveDirection;
+
 
 	private void Start()
 	{
-		ennemyMovement = GetComponent<EnnemyMovement>();
-
+		agent = GetComponent<NavMeshAgent>();
 		detect = GetComponent<EnnemyDetection>();
 		idle = IdleMove();
 		StartCoroutine(idle);
+
+		if (patternSpots.Length > 0)
 		transform.position = patternSpots[0].position;
 	}
 
@@ -42,29 +49,30 @@ public class EnnemyIdlePattern : MonoBehaviour
 			StopCoroutine(idle);
 			idle = IdleMove();
 			alreadyPlaying = false;
-			place = null;
 		}
 		else
 		{
 			if(!alreadyPlaying)
 			{
 				StartCoroutine(WaitBeforeIdleMove());
+				agent.isStopped = true;
 			}
 		}
-
-
-		if (place != null)
-		{
-			ennemyMovement.Move(place);
-		}
+	}
+	IEnumerator WaitBeforeIdleMove()
+	{
+		alreadyPlaying = true;
+		yield return new WaitForSeconds(timeBeforePattern);
+		StartCoroutine(idle);
 	}
 
 	IEnumerator IdleMove()
 	{
 		place = patternSpots[iIdle];
+		agent.isStopped = false;
+		agent.SetDestination(place.position);
 		int time = Random.Range(minStayingTime, maxStayingTime + 1);
 		yield return new WaitForSeconds(time);
-		place = null;
 		iIdle++;
 		if (iIdle >= patternSpots.Length)
 		{
@@ -80,10 +88,5 @@ public class EnnemyIdlePattern : MonoBehaviour
 		StartCoroutine(idle);
 	}
 
-	IEnumerator WaitBeforeIdleMove()
-	{
-		alreadyPlaying = true;
-		yield return new WaitForSeconds(timeBeforePattern);
-		StartCoroutine(idle);
-	}
+
 }

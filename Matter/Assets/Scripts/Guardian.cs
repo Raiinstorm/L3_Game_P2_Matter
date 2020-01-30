@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Guardian : MonoBehaviour
 {
@@ -34,8 +35,12 @@ public class Guardian : MonoBehaviour
 	GameObject ondeDeChoc;
 	public GameObject attackHitbox;
 
+	NavMeshAgent agent;
+
 	void Start()
     {
+		agent = GetComponent<NavMeshAgent>();
+
 		ennemyMovement = GetComponent<EnnemyMovement>();
 
 		ondeDeChoc = new GameObject { name = "OndeDeChocRange" };
@@ -65,11 +70,14 @@ public class Guardian : MonoBehaviour
 				distance = Vector3.Distance(thisTransform.position, player.position);
 				LookingTarget();
 
-				ennemyMovement.Move(player);
+				agent.isStopped = false;
+				agent.SetDestination(player.position);
+
 			}
 			if (distance <= playerScript.radiusEnnemy && !alreadyPlaying)
 			{
-				ennemyMovement.Stop();
+				agent.isStopped = true;
+
 				StartCoroutine(Charging());
 			}
 
