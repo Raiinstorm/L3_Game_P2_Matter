@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Reset"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     public virtual void Move()
@@ -59,7 +60,10 @@ public class PlayerController : MonoBehaviour
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(m_moveDirection.x,0f,m_moveDirection.z));
             PlayerModel.transform.rotation = Quaternion.Slerp(PlayerModel.transform.rotation, newRotation, RotateSpeed * Time.deltaTime);
         }
+    }
 
-
+    public void Climb()
+    {
+        transform.position = 
     }
 }

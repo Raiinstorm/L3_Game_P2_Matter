@@ -13,7 +13,7 @@ public class PlatfomeDetector : MonoBehaviour
 
     PlatformeController m_detect;
     bool m_callPlateform;
-    public List<Collider> Plateformes = new List<Collider>();
+    public List<Collider> Platforms = new List<Collider>();
 
     public Vector3 boxRadius;
 
@@ -29,13 +29,13 @@ public class PlatfomeDetector : MonoBehaviour
 
     public void GetInput()
     {
+        Detector(); //Range dans une liste les plateformes proches selon la distance
+        CheckList(); // Permet de retirer les éléments inutiles de la liste
+
         m_callPlateform = Input.GetButtonDown("CallPlateform");
-        
+
         if (m_callPlateform)
-        {
-            Debug.Log("Test");
-            Detector();
-        }
+            GetExtrude();
         /*
         if (m_callPlateform && Detector())
             m_detect.Detected();
@@ -81,6 +81,7 @@ public class PlatfomeDetector : MonoBehaviour
         return false;
     }
 */
+/*
     public void Detector()
     {
         RaycastHit hit;
@@ -97,31 +98,74 @@ public class PlatfomeDetector : MonoBehaviour
             }
         }
     }
-
-    public void Detector()
+    */
+    public void Detector() // Permet de detecter les plateforme entrant dans la zone et de les ajouter à une liste
     {
         RaycastHit hit;
-
+        if (Physics.BoxCast(Player.transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatfomeMask))
+        {
+            if(hit.transform.gameObject.TryGetComponent(out m_detect) && (!Platforms.Contains(hit.collider)))
+                Platforms.Add(hit.collider);
+        }
     }
-
-    private void CheckList()
+    private void CheckList() //Check La list pour supprimer les plateformes inutiles
     {
         RaycastHit hit;
         if (!Physics.BoxCast(Player.transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatfomeMask))
         {
-            foreach (var valeur in Plateformes)
+            foreach (var valeur in Platforms)
             {
                 if (valeur != hit.collider)
-                {
                     RemoveList(valeur);
-                }
             }
         }
     }
 
-    private void RemoveList(Collider valeur)
+    private void RemoveList(Collider valeur) // remove les éléments de la list
     {
-        Plateformes.Remove(valeur);
+        Platforms.Remove(valeur);
+    }
+    /*
+    public void GetExtrude() // Utilisation de l'artefact
+    {
+        Debug.Log("Declencheur");
+        var playerPosition = transform.position;
+        var ClosestPlatform = Plateformes.Min(c => Vector3.Distance(c.transform.position,playerPosition));
+
+        if(Plateformes.Count > 0)
+        {
+            for(int i = 0; i <= Plateformes.Count -1; i++)
+            {
+                Debug.Log("CheckList");
+                if (ClosestPlatform == Plateformes.Min( c => Vector3.Distance(Plateformes[i].transform.position, playerPosition)))
+                {
+                    Debug.Log("Extrude");
+                    //m_detect.Detected();
+                }
+            }
+        }
+    }
+    */
+    public void GetExtrude()
+    {
+        // position du joueur
+        var playerPosition = transform.position;
+        // on créé une variable "cache" de plateforme la plus proche
+        Collider closestPlatform = null;
+        // on itère sur toutes les 
+        foreach (var platform in Platforms)
+        {
+            // pour chaque plateforme, on regarde ça distance avec le player
+            var distance = Vector3.Distance(playerPosition, platform.transform.position);
+            // si le cache est vide OU que la distance de la plateforme lue est plus petite que la distance stockée
+            if (closestPlatform == null || distance < Vector3.Distance(playerPosition, closestPlatform.transform.position))
+            {
+                // on remplace la plateforme stockée
+                closestPlatform = platform;
+            }
+        }
+
+        
     }
 
     /*
