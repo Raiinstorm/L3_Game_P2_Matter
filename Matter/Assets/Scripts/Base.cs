@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasePlayer : MonoBehaviour
+public class Base : MonoBehaviour
 {
 	public int hp;
 	public float radiusEnnemy;
+	public Transform detectionPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,4 @@ public class BasePlayer : MonoBehaviour
 		circle1.transform.parent = transform;
 		circle1.DrawCircle(radiusEnnemy, .1f);
 	}
-
-
-
 }

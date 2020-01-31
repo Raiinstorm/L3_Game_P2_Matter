@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Guardian : MonoBehaviour
 {
 	EnnemyDetection detect;
-	EnnemyMovement ennemyMovement;
+	IsGrounded isGround;
 
 	[Header ("Materials")]
 	public Material standardMaterial;
@@ -21,7 +21,7 @@ public class Guardian : MonoBehaviour
 	float distance;
 
 	public Transform player;
-	BasePlayer playerScript;
+	Base playerScript;
 	Transform thisTransform;
 
 	public int maxCharge;
@@ -41,7 +41,7 @@ public class Guardian : MonoBehaviour
     {
 		agent = GetComponent<NavMeshAgent>();
 
-		ennemyMovement = GetComponent<EnnemyMovement>();
+		isGround = GetComponent<IsGrounded>();
 
 		ondeDeChoc = new GameObject { name = "OndeDeChocRange" };
 		ondeDeChoc.transform.position = transform.position;
@@ -54,15 +54,17 @@ public class Guardian : MonoBehaviour
 		rendering = GetComponent<MeshRenderer>();
 		rendering.material = standardMaterial;
 		thisTransform = GetComponent<Transform>();
-		playerScript = player.gameObject.GetComponent<BasePlayer>();
+		playerScript = player.gameObject.GetComponent<Base>();
 		detect = GetComponent<EnnemyDetection>();
 	}
 
     // Update is called once per frame
     void Update()
     {
-        if(detect.canDetect)
+        if(detect.canDetect || detect.canEscape || detect.canMelee || detect.canShoot)
 		{
+			detect.targetLastPosition.position = player.position;
+
 			distance = Vector3.Distance(thisTransform.position, player.position);
 
 			if (distance >= playerScript.radiusEnnemy && !chargeAttack)

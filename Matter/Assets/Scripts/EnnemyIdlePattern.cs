@@ -26,20 +26,33 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	NavMeshAgent agent;
 
+	[Header("Random Movement")]
+	public float maxRandomDistance;
+	float maxRandomX, maxRandomZ;
 
-	Vector3 direction;
-	Vector3 saveDirection;
+
 
 
 	private void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		detect = GetComponent<EnnemyDetection>();
-		idle = IdleMove();
-		StartCoroutine(idle);
 
 		if (patternSpots.Length > 0)
 		transform.position = patternSpots[0].position;
+
+		maxRandomX = transform.position.x + maxRandomDistance;
+		maxRandomZ = transform.position.z + maxRandomDistance;
+
+		Debug.Log("maxX " + maxRandomX);
+		Debug.Log("maxZ " + maxRandomZ);
+
+		idle = IdleMove();
+		StartCoroutine(idle);
+
+		var circle1 = new GameObject { name = "Slt" };
+		circle1.transform.position = transform.position;
+		circle1.DrawCircle(maxRandomDistance, .1f);
 	}
 
 	private void Update()
@@ -54,29 +67,70 @@ public class EnnemyIdlePattern : MonoBehaviour
 		{
 			if(!alreadyPlaying)
 			{
-				StartCoroutine(WaitBeforeIdleMove());
-				agent.isStopped = true;
+				StartCoroutine(SearchTarget(detect.targetLastPosition));
 			}
 		}
 	}
-	IEnumerator WaitBeforeIdleMove()
+
+	IEnumerator SearchTarget(Transform lastTargetPosition)
 	{
 		alreadyPlaying = true;
+
+		if(lastTargetPosition.position != transform.position)
+		{
+			agent.SetDestination(lastTargetPosition.position);
+			yield return new WaitForSeconds(detect.timeSearchingTarget);
+			lastTargetPosition.position = transform.position;
+		}
+
+		StartCoroutine(WaitBeforeIdleMove());
+	}
+	IEnumerator WaitBeforeIdleMove()
+	{
+		agent.isStopped = true;
 		yield return new WaitForSeconds(timeBeforePattern);
 		StartCoroutine(idle);
 	}
 
 	IEnumerator IdleMove()
 	{
-		place = patternSpots[iIdle];
 		agent.isStopped = false;
-		agent.SetDestination(place.position);
 		int time = Random.Range(minStayingTime, maxStayingTime + 1);
-		yield return new WaitForSeconds(time);
-		iIdle++;
-		if (iIdle >= patternSpots.Length)
+
+		if (patternSpots.Length != 0)
 		{
-			iIdle = 0;
+			place = patternSpots[iIdle];
+			agent.SetDestination(place.position);
+			yield return new WaitForSeconds(time);
+			iIdle++;
+			if (iIdle >= patternSpots.Length)
+			{
+				iIdle = 0;
+			}
+		}
+		else
+		{
+			float xRandom = Random.Range(-10, 11);
+			float zRandom = Random.Range(-10, 11);
+			Vector3 randomDirection = new Vector3(transform.position.x + xRandom, transform.position.y, transform.position.z + zRandom);
+			Debug.Log("old " + randomDirection);
+
+			if (randomDirection.x > maxRandomX)
+				randomDirection.x = maxRandomX;
+			else if (randomDirection.x < -maxRandomX)
+				randomDirection.x = -maxRandomX;
+
+			if(randomDirection.z > maxRandomZ)
+				randomDirection.z = maxRandomZ;
+			else if (randomDirection.z < -maxRandomZ)
+				randomDirection.z = -maxRandomZ;
+
+			Debug.Log("x " + xRandom);
+			Debug.Log("z " + zRandom);
+
+			agent.SetDestination(randomDirection);
+			Debug.Log("new "+randomDirection);
+			yield return new WaitForSeconds(time);
 		}
 		ResetIdleMove();
 	}
