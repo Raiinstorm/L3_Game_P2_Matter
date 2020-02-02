@@ -35,11 +35,16 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Reset"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (Input.GetAxis("Climb") > 0.0f)
+        {
+            Debug.Log("Grimper");
+        }
     }
 
     bool MoveMod()
     {
-        if (Physics.Raycast(transform.position, transform.position + transform.forward * DistanceDetectionWallClimb,ClimbMask))
+        if (Physics.Raycast(transform.position, transform.position + transform.forward, DistanceDetectionWallClimb,ClimbMask) && Input.GetAxis("Climb") > 0.2f)
             return true;
         return false;
     } 
