@@ -580,32 +580,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   Platforms: []
   boxRadius: {x: 0, y: 0, z: 0}
---- !u!1 &669973440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 225283549191382265, guid: f4092d248e7d80646aae6f0e1262bf9a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1410708424}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &669973445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669973440}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90db87903c5be594685949f4fbb3c57b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Distance: 20
-  PlatfomeMask:
-    serializedVersion: 2
-    m_Bits: 512
-  cam: {fileID: 669973440}
-  Player: {fileID: 2116617418}
-  Platforms: []
-  boxRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,8 +1107,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2116617423, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
-      propertyPath: JumpForce
-      value: 25
+      propertyPath: DistanceDetectionWallClimb
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
@@ -2225,35 +2199,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!1 &2116617418 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8650836124789145057, guid: f4092d248e7d80646aae6f0e1262bf9a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1410708424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2116617420 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5644884210074947570, guid: f4092d248e7d80646aae6f0e1262bf9a,
     type: 3}
   m_PrefabInstance: {fileID: 1410708424}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2116617423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2116617418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f979c2ce9b2f34a80951769d3c8c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlatformMask:
-    serializedVersion: 2
-    m_Bits: 512
-  Platforms: []
-  boxRadius: {x: 20, y: 20, z: 20}
 --- !u!1 &2135253605 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 805049808251538273, guid: f32f73dce6949a442850edabf875ca02,

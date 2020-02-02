@@ -20,7 +20,7 @@ public class PlatformsDetector : MonoBehaviour
     public void GetInput()
     {
         Detector();
-        CheckList();
+       // CheckList();
 
         if (Input.GetButtonDown("CallPlateform"))
             GetExtrude();
@@ -36,6 +36,7 @@ public class PlatformsDetector : MonoBehaviour
                 Platforms.Add(hit.transform.gameObject);
         }
     }
+    /*
     private void CheckList() //Check La list pour supprimer les plateformes inutiles
     {
         RaycastHit hit;
@@ -51,6 +52,7 @@ public class PlatformsDetector : MonoBehaviour
             }
         }
     }
+    */
 
     private void RemoveList(GameObject valeur) // remove les éléments de la list
     {
