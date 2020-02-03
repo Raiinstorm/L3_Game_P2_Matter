@@ -31,6 +31,9 @@ public class EnnemyIdlePattern : MonoBehaviour
 	float maxRandomX, maxRandomZ;
 
 
+	Vector3 savePosition;
+
+
 
 
 	private void Start()
@@ -44,15 +47,14 @@ public class EnnemyIdlePattern : MonoBehaviour
 		maxRandomX = transform.position.x + maxRandomDistance;
 		maxRandomZ = transform.position.z + maxRandomDistance;
 
-		Debug.Log("maxX " + maxRandomX);
-		Debug.Log("maxZ " + maxRandomZ);
-
 		idle = IdleMove();
 		StartCoroutine(idle);
 
 		var circle1 = new GameObject { name = "Slt" };
 		circle1.transform.position = transform.position;
 		circle1.DrawCircle(maxRandomDistance, .1f);
+
+		savePosition = transform.position;
 	}
 
 	private void Update()
@@ -94,6 +96,8 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	IEnumerator IdleMove()
 	{
+		yield return new WaitForEndOfFrame();
+
 		agent.isStopped = false;
 		int time = Random.Range(minStayingTime, maxStayingTime + 1);
 
@@ -113,24 +117,22 @@ public class EnnemyIdlePattern : MonoBehaviour
 			float xRandom = Random.Range(-10, 11);
 			float zRandom = Random.Range(-10, 11);
 			Vector3 randomDirection = new Vector3(transform.position.x + xRandom, transform.position.y, transform.position.z + zRandom);
-			Debug.Log("old " + randomDirection);
 
 			if (randomDirection.x > maxRandomX)
 				randomDirection.x = maxRandomX;
-			else if (randomDirection.x < -maxRandomX)
-				randomDirection.x = -maxRandomX;
+			else if (randomDirection.x < savePosition.x - maxRandomDistance)
+				randomDirection.x = savePosition.x - maxRandomDistance;
 
 			if(randomDirection.z > maxRandomZ)
 				randomDirection.z = maxRandomZ;
-			else if (randomDirection.z < -maxRandomZ)
-				randomDirection.z = -maxRandomZ;
-
-			Debug.Log("x " + xRandom);
-			Debug.Log("z " + zRandom);
+			else if (randomDirection.z < savePosition.z - maxRandomDistance)
+				randomDirection.z = savePosition.z - maxRandomDistance;
 
 			agent.SetDestination(randomDirection);
-			Debug.Log("new "+randomDirection);
+			Debug.Log(gameObject + " : " + randomDirection);
+
 			yield return new WaitForSeconds(time);
+
 		}
 		ResetIdleMove();
 	}
