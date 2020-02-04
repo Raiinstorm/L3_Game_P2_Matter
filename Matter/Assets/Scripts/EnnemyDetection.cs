@@ -24,7 +24,7 @@ public class EnnemyDetection : MonoBehaviour
 	[HideInInspector]
 	public bool canDetect;
 	[HideInInspector]
-	public bool canShoot;
+	public bool canLongAttack;
 	[HideInInspector]
 	public bool canEscape;
 	[HideInInspector]
@@ -68,7 +68,7 @@ public class EnnemyDetection : MonoBehaviour
 		if (distance < longAttackRange && distance > escapeRange && !detectionObstructed)
 		{
 			Desactivate();
-			canShoot = true;
+			canLongAttack = true;
 		}
 		if (distance < escapeRange && distance > meleeRange && !detectionObstructed)
 		{
@@ -89,7 +89,7 @@ public class EnnemyDetection : MonoBehaviour
 	void Desactivate()
 	{
 		canDetect = false;
-		canShoot = false;
+		canLongAttack = false;
 		canEscape = false;
 		canMelee = false;
 	}

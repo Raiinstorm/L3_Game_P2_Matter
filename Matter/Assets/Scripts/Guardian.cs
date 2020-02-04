@@ -61,7 +61,7 @@ public class Guardian : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(detect.canDetect || detect.canEscape || detect.canMelee || detect.canShoot)
+        if(detect.canDetect || detect.canEscape || detect.canMelee || detect.canLongAttack)
 		{
 			detect.targetLastPosition.position = player.position;
 

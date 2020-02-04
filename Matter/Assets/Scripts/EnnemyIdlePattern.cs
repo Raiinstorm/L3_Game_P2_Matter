@@ -59,7 +59,7 @@ public class EnnemyIdlePattern : MonoBehaviour
 
 	private void Update()
 	{
-		if (detect.canDetect || detect.canShoot || detect.canEscape || detect.canMelee)
+		if (detect.canDetect || detect.canLongAttack || detect.canEscape || detect.canMelee)
 		{
 			StopCoroutine(idle);
 			idle = IdleMove();
