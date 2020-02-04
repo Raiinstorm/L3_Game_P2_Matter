@@ -13,7 +13,7 @@ public class PlatformeController : MonoBehaviour
     public bool ExtrudeWallRight;
     public float TimerOfDesactived = 8f;
 
-    public bool m_actived;
+    public bool m_activated;
     bool m_timer;
     float TimerOfDesactivedTemp;
     Transform m_thisTransform;
@@ -21,7 +21,7 @@ public class PlatformeController : MonoBehaviour
     void Start()
     {
         Detect = GetComponent<PlatfomeDetector>();
-        m_actived = false;
+        m_activated = false;
         TimerOfDesactivedTemp = TimerOfDesactived;
         m_timer = false;
     }
@@ -31,16 +31,16 @@ public class PlatformeController : MonoBehaviour
         if (m_timer)
             TimerOfDesactivedTemp -= Time.deltaTime;
 
-        if (ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_actived)
+        if (ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_activated)
         {
-            m_actived = false;
+            m_activated = false;
             m_timer = false;
             transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y - DistanceExtrude, 0), Time.deltaTime);
             TimerOfDesactivedTemp = TimerOfDesactived;
         }
-        else if ((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_actived)
+        else if ((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_activated)
         {
-            m_actived = false;
+            m_activated = false;
             m_timer = false;
             transform.position = Vector3.Lerp(transform.position, new Vector3(-transform.position.x + DistanceExtrude, 0, 0), Time.deltaTime);
             TimerOfDesactivedTemp = TimerOfDesactived;
@@ -49,16 +49,16 @@ public class PlatformeController : MonoBehaviour
 
     public void Detected()
     {
-        if (ExtrudeGround && !m_actived)
+        if (ExtrudeGround && !m_activated)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y + DistanceExtrude, 0), Time.deltaTime);
-            m_actived = true;
+            m_activated = true;
             m_timer = true;
         }
-        else if ((ExtrudeWallLeft || ExtrudeWallRight) && !m_actived)
+        else if ((ExtrudeWallLeft || ExtrudeWallRight) && !m_activated)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(-transform.position.x - DistanceExtrude, 0, 0), Time.deltaTime);
-            m_actived = true;
+            m_activated = true;
             m_timer = true;
         }
     }

@@ -12,70 +12,70 @@ public class PlatformsDetector : MonoBehaviour
 
     public Vector3 boxRadius;
 
+    [SerializeField] Vector3 boxScale;
+    [SerializeField] float boxZPosition;
+    [SerializeField] GameObject CubeVisualizer;
+
     private void Update()
     {
         GetInput();
+#if UNITY_EDITOR
+        VisualizeBox();
+#endif
     }
 
-    public void GetInput()
+    void GetInput()
     {
-        Detector();
-       // CheckList();
-
-        if (Input.GetButtonDown("CallPlateform"))
-            GetExtrude();
-
-    }
-
-    public void Detector() // Permet de detecter les plateforme entrant dans la zone et de les ajouter à une liste
-    {
-        RaycastHit hit;
-        if (Physics.BoxCast(transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatformMask))
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            if (hit.transform.gameObject.TryGetComponent(out m_detect) && (!Platforms.Contains(hit.transform.gameObject)))
-                Platforms.Add(hit.transform.gameObject);
+            Detect();
+            if (Platforms.Count == 0)
+                return;
+
+            if (GetClosestGameObject (Platforms) != null)
+                GetClosestGameObject(Platforms).GetComponent<PlatformeController> ().Detected ();
         }
+
     }
-    /*
-    private void CheckList() //Check La list pour supprimer les plateformes inutiles
+
+#if UNITY_EDITOR
+    void VisualizeBox ()
     {
-        RaycastHit hit;
-        if (!Physics.BoxCast(transform.position + new Vector3(0, 0, boxRadius.z / 3), boxRadius, transform.forward, out hit, transform.rotation, PlatformMask))
+        CubeVisualizer.transform.position = transform.position + transform.forward * boxZPosition;
+        CubeVisualizer.transform.rotation = transform.rotation;
+        CubeVisualizer.transform.localScale = boxScale;
+    }// Permet de visualiser la box de detection en debug
+#endif
+
+    void Detect() // Permet de detecter les plateformes entrant dans la zone et de les ajouter à une liste
+    {
+        Platforms.Clear();
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, PlatformMask);
+        
+        foreach (var hit in hits)
+            Platforms.Add(hit.transform.gameObject);
+    }
+
+    GameObject GetClosestGameObject (List<GameObject> platforms) // renvoi la plateforme la plus proche
+    {
+        GameObject bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach (GameObject platform in platforms)
         {
-            if(Platforms.Count > 0)
+            if (platform.GetComponent<PlatformeController>().m_activated)
+                continue;
+
+            Vector3 directionToTarget = platform.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
             {
-                foreach (var valeur in Platforms)
-                {
-                    if (valeur != hit.transform.gameObject)
-                        RemoveList(valeur.transform.gameObject);
-                }
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = platform;
             }
         }
-    }
-    */
 
-    private void RemoveList(GameObject valeur) // remove les éléments de la list
-    {
-        Platforms.Remove(valeur);
-    }
-
-    public void GetExtrude()
-    {
-        // position du joueur
-        var playerPosition = transform.position;
-        // on créé une variable "cache" de plateforme la plus proche
-        GameObject closestPlatform = null;
-        // on itère sur toutes les 
-        foreach (var platform in Platforms)
-        {
-            // pour chaque plateforme, on regarde ça distance avec le player
-            var distance = Vector3.Distance(playerPosition, platform.transform.position);
-            // si le cache est vide OU que la distance de la plateforme lue est plus petite que la distance stockée
-            if (closestPlatform == null || distance < Vector3.Distance(playerPosition, closestPlatform.transform.position))
-                closestPlatform = platform; // on remplace la plateforme stockée
-        }
-        PlatformeController Detector = closestPlatform.GetComponent<PlatformeController>();
-        //La platforme la plus proche appel la méthode d'extrude
-        Detector.Detected();
+        return bestTarget;
     }
 }

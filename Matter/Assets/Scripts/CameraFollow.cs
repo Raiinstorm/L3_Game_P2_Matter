@@ -27,8 +27,8 @@ public class CameraFollow : MonoBehaviour
         Vector3 rotation = transform.localRotation.eulerAngles; //obtenir la rotation de l'objet camera dans l'espace sur lui même
         rotX = rotation.x;
         rotY = rotation.y;
-        Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
-        Cursor.visible = false; // Rend le curseur de la souris invisible
+        //Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
+        //Cursor.visible = false; // Rend le curseur de la souris invisible
     }
 
     void Update()
