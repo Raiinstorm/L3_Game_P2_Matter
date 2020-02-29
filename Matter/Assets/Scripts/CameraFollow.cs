@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public GameObject cameraFollowObj; 
     public GameObject cameraObj; 
-    public GameObject playerObj; 
-
 
     Vector3 FollowPos; // position
     
@@ -31,10 +27,9 @@ public class CameraFollow : MonoBehaviour
         Vector3 rotation = transform.localRotation.eulerAngles; //obtenir la rotation de l'objet camera dans l'espace sur lui même
         rotX = rotation.x;
         rotY = rotation.y;
-        Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
-        Cursor.visible = false; // Rend le curseur de la souris invisible
+        //Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
+        //Cursor.visible = false; // Rend le curseur de la souris invisible
     }
-
 
     void Update()
     {
@@ -56,15 +51,20 @@ public class CameraFollow : MonoBehaviour
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
         transform.rotation = localRotation;
-
-        //14
-        //watch?v=LbDQHv9z-F0
-
-
-
-
-
-
-
     }
-}
+
+    void LateUpdate()
+    {
+        CameraUpdater ();    
+    }
+    
+    void CameraUpdater()
+    {
+        // Definition du target (la cible) à suivre
+        Transform target = cameraFollowObj.transform;
+
+        //Deplacer le gameObject vers le target
+        float step = cameraMoveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+    }
+} 
