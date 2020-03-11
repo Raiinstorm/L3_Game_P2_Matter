@@ -163,14 +163,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 255226879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31bd292d0adf5b14caede4b081d661f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cac7c601d924c74ebae7750ffcaf654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detect: {fileID: 529135450}
-  DistanceExtrude: 300
+  Detect: {fileID: 362483992}
+  DistanceExtrude: 10
   ExtrudeGround: 0
   ExtrudeWallLeft: 0
-  ExtrudeWallRight: 1
+  ExtrudeWallRight: 0
   TimerOfDesactived: 8
   m_activated: 0
 --- !u!65 &255226882
@@ -324,6 +324,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276744295}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &362483992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6702117968619262761, guid: f4092d248e7d80646aae6f0e1262bf9a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1410708424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f979c2ce9b2f34a80951769d3c8c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &370416783
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,10 +586,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Distance: 15
   PlatfomeMask:
-    serializedVersion: 2
     m_Bits: 512
   cam: {fileID: 2135253605}
   Player: {fileID: 0}
+  m_detect: {fileID: 0}
+  m_callPlateform: 0
   Platforms: []
   boxRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
@@ -1564,12 +1577,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1553116556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31bd292d0adf5b14caede4b081d661f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 112d8a5c508a9b644ba573b6a96aecc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detect: {fileID: 529135450}
-  DistanceExtrude: 300
-  ExtrudeGround: 1
+  Detect: {fileID: 362483992}
+  DistanceExtrude: 10
+  ExtrudeGround: 0
   ExtrudeWallLeft: 0
   ExtrudeWallRight: 0
   TimerOfDesactived: 8
@@ -1953,14 +1966,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1930360823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31bd292d0adf5b14caede4b081d661f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cac7c601d924c74ebae7750ffcaf654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detect: {fileID: 529135450}
-  DistanceExtrude: 300
+  Detect: {fileID: 362483992}
+  DistanceExtrude: 10
   ExtrudeGround: 0
   ExtrudeWallLeft: 0
-  ExtrudeWallRight: 1
+  ExtrudeWallRight: 0
   TimerOfDesactived: 8
   m_activated: 0
 --- !u!65 &1930360826
@@ -2249,14 +2262,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2003766600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31bd292d0adf5b14caede4b081d661f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cac7c601d924c74ebae7750ffcaf654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detect: {fileID: 529135450}
-  DistanceExtrude: 300
+  Detect: {fileID: 362483992}
+  DistanceExtrude: 10
   ExtrudeGround: 0
   ExtrudeWallLeft: 0
-  ExtrudeWallRight: 1
+  ExtrudeWallRight: 0
   TimerOfDesactived: 8
   m_activated: 0
 --- !u!65 &2003766603

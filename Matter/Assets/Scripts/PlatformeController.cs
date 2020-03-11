@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformeController : MonoBehaviour
+public abstract class PlatformeController : MonoBehaviour
 {
-    public PlatfomeDetector Detect;
+    public PlatformsDetector Detect;
 
     public float DistanceExtrude;
 
@@ -14,52 +14,64 @@ public class PlatformeController : MonoBehaviour
     public float TimerOfDesactived = 8f;
 
     public bool m_activated;
-    bool m_timer;
-    float TimerOfDesactivedTemp;
+    protected bool m_timer;
+    protected float TimerOfDesactivedTemp;
     Transform m_thisTransform;
+    protected Vector3 init_pos;
 
     void Start()
     {
-        Detect = GetComponent<PlatfomeDetector>();
-        m_activated = false;
-        TimerOfDesactivedTemp = TimerOfDesactived;
-        m_timer = false;
+        Detect = GetComponent<PlatformsDetector>();
+        init_pos = transform.position;
+        Init();
     }
 
-    void Update()
+    public void Init()
+    {
+        m_activated = false;
+        m_timer = false;
+        TimerOfDesactivedTemp = TimerOfDesactived;
+    }
+
+    public virtual void Update()
     {
         if (m_timer)
             TimerOfDesactivedTemp -= Time.deltaTime;
 
-        if (ExtrudeGround && TimerOfDesactivedTemp <= 0 && m_activated)
+        if (!m_activated && transform.position != init_pos)
+            apply(0);
+
+        if (TimerOfDesactivedTemp <= 0 && m_activated)
         {
-            m_activated = false;
-            m_timer = false;
-            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y - DistanceExtrude, 0), Time.deltaTime);
-            TimerOfDesactivedTemp = TimerOfDesactived;
+            Init();
         }
-        else if ((ExtrudeWallLeft || ExtrudeWallRight) && TimerOfDesactivedTemp <= 0 && m_activated)
+
+        if ( m_activated )
         {
-            m_activated = false;
-            m_timer = false;
-            transform.position = Vector3.Lerp(transform.position, new Vector3(-transform.position.x + DistanceExtrude, 0, 0), Time.deltaTime);
-            TimerOfDesactivedTemp = TimerOfDesactived;
+            apply();
         }
+        
     }
 
     public void Detected()
     {
-        if (ExtrudeGround && !m_activated)
+        if  ( !m_activated)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y + DistanceExtrude, 0), Time.deltaTime);
             m_activated = true;
             m_timer = true;
         }
-        else if ((ExtrudeWallLeft || ExtrudeWallRight) && !m_activated)
-        {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(-transform.position.x - DistanceExtrude, 0, 0), Time.deltaTime);
-            m_activated = true;
-            m_timer = true;
-        }
+    }
+
+    public abstract void apply(float enable = 1.0f);
+    
+
+    public void transformY(float distance)
+    {
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, init_pos.y + distance, transform.position.z), Time.deltaTime);
+    }
+
+    public void transformX(float distance)
+    {
+        transform.position = Vector3.Lerp(transform.position, new Vector3(init_pos.x + distance, transform.position.y, transform.position.z), Time.deltaTime);
     }
 }
