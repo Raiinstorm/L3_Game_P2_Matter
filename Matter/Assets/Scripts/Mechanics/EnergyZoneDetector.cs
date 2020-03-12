@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformsDetector : MonoBehaviour
+public class EnergyZoneDetector : MonoBehaviour
 {
     public LayerMask PlatformMask;
 
-    PlatformeController m_detect;
+    GeneriqueElement m_detect;
 
     public List<GameObject> Platforms = new List<GameObject>();
 
@@ -32,14 +32,14 @@ public class PlatformsDetector : MonoBehaviour
             if (Platforms.Count == 0)
                 return;
 
-            if (GetClosestGameObject (Platforms) != null)
-                GetClosestGameObject(Platforms).GetComponent<PlatformeController> ().Detected ();
+            if (GetClosestGameObject(Platforms) != null)
+                GetClosestGameObject(Platforms).GetComponent<GeneriqueElement>().Detected();
         }
 
     }
 
 #if UNITY_EDITOR
-    void VisualizeBox ()
+    void VisualizeBox()
     {
         CubeVisualizer.transform.position = transform.position + transform.forward * boxZPosition;
         CubeVisualizer.transform.rotation = transform.rotation;
@@ -51,12 +51,12 @@ public class PlatformsDetector : MonoBehaviour
     {
         Platforms.Clear();
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, PlatformMask);
-        
+
         foreach (var hit in hits)
             Platforms.Add(hit.transform.gameObject);
     }
 
-    GameObject GetClosestGameObject (List<GameObject> platforms) // renvoi la plateforme la plus proche
+    GameObject GetClosestGameObject(List<GameObject> platforms) // renvoi la plateforme la plus proche
     {
         GameObject bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
@@ -64,7 +64,7 @@ public class PlatformsDetector : MonoBehaviour
 
         foreach (GameObject platform in platforms)
         {
-            if (platform.GetComponent<PlatformeController>().m_activated)
+            if (platform.GetComponent<GeneriqueElement>().m_activated)
                 continue;
 
             Vector3 directionToTarget = platform.transform.position - currentPosition;
