@@ -8,7 +8,7 @@ public class EnergyZoneDetector : MonoBehaviour
 
     GeneriqueElement m_detect;
 
-    public List<GameObject> Platforms = new List<GameObject>();
+    public List<GameObject> Faults = new List<GameObject>();
 
     public Vector3 boxRadius;
 
@@ -26,14 +26,14 @@ public class EnergyZoneDetector : MonoBehaviour
 
     void GetInput()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetButtonDown("MainMechanic"))
         {
             Detect();
-            if (Platforms.Count == 0)
+            if (Faults.Count == 0)
                 return;
 
-            if (GetClosestGameObject(Platforms) != null)
-                GetClosestGameObject(Platforms).GetComponent<GeneriqueElement>().Detected();
+            if (GetClosestGameObject(Faults) != null)
+                GetClosestGameObject(Faults).GetComponent<GeneriqueElement>().Detected();
         }
 
     }
@@ -49,11 +49,11 @@ public class EnergyZoneDetector : MonoBehaviour
 
     void Detect() // Permet de detecter les plateformes entrant dans la zone et de les ajouter à une liste
     {
-        Platforms.Clear();
+        Faults.Clear();
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, PlatformMask);
 
         foreach (var hit in hits)
-            Platforms.Add(hit.transform.gameObject);
+            Faults.Add(hit.transform.gameObject);
     }
 
     GameObject GetClosestGameObject(List<GameObject> platforms) // renvoi la plateforme la plus proche
@@ -62,17 +62,17 @@ public class EnergyZoneDetector : MonoBehaviour
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        foreach (GameObject platform in platforms)
+        foreach (GameObject Fault in Faults)
         {
-            if (platform.GetComponent<GeneriqueElement>().m_activated)
+            if (Fault.GetComponent<GeneriqueElement>().m_activated)
                 continue;
 
-            Vector3 directionToTarget = platform.transform.position - currentPosition;
+            Vector3 directionToTarget = Fault.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqrToTarget;
-                bestTarget = platform;
+                bestTarget = Fault;
             }
         }
 

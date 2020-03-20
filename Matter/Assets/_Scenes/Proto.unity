@@ -469,7 +469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383133894}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -410, z: 0}
+  m_LocalPosition: {x: 0, y: -127, z: 0}
   m_LocalScale: {x: 2.4255948, y: 245.77077, z: 4.994542}
   m_Children: []
   m_Father: {fileID: 896405423}
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112d8a5c508a9b644ba573b6a96aecc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detect: {fileID: 0}
+  Detect: {fileID: 124384510}
   DistanceExtrude: 2.2
   TimerOfDesactived: 8
   SpeedExtrude: 15
@@ -762,7 +762,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830949466}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -155, z: 0}
+  m_LocalPosition: {x: 0, y: -114, z: 0}
   m_LocalScale: {x: 0.18631798, y: 244.76802, z: 0.117284395}
   m_Children: []
   m_Father: {fileID: 896405423}
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112d8a5c508a9b644ba573b6a96aecc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detect: {fileID: 0}
+  Detect: {fileID: 124384510}
   DistanceExtrude: 2.2
   TimerOfDesactived: 8
   SpeedExtrude: 15
@@ -954,7 +954,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elements:
   - {fileID: 383133896}
-  - {fileID: 830949468}
 --- !u!1 &1132087367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +1950,7 @@ MonoBehaviour:
   Detect: {fileID: 0}
   DistanceExtrude: 2.2
   TimerOfDesactived: 8
-  SpeedExtrude: 15
+  SpeedExtrude: 40
   m_activated: 0
 --- !u!65 &1553116559
 BoxCollider:
