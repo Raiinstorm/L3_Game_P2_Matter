@@ -12,7 +12,7 @@ public class EnergyZoneController : MonoBehaviour
 
     private void Awake()
     {
-        elements.ForEach(e => elementsDico.Add(e.GetElementType(), e));
+        elements.ForEach (e => elementsDico.Add (e.GetElementType (), e));
     }
 
     private void Update()
