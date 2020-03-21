@@ -29,6 +29,20 @@ public class Robin_ZoneController : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Cette méthode renvoie l'état d'un élément. Renvoie false si l'élément n'est pas dans le dictionnaire.
+	/// </summary>
+	public bool CheckIfElementIsActive (ElementType type)
+	{
+		if (!_elementsByType.ContainsKey (type))
+		{
+			Debug.LogError ("Robin_ZoneController ERROR: La zone ne contient aucun élément du type " + type.ToString (), gameObject);
+			return false;
+		}
+
+		return _elementsByType[type].Activated;
+	}
+
+	/// <summary>
 	/// Récupère l'élément de la zone qui correspond au type donné en paramètre.
 	/// Si le dictionnaire ne contient pas d'élément de ce type ou si l'élément est déjà actif, alors on ne fait rien.
 	/// Sinon, on appelle la méthode Apply sur l'élément et on l'ajoute à la pile des éléments activés.
