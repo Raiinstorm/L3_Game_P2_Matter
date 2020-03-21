@@ -15,6 +15,14 @@ public class EnergyZoneController : MonoBehaviour
         elements.ForEach(e => elementsDico.Add(e.GetElementType(), e));
     }
 
+    private void Update()
+    {
+        foreach(var element in elements)
+        {
+            Debug.Log("Dans ma list : " + element);
+        }
+    }
+
     public void Actived(ElementType myType)
     {
         var activatedElement = elementsDico[myType];

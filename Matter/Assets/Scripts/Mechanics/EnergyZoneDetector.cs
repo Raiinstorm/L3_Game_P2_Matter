@@ -8,7 +8,7 @@ public class EnergyZoneDetector : MonoBehaviour
 
     GeneriqueElement m_detect;
 
-    public List<GameObject> Faults = new List<GameObject>();
+    public List<EnergyZoneController> Faults = new List<EnergyZoneController>();
 
     public Vector3 boxRadius;
 
@@ -33,7 +33,7 @@ public class EnergyZoneDetector : MonoBehaviour
                 return;
 
             if (GetClosestGameObject(Faults) != null)
-                GetClosestGameObject(Faults).GetComponent<GeneriqueElement>().Detected();
+               GetClosestGameObject(Faults).GetComponent<EnergyZoneController>().Actived(InputMechanics.ReturnMode);
         }
 
     }
@@ -53,19 +53,19 @@ public class EnergyZoneDetector : MonoBehaviour
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, PlatformMask);
 
         foreach (var hit in hits)
-            Faults.Add(hit.transform.gameObject);
+            Faults.Add(hit.transform.gameObject.GetComponent<EnergyZoneController>());
     }
 
-    GameObject GetClosestGameObject(List<GameObject> platforms) // renvoi la plateforme la plus proche
+    EnergyZoneController GetClosestGameObject(List<EnergyZoneController> Faults) // renvoi la faille la plus proche
     {
-        GameObject bestTarget = null;
+        EnergyZoneController bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        foreach (GameObject Fault in Faults)
+        foreach (EnergyZoneController Fault in Faults)
         {
-            if (Fault.GetComponent<GeneriqueElement>().m_activated)
-                continue;
+            //if (Fault.GetComponent<GeneriqueElement>().m_activated)
+            // continue;
 
             Vector3 directionToTarget = Fault.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
