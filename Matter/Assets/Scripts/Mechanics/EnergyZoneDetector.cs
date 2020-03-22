@@ -8,13 +8,14 @@ public class EnergyZoneDetector : MonoBehaviour
 
     GeneriqueElement m_detect;
 
-    public List<EnergyZoneController> Faults = new List<EnergyZoneController>();
+    public List<Robin_ZoneController> Faults = new List<Robin_ZoneController>();
 
     public Vector3 boxRadius;
 
     [SerializeField] Vector3 boxScale;
     [SerializeField] float boxZPosition;
     [SerializeField] GameObject CubeVisualizer;
+    [SerializeField] Robin_ZoneController _zoneController = null;
 
     private void Update()
     {
@@ -33,7 +34,14 @@ public class EnergyZoneDetector : MonoBehaviour
                 return;
 
             if (GetClosestGameObject(Faults) != null)
-               GetClosestGameObject(Faults).GetComponent<EnergyZoneController>().Actived(InputMechanics.ReturnMode);
+                //GetClosestGameObject(Faults).GetComponent<EnergyZoneController>().Actived(InputMechanics.ReturnMode);
+                GetClosestGameObject(Faults).GetComponent<Robin_ZoneController>().ActivateElementOfType(InputMechanics.ReturnMode);
+        }
+
+        if (Input.GetButtonDown("MainMechanicCancel"))
+        {
+            GetClosestGameObject(Faults).GetComponent<Robin_ZoneController>().Cancel();
+            //_zoneController.Cancel();
         }
 
     }
@@ -53,16 +61,16 @@ public class EnergyZoneDetector : MonoBehaviour
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, PlatformMask);
 
         foreach (var hit in hits)
-            Faults.Add(hit.transform.gameObject.GetComponent<EnergyZoneController>());
+            Faults.Add(hit.transform.gameObject.GetComponent<Robin_ZoneController>());
     }
 
-    EnergyZoneController GetClosestGameObject(List<EnergyZoneController> Faults) // renvoi la faille la plus proche
+    Robin_ZoneController GetClosestGameObject(List<Robin_ZoneController> Faults) // renvoi la faille la plus proche
     {
-        EnergyZoneController bestTarget = null;
+        Robin_ZoneController bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        foreach (EnergyZoneController Fault in Faults)
+        foreach (Robin_ZoneController Fault in Faults)
         {
             //if (Fault.GetComponent<GeneriqueElement>().m_activated)
             // continue;

@@ -36,8 +36,4 @@ public class ModeSelection : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log("Mon mode de sélection est : " + Selection());
-    }
 }
