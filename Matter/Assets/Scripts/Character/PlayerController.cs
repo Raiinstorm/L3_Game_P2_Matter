@@ -9,6 +9,8 @@ public class PlayerController : Character
     [SerializeField] Camera _mainCamera;
     [SerializeField] bool _blockRotationPlayer;
     [SerializeField] float _sprintSpeed;
+    [SerializeField] float _heightCapsuleDamage;
+    [SerializeField] float _radiusCapsuleDamage;
 
     int _energyPower;
     float _allowPlayerRotation = 0.1f;
@@ -20,6 +22,7 @@ public class PlayerController : Character
     private void Start()
     {
         _lifeMax = 100;
+        _life = 100;
         _energyPower = 100;
     }
     void Update()
@@ -28,10 +31,7 @@ public class PlayerController : Character
         Rotation();
 
         if (Input.GetButtonDown("Jump") && IsGround())
-        {
-            Debug.Log("Je saute");
             Jump();
-        }
     }
 
     protected override void Walk()

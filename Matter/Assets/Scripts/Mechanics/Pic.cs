@@ -32,4 +32,13 @@ public class Pic : GenericElement
 		
 		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, init_pos.y - _distancePics, transform.position.z), Time.deltaTime * _speedPics);
 	}
+
+	private void OnTriggerEnter(Collider collision)
+	{
+		if (collision.gameObject.tag == "Character")
+		{
+			collision.GetComponent<Character>().GetDamage(30);
+			Debug.Log("Degat sur player");
+		}
+	}
 }

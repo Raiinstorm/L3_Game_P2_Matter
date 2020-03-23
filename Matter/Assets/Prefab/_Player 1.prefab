@@ -2012,11 +2012,10 @@ GameObject:
   - component: {fileID: 5644884210074947570}
   - component: {fileID: 2367956097541481096}
   - component: {fileID: 5708339288367231438}
-  - component: {fileID: 2116617423}
   - component: {fileID: 124384507}
-  - component: {fileID: 124384510}
   - component: {fileID: 124384514}
-  - component: {fileID: 5072483678673900060}
+  - component: {fileID: 124384510}
+  - component: {fileID: 3804697674661225327}
   m_Layer: 0
   m_Name: _Player 1
   m_TagString: Untagged
@@ -2080,24 +2079,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &2116617423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8650836124789145057}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ea2bf76962630499273a56786b67ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 12
-  JumpForce: 25
-  GravityScale: 5
-  RotateSpeed: 10
-  Pivot: {fileID: 225283549191382268}
-  PlayerModel: {fileID: 817512177030071871}
 --- !u!114 &124384507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2108,6 +2089,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aea685e8159c664aad56672dd1e4d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &124384514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8650836124789145057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 472348fa41040304d9c32ae75c544b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &124384510
@@ -2131,7 +2124,7 @@ MonoBehaviour:
   boxZPosition: 10
   CubeVisualizer: {fileID: 0}
   _zoneController: {fileID: 0}
---- !u!114 &124384514
+--- !u!114 &3804697674661225327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2140,37 +2133,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 8650836124789145057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 472348fa41040304d9c32ae75c544b10, type: 3}
+  m_Script: {fileID: 11500000, guid: 431d6d55f5cc6be4d9164b11f5f64e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5072483678673900060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8650836124789145057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb817455e65d394999cb46c520d6da8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Controller: {fileID: 5708339288367231438}
-  Camera: {fileID: 225283549824875088}
-  GroundCheck: {fileID: 5140129797929316916}
-  GroundMask:
+  _life: 0
+  _lifeMax: 0
+  _walkingSpeed: 5
+  _runingSpeed: 9
+  _jumpPower: 8
+  _groundDistance: 0.4
+  _gravity: -9.81
+  _groundMask:
     serializedVersion: 2
     m_Bits: 256
-  GroundDistance: 0.4
-  Speed: 12
-  Gravity: -15
-  InputX: 0
-  InputZ: 0
-  desiredMoveDirection: {x: 0, y: 0, z: 0}
-  blockRotationPlayer: 0
-  cam: {fileID: 225283549191382267}
-  allowPlayerRotation: 0.1
-  JumpForce: 15
+  _groundCheck: {fileID: 5140129797929316916}
+  _controller: {fileID: 5708339288367231438}
+  _cameraBase: {fileID: 225283549824875088}
+  _mainCamera: {fileID: 225283549191382267}
+  _blockRotationPlayer: 0
+  _sprintSpeed: 0
 --- !u!1 &9027016803875839195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,26 +2226,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraBase
       objectReference: {fileID: 0}
-    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.83
-      objectReference: {fileID: 0}
     - target: {fileID: 225283549949723836, guid: 19029af8acd799f49930d0ed2e4ca496,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2320,6 +2281,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.83
+      objectReference: {fileID: 0}
     - target: {fileID: 225283549949723839, guid: 19029af8acd799f49930d0ed2e4ca496,
         type: 3}
       propertyPath: cameraFollowObj
@@ -2336,12 +2317,6 @@ GameObject:
 --- !u!4 &225283549824875089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 225283549949723836, guid: 19029af8acd799f49930d0ed2e4ca496,
-    type: 3}
-  m_PrefabInstance: {fileID: 426966765}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &225283549191382268 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 225283549576059409, guid: 19029af8acd799f49930d0ed2e4ca496,
     type: 3}
   m_PrefabInstance: {fileID: 426966765}
   m_PrefabAsset: {fileID: 0}

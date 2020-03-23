@@ -51,7 +51,7 @@ public class Character : MonoBehaviour
 
     }
 
-    protected virtual void GetDamage(int Damage)
+    public virtual void GetDamage(int Damage)
     {
         _life -= Damage;
     }
