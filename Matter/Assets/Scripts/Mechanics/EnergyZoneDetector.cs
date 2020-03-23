@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class EnergyZoneDetector : MonoBehaviour
 {
-    public LayerMask PlatformMask;
+    public LayerMask FaultMask;
 
-    GeneriqueElement m_detect;
-
-    public List<Robin_ZoneController> Faults = new List<Robin_ZoneController>();
+    public List<ZoneController> Faults = new List<ZoneController>();
 
     public Vector3 boxRadius;
 
     [SerializeField] Vector3 boxScale;
     [SerializeField] float boxZPosition;
     [SerializeField] GameObject CubeVisualizer;
-    [SerializeField] Robin_ZoneController _zoneController = null;
+    [SerializeField] ZoneController _zoneController = null;
 
     private void Update()
     {
@@ -35,12 +33,12 @@ public class EnergyZoneDetector : MonoBehaviour
 
             if (GetClosestGameObject(Faults) != null)
                 //GetClosestGameObject(Faults).GetComponent<EnergyZoneController>().Actived(InputMechanics.ReturnMode);
-                GetClosestGameObject(Faults).GetComponent<Robin_ZoneController>().ActivateElementOfType(InputMechanics.ReturnMode);
+                GetClosestGameObject(Faults).GetComponent<ZoneController>().ActivateElementOfType(InputMechanics.ReturnMode);
         }
 
         if (Input.GetButtonDown("MainMechanicCancel"))
         {
-            GetClosestGameObject(Faults).GetComponent<Robin_ZoneController>().Cancel();
+            GetClosestGameObject(Faults).GetComponent<ZoneController>().Cancel();
             //_zoneController.Cancel();
         }
 
@@ -58,19 +56,19 @@ public class EnergyZoneDetector : MonoBehaviour
     void Detect() // Permet de detecter les plateformes entrant dans la zone et de les ajouter à une liste
     {
         Faults.Clear();
-        RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, PlatformMask);
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * boxZPosition, boxScale, transform.forward, transform.rotation, Mathf.Infinity, FaultMask);
 
         foreach (var hit in hits)
-            Faults.Add(hit.transform.gameObject.GetComponent<Robin_ZoneController>());
+            Faults.Add(hit.transform.gameObject.GetComponent<ZoneController>());
     }
 
-    Robin_ZoneController GetClosestGameObject(List<Robin_ZoneController> Faults) // renvoi la faille la plus proche
+    ZoneController GetClosestGameObject(List<ZoneController> Faults) // renvoi la faille la plus proche
     {
-        Robin_ZoneController bestTarget = null;
+        ZoneController bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        foreach (Robin_ZoneController Fault in Faults)
+        foreach (ZoneController Fault in Faults)
         {
             //if (Fault.GetComponent<GeneriqueElement>().m_activated)
             // continue;

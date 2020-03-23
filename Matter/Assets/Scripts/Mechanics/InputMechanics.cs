@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class InputMechanics : MonoBehaviour
@@ -16,6 +17,9 @@ public class InputMechanics : MonoBehaviour
             myMode.ChangeSelection();
             returnMode = myMode.Selection();
         }
+
+        if (Input.GetButtonDown("Reset"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public static ElementType ReturnMode => returnMode;

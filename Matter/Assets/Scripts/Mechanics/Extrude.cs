@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Robin_Extrude : Robin_GenericElement
+public abstract class Extrude : GenericElement
 {
 	/// Ici déclarer les variables qui serviront à tous les types d'extrude.
 

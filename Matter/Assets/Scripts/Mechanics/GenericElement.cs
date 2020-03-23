@@ -4,7 +4,7 @@
 /// Ne contient que les variables communes à tous les éléments (détecté, activé, etc.), ainsi
 /// que des méthodes abstraites. Les classes filles viendront définir elles-mêmes leurs comportements.
 /// </summary>
-public abstract class Robin_GenericElement : MonoBehaviour
+public abstract class GenericElement : MonoBehaviour
 {
 	public abstract ElementType Type { get; }
 

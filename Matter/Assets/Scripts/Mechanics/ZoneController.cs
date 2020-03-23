@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Robin_ZoneController : MonoBehaviour
+public class ZoneController : MonoBehaviour
 {
-	Dictionary<ElementType, Robin_GenericElement> _elementsByType = new Dictionary<ElementType, Robin_GenericElement> ();
-	Stack<Robin_GenericElement> _activatedElements = new Stack<Robin_GenericElement> ();
+	Dictionary<ElementType, GenericElement> _elementsByType = new Dictionary<ElementType, GenericElement> ();
+	Stack<GenericElement> _activatedElements = new Stack<GenericElement> ();
 
-	[SerializeField] Robin_GenericElement[] _zoneElements = null;
+	[SerializeField] GenericElement[] _zoneElements = null;
 
 	/// <summary>
 	/// Génére le dictionnaire à partir de tous les éléments renseignés dans l'inspector.
@@ -14,18 +14,18 @@ public class Robin_ZoneController : MonoBehaviour
 	/// </summary>
 	void InitializeDictionary ()
 	{
-		foreach (Robin_GenericElement element in _zoneElements)
+		foreach (GenericElement element in _zoneElements)
 		{
 			if (_elementsByType.ContainsKey (element.Type))
 			{
-				Debug.LogError ("Robin_ZoneController ERROR: Le dictionnaire d'une zone contient déjà un élément du même type!", gameObject);
+				Debug.LogError ("ZoneController ERROR: Le dictionnaire d'une zone contient déjà un élément du même type!", gameObject);
 				continue;
 			}
 
 			_elementsByType.Add (element.Type, element);
 		}
 
-		Debug.Log ("Robin_ZoneController INFO: Dictionnaire généré avec " + _elementsByType.Count + " éléments.", gameObject);
+		Debug.Log ("ZoneController INFO: Dictionnaire généré avec " + _elementsByType.Count + " éléments.", gameObject);
 	}
 
 	/// <summary>
@@ -35,7 +35,7 @@ public class Robin_ZoneController : MonoBehaviour
 	{
 		if (!_elementsByType.ContainsKey (type))
 		{
-			Debug.LogError ("Robin_ZoneController ERROR: La zone ne contient aucun élément du type " + type.ToString (), gameObject);
+			Debug.LogError ("ZoneController ERROR: La zone ne contient aucun élément du type " + type.ToString (), gameObject);
 			return false;
 		}
 
@@ -51,7 +51,7 @@ public class Robin_ZoneController : MonoBehaviour
 	{
 		if (!_elementsByType.ContainsKey (type))
 		{
-			Debug.LogError ("Robin_ZoneController ERROR: La zone ne contient aucun élément du type " + type.ToString (), gameObject);
+			Debug.LogError ("ZoneController ERROR: La zone ne contient aucun élément du type " + type.ToString (), gameObject);
 			return;
 		}
 
@@ -59,7 +59,7 @@ public class Robin_ZoneController : MonoBehaviour
 		
 		if (elementToActivate.Activated)
 		{
-			Debug.Log ("Robin_ZoneController INFO: L'élément voulu est déjà activé.", gameObject);
+			Debug.Log ("ZoneController INFO: L'élément voulu est déjà activé.", gameObject);
 			return;
 		}
 
@@ -74,7 +74,7 @@ public class Robin_ZoneController : MonoBehaviour
 	{
 		if (_activatedElements.Count == 0)
 		{
-			Debug.Log ("Robin_ZoneController INFO: Tous les éléments de la zone sont déjà inactifs.", gameObject);
+			Debug.Log ("ZoneController INFO: Tous les éléments de la zone sont déjà inactifs.", gameObject);
 			return;
 		}
 

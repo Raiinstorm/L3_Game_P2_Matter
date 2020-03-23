@@ -1,69 +1,79 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
-    enum Direction {Walk , Climb};
-    
-    public float MoveSpeed;
-    public float JumpForce;
-    public float GravityScale;
-    public float RotateSpeed;
-    public Transform Pivot;
-    public GameObject PlayerModel;
+    [SerializeField] CharacterController _controller;
+    [SerializeField] GameObject _cameraBase;
+    [SerializeField] Camera _mainCamera;
+    [SerializeField] bool _blockRotationPlayer;
+    [SerializeField] float _sprintSpeed;
 
-    Vector3 m_moveDirection; 
-    CharacterController m_controller;
-    
-    float m_inputX;
-    float m_inputZ;
-    void Start()
+    int _energyPower;
+    float _allowPlayerRotation = 0.1f;
+    float _inputX;
+    float _inputZ;
+
+    Vector3 desiredMoveDirection;
+
+    private void Start()
     {
-        m_controller = GetComponent<CharacterController>();
+        _lifeMax = 100;
+        _energyPower = 100;
     }
-
     void Update()
     {
-        Move(Direction.Walk);
+        Walk();
+        Rotation();
 
-        if (Input.GetButtonDown("Reset"))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (Input.GetButtonDown("Jump") && IsGround())
+        {
+            Debug.Log("Je saute");
+            Jump();
+        }
     }
 
-
-    Direction Move ( Direction dir)
+    protected override void Walk()
     {
-        m_inputX = Input.GetAxis("Horizontal");
-        m_inputZ = Input.GetAxis("Vertical");
+        base.Walk();
 
-        if (dir == Direction.Walk)
+        _inputX = Input.GetAxis("Horizontal");
+        _inputZ = Input.GetAxis("Vertical");
+
+        Vector3 move = _cameraBase.transform.right * _inputX + _cameraBase.transform.forward * _inputZ;
+
+        _controller.Move(move * _walkingSpeed * Time.deltaTime);
+        _velocity.y += _gravity * Time.deltaTime;
+        _controller.Move(_velocity * Time.deltaTime);
+    }
+
+    protected override void Rotation()
+    {
+        //Calculate the Input Magnitude
+        float speedMagnitude;
+        speedMagnitude = new Vector2(_inputX, _inputZ).sqrMagnitude;
+
+        if (speedMagnitude > _allowPlayerRotation)
         {
-            float yStore = m_moveDirection.y;
+            _inputX = Input.GetAxis("Horizontal");
+            _inputZ = Input.GetAxis("Vertical");
 
-            m_moveDirection = (transform.forward * m_inputZ) + (transform.right * m_inputX);
-            m_moveDirection = m_moveDirection.normalized * MoveSpeed;
-            m_moveDirection.y = yStore;
+            var forward = _cameraBase.transform.forward;
+            var right = _cameraBase.transform.right;
 
-            if (m_controller.isGrounded)
+            forward.y = 0f;
+            right.y = 0f;
+
+            forward.Normalize();
+            right.Normalize();
+
+            desiredMoveDirection = forward * _inputZ + right * _inputX;
+
+            if (_blockRotationPlayer == false)
             {
-                m_moveDirection.y = 0f;
-                if (Input.GetButtonDown("Jump"))
-                    m_moveDirection.y = JumpForce;
-            }
-
-            m_moveDirection.y = m_moveDirection.y + (Physics.gravity.y * GravityScale * Time.deltaTime);
-            m_controller.Move(m_moveDirection * Time.deltaTime);
-
-            //Move the player in different directions based on camera look direction
-            if (m_inputX != 0 || m_inputZ != 0)
-            {
-                transform.rotation = Quaternion.Euler(0f, Pivot.rotation.eulerAngles.y, 0f);
-                Quaternion newRotation = Quaternion.LookRotation(new Vector3(m_moveDirection.x, 0f, m_moveDirection.z));
-                PlayerModel.transform.rotation = Quaternion.Slerp(PlayerModel.transform.rotation, newRotation, RotateSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
             }
         }
-        return dir;
     }
 }

@@ -4,16 +4,7 @@ using UnityEngine;
 
 public class ModeSelection : MonoBehaviour
 {
-    [SerializeField]
-    private List<GeneriqueElement> elements = new List<GeneriqueElement>();
-    private Dictionary<ElementType, GeneriqueElement> elementsDico = new Dictionary<ElementType, GeneriqueElement>();
-
     ElementType TypesSelection; 
-
-    private void Awake()
-    {
-        elements.ForEach(e => elementsDico.Add(e.GetElementType(), e));
-    }
 
     public ElementType Selection()
     {

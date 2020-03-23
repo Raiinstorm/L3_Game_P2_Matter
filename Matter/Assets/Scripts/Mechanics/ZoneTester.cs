@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class Robin_ZoneTester : MonoBehaviour
+public class ZoneTester : MonoBehaviour
 {
-	[SerializeField] Robin_ZoneController _zoneController = null;
+	[SerializeField] ZoneController _zoneController = null;
 	[SerializeField] ElementType _type = ElementType.Extrude;
 
 	void Update ()

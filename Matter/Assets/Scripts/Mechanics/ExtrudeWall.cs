@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Robin_ExtrudeWall : Robin_Extrude
+public class ExtrudeWall : Extrude
 {
 	public override ElementType Type { get { return ElementType.Extrude; } }
 
@@ -9,14 +9,14 @@ public class Robin_ExtrudeWall : Robin_Extrude
 	public override void Activate ()
 	{
 		base.Activate ();
-		Debug.Log ("Robin_ExtrudeWall activé.");
+		Debug.Log ("ExtrudeWall activé.");
 		/// Ici implémenter le comportement d'une extrude wall quand elle est activée.
 	}
 
 	public override void Deactivate ()
 	{
 		base.Deactivate ();
-		Debug.Log ("Robin_ExtrudeWall désactivé.");
+		Debug.Log ("ExtrudeWall désactivé.");
 		/// Ici implémenter le comportement d'une extrude wall quand elle est désactivée.
 	}
 }
