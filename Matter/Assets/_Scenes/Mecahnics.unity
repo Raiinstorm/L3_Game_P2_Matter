@@ -387,11 +387,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8650836124789145057, guid: f4092d248e7d80646aae6f0e1262bf9a,
-        type: 3}
-      propertyPath: m_TagString
-      value: Character
-      objectReference: {fileID: 0}
     - target: {fileID: 5644884210074947570, guid: f4092d248e7d80646aae6f0e1262bf9a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -448,44 +443,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124384510, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
-      propertyPath: CubeVisualizer
-      value: 
-      objectReference: {fileID: 1132087367}
-    - target: {fileID: 124384510, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
       propertyPath: _cubeVisualizer
       value: 
       objectReference: {fileID: 1132087367}
-    - target: {fileID: 124384510, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
-      propertyPath: _boxScale.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 124384510, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
-      propertyPath: _boxScale.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 124384510, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
-      propertyPath: _boxScale.z
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 124384510, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
-      propertyPath: _boxZPosition
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3804697674661225327, guid: f4092d248e7d80646aae6f0e1262bf9a,
-        type: 3}
-      propertyPath: _jumpPower
-      value: 9.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3804697674661225327, guid: f4092d248e7d80646aae6f0e1262bf9a,
-        type: 3}
-      propertyPath: _runingSpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3804697674661225327, guid: f4092d248e7d80646aae6f0e1262bf9a,
-        type: 3}
-      propertyPath: _walkingSpeed
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4092d248e7d80646aae6f0e1262bf9a, type: 3}
 --- !u!1 &1541813461

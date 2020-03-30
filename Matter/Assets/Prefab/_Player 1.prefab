@@ -2018,7 +2018,7 @@ GameObject:
   - component: {fileID: 3804697674661225327}
   m_Layer: 0
   m_Name: _Player 1
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2119,11 +2119,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   Faults: []
-  boxRadius: {x: 20, y: 20, z: 20}
-  boxScale: {x: 20, y: 20, z: 20}
-  boxZPosition: 10
-  CubeVisualizer: {fileID: 0}
+  BoxRadius: {x: 0, y: 0, z: 0}
+  _boxScale: {x: 20, y: 20, z: 20}
+  _boxZPosition: 10
+  _cubeVisualizer: {fileID: 0}
   _zoneController: {fileID: 0}
+  _player: {fileID: 3804697674661225327}
 --- !u!114 &3804697674661225327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2136,11 +2137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431d6d55f5cc6be4d9164b11f5f64e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _life: 0
-  _lifeMax: 0
-  _walkingSpeed: 5
-  _runingSpeed: 9
-  _jumpPower: 8
+  _health: 0
+  _healthMax: 0
+  _walkingSpeed: 10
+  _runingSpeed: 0
+  _jumpPower: 9.5
   _groundDistance: 0.4
   _gravity: -9.81
   _groundMask:
@@ -2151,7 +2152,7 @@ MonoBehaviour:
   _cameraBase: {fileID: 225283549824875088}
   _mainCamera: {fileID: 225283549191382267}
   _blockRotationPlayer: 0
-  _sprintSpeed: 0
+  _damageInfuseEnergy: 30
 --- !u!1 &9027016803875839195
 GameObject:
   m_ObjectHideFlags: 0

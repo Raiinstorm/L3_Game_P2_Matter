@@ -8,9 +8,7 @@ public class PlayerController : Character
     [SerializeField] GameObject _cameraBase;
     [SerializeField] Camera _mainCamera;
     [SerializeField] bool _blockRotationPlayer;
-    [SerializeField] float _sprintSpeed;
-    [SerializeField] float _heightCapsuleDamage;
-    [SerializeField] float _radiusCapsuleDamage;
+    [SerializeField] int _damageInfuseEnergy;
 
     int _energyPower;
     float _allowPlayerRotation = 0.1f;
@@ -21,8 +19,8 @@ public class PlayerController : Character
 
     private void Start()
     {
-        _lifeMax = 100;
-        _life = 100;
+        _maxHealth = 100;
+        _health = 100;
         _energyPower = 100;
     }
     void Update()
@@ -75,5 +73,11 @@ public class PlayerController : Character
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
             }
         }
+    }
+
+    public void InfuseEnergy(int enable = 1)
+    {
+        Health += (_damageInfuseEnergy * enable);
+        Debug.Log("vie du joueur à : " + Health);
     }
 }

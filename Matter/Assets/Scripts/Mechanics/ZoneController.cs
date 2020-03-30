@@ -7,18 +7,18 @@ public class ZoneController : MonoBehaviour
 	Stack<GenericElement> _activatedElements = new Stack<GenericElement> ();
 
 	[SerializeField] GenericElement[] _zoneElements = null;
-	
-	//static bool _activedZone = true;
-	public  bool _activedZone = true;
 
-//	public static bool ActivedZone => _activedZone;
+	public bool _activedZone = true;
+
+	public bool ActivedZone => _activedZone;
 
 	/// <summary>
 	/// Inverse le change de mode d'activation. Si l'élement est activé alors il sera désactivé. vise vers ça.
 	/// </summary>
-	public void ChangedModeActivated()
+	public bool ChangedModeActivated()
 	{
-		_activedZone = true ? _activedZone = true : _activedZone = false;
+		_activedZone = !_activedZone;	
+		return _activedZone;
 	}
 
 	/// <summary>

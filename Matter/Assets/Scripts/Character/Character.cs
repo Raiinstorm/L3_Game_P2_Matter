@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] protected int _life;
-    [SerializeField] protected int _lifeMax;
+    [SerializeField] protected int _health;
+    [SerializeField] protected int _maxHealth;
     [SerializeField] protected float _walkingSpeed;
     [SerializeField] protected float _runingSpeed;
     [SerializeField] protected float _jumpPower;
@@ -17,6 +17,15 @@ public class Character : MonoBehaviour
     protected Vector3 _moveDirection;
     protected Vector3 _velocity;
     enum _walkingMode { _walk, _run}
+
+    public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
+    public int Health { get => _health;
+        set
+        {
+            var _oldhealth = _health;
+            _health = (value > 0) ? (value < MaxHealth ? value : MaxHealth) : 0;
+        }        
+    }
 
 
     protected virtual bool IsGround()
@@ -53,6 +62,6 @@ public class Character : MonoBehaviour
 
     public virtual void GetDamage(int Damage)
     {
-        _life -= Damage;
+        _health -= Damage;
     }
 }

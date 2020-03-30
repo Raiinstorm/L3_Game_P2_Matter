@@ -11,6 +11,9 @@ public class EnergyZoneDetector : MonoBehaviour
     [SerializeField] float _boxZPosition;
     [SerializeField] GameObject _cubeVisualizer;
     [SerializeField] ZoneController _zoneController = null;
+    [SerializeField] PlayerController _player;
+
+    bool _activedZone = false;
 
     private void Update()
     {
@@ -19,7 +22,6 @@ public class EnergyZoneDetector : MonoBehaviour
         VisualizeBox();
 #endif
     }
-
     void GetInput()
     {
         if (Input.GetButtonDown("MainMechanic"))
@@ -33,15 +35,22 @@ public class EnergyZoneDetector : MonoBehaviour
         }
 
         if (Input.GetButtonDown("MainMechanicCancel"))
-            GetClosestGameObject(Faults).GetComponent<ZoneController>().Cancel();
+            if (GetClosestGameObject(Faults) != null)
+                GetClosestGameObject(Faults).GetComponent<ZoneController>().Cancel();
 
-        /*
+        
         if (Input.GetButtonDown("InfuseEnergy"))
         {
             Debug.Log("insuffler de l'energy");
-            GetClosestGameObject(Faults).ChangedModeActivated();
+            Detect();
+            if(GetClosestGameObject(Faults) != null)
+            {
+                if(GetClosestGameObject(Faults).ChangedModeActivated())
+                    _player.InfuseEnergy(-1);
+                else
+                    _player.InfuseEnergy();
+            }
         }
-        */
     }
 
 #if UNITY_EDITOR
@@ -53,7 +62,10 @@ public class EnergyZoneDetector : MonoBehaviour
     }// Permet de visualiser la box de detection en debug
 #endif
 
-    void Detect() // Permet de detecter les plateformes entrant dans la zone et de les ajouter à une liste
+    /// <summary>
+    /// Permet de detecter les plateformes entrant dans la zone et de les ajouter à une liste
+    /// </summary>
+    void Detect()
     {
         Faults.Clear();
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * _boxZPosition, _boxScale, transform.forward, transform.rotation, Mathf.Infinity, FaultMask);
@@ -62,7 +74,10 @@ public class EnergyZoneDetector : MonoBehaviour
             Faults.Add(hit.transform.gameObject.GetComponent<ZoneController>());
     }
 
-    ZoneController GetClosestGameObject(List<ZoneController> Faults) // renvoi la faille la plus proche
+    /// <summary>
+    /// Permet de renvoyer la faille la plus proche
+    /// </summary>
+    ZoneController GetClosestGameObject(List<ZoneController> Faults)
     {
         ZoneController bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
@@ -70,10 +85,9 @@ public class EnergyZoneDetector : MonoBehaviour
 
         foreach (ZoneController Fault in Faults)
         {
-            //if (Fault.GetComponent<ZoneController>().CheckIfElementIsActive(InputMechanics.ReturnMode)))
-            //    continue;
+            //if (Fault.GetComponent<ZoneController>().CheckIfElementIsActive(InputMechanics.ReturnMode))
+            //  continue;
 
-            //if(Fault.GetComponent<ZoneController>().ActivedZone)
             Vector3 directionToTarget = Fault.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
@@ -82,7 +96,6 @@ public class EnergyZoneDetector : MonoBehaviour
                 bestTarget = Fault;
             }   
         }
-
         return bestTarget;
     }
 }
