@@ -11,6 +11,7 @@ public class ExtrudeWall : Extrude
 		base.Activate ();
 		Debug.Log ("ExtrudeWall activé.");
 		/// Ici implémenter le comportement d'une extrude wall quand elle est activée.
+		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + DistanceExtrude, init_pos.y, transform.position.z), Time.deltaTime * SpeedExtrude);
 	}
 
 	public override void Deactivate ()
@@ -18,5 +19,6 @@ public class ExtrudeWall : Extrude
 		base.Deactivate ();
 		Debug.Log ("ExtrudeWall désactivé.");
 		/// Ici implémenter le comportement d'une extrude wall quand elle est désactivée.
+		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - DistanceExtrude, init_pos.y, transform.position.z), Time.deltaTime * SpeedExtrude);
 	}
 }

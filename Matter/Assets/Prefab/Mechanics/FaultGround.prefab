@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 3782457831455194586}
   - component: {fileID: 3782457831455194587}
   - component: {fileID: 3782457831455194580}
-  - component: {fileID: 3782457831455194581}
+  - component: {fileID: 7017405372520129703}
   m_Layer: 8
   m_Name: Pics
   m_TagString: Plateforme
@@ -138,7 +138,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3782457831455194581
+--- !u!114 &7017405372520129703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3782457831455194582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc2b8732829a9b14993844f920f091f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 296eb31356ba47e4ea4a642379448385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Detected: 0
@@ -265,9 +265,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zoneElements:
-  - {fileID: 9207460227021290508}
-  - {fileID: 3782457831455194581}
+  - {fileID: 8636064899047452234}
+  - {fileID: 7017405372520129703}
   - {fileID: 8002141356995270057}
+  _activedZone: 1
 --- !u!1 &9207460227021290510
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +281,7 @@ GameObject:
   - component: {fileID: 9207460227021290519}
   - component: {fileID: 9207460227021290512}
   - component: {fileID: 9207460227021290513}
-  - component: {fileID: 9207460227021290508}
+  - component: {fileID: 8636064899047452234}
   m_Layer: 8
   m_Name: Extrude
   m_TagString: Plateforme
@@ -361,7 +362,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9207460227021290508
+--- !u!114 &8636064899047452234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
