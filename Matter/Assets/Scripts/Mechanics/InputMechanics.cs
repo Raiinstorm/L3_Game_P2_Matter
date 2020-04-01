@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InputMechanics : MonoBehaviour
 {
-    private static ElementType returnMode;
+    private ElementType returnMode;
     ModeSelection myMode = new ModeSelection();
 
     void Update()
@@ -22,5 +22,5 @@ public class InputMechanics : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public static ElementType ReturnMode => returnMode;
+    public ElementType ReturnMode => returnMode;
 }

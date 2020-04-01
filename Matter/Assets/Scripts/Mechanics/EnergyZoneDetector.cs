@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(InputMechanics))]
 public class EnergyZoneDetector : MonoBehaviour
 {
     public LayerMask FaultMask;
@@ -11,9 +11,10 @@ public class EnergyZoneDetector : MonoBehaviour
     [SerializeField] float _boxZPosition;
     [SerializeField] GameObject _cubeVisualizer;
     [SerializeField] ZoneController _zoneController = null;
-    [SerializeField] PlayerController _player;
+    [SerializeField] protected PlayerController _player;
 
     bool _activedZone = false;
+    private InputMechanics _mechanics;
 
     private void Update()
     {
@@ -22,30 +23,36 @@ public class EnergyZoneDetector : MonoBehaviour
         VisualizeBox();
 #endif
     }
+
+    void Start()
+    {
+        InvokeRepeating("Detect", 0f, 0.5f);
+        _mechanics = GetComponent<InputMechanics>();
+    }
     void GetInput()
     {
         if (Input.GetButtonDown("MainMechanic"))
         {
-            Detect();
             if (Faults.Count == 0)
                 return;
 
-            if (GetClosestGameObject(Faults) != null)
-                GetClosestGameObject(Faults).GetComponent<ZoneController>().ActivateElementOfType(InputMechanics.ReturnMode);
+            ZoneController zoneController = GetClosestGameObject(Faults, false);
+            if (zoneController != null && zoneController.ActivedZone)
+                zoneController.ActivateElementOfType(_mechanics.ReturnMode);
         }
-
-        if (Input.GetButtonDown("MainMechanicCancel"))
-            if (GetClosestGameObject(Faults) != null)
-                GetClosestGameObject(Faults).GetComponent<ZoneController>().Cancel();
-
-        
-        if (Input.GetButtonDown("InfuseEnergy"))
+        else if (Input.GetButtonDown("MainMechanicCancel"))
+        {
+            ZoneController zoneController = GetClosestGameObject(Faults, true);
+            if (zoneController != null)
+                zoneController.Cancel();
+        }
+        else if (Input.GetButtonDown("InfuseEnergy"))
         {
             Debug.Log("insuffler de l'energy");
-            Detect();
-            if(GetClosestGameObject(Faults) != null)
+            ZoneController zoneController = GetClosestGameObject(Faults, false);
+            if (zoneController != null)
             {
-                if(GetClosestGameObject(Faults).ChangedModeActivated())
+                if (zoneController.ChangedModeActivated())
                     _player.InfuseEnergy(-1);
                 else
                     _player.InfuseEnergy();
@@ -68,7 +75,7 @@ public class EnergyZoneDetector : MonoBehaviour
     void Detect()
     {
         Faults.Clear();
-        RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * _boxZPosition, _boxScale, transform.forward, transform.rotation, Mathf.Infinity, FaultMask);
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * _boxZPosition, _boxScale/2, transform.forward, transform.rotation, _boxScale.magnitude, FaultMask);
 
         foreach (var hit in hits)
             Faults.Add(hit.transform.gameObject.GetComponent<ZoneController>());
@@ -77,16 +84,16 @@ public class EnergyZoneDetector : MonoBehaviour
     /// <summary>
     /// Permet de renvoyer la faille la plus proche
     /// </summary>
-    ZoneController GetClosestGameObject(List<ZoneController> Faults)
+    ZoneController GetClosestGameObject(List<ZoneController> faults , bool filterActivatedElement)
     {
         ZoneController bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        foreach (ZoneController Fault in Faults)
+        foreach (ZoneController Fault in faults)
         {
-            //if (Fault.GetComponent<ZoneController>().CheckIfElementIsActive(InputMechanics.ReturnMode))
-            //  continue;
+            if (Fault.CheckIfElementIsActive(_mechanics.ReturnMode) != filterActivatedElement)
+                continue;
 
             Vector3 directionToTarget = Fault.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
