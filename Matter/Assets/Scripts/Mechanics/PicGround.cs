@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PicGround : Pic
 {
+	public override ElementType Type { get { return ElementType.Pics; } }
+	/// Ici déclarer les variables utilisées pour les extrudes wall.
 	public override void Activate()
 	{
 		base.Activate();
