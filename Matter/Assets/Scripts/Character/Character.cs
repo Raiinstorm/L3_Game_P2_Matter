@@ -16,7 +16,6 @@ public class Character : MonoBehaviour
 
     protected Vector3 _moveDirection;
     protected Vector3 _velocity;
-    enum _walkingMode { _walk, _run}
 
     public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
     public int Health { get => _health;

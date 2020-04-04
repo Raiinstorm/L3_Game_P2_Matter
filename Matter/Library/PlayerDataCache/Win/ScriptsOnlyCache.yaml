@@ -1,13 +1,21 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - BlockingSpawn
     - CameraCollision
     - CameraFollow
-    - PlatfomeDetector
-    - PlatformsDetector
+    - EnergyZoneDetector
+    - ExtrudeGround
+    - ExtrudeWall
+    - ExtrudeWallZ
+    - Glass
+    - InputMechanics
+    - ModeSelection
+    - PicGround
+    - PicWall
+    - PicWallZ
     - PlayerController
     - RestartBlocking
+    - ZoneController
     Unity.ProBuilder.Editor.dll:
     - UnityEditor.ProBuilder.EditorToolbar
     - UnityEditor.ProBuilder.ProBuilderEditor
@@ -38,6 +46,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 90
@@ -49,21 +59,37 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9816}
+      Script: {instanceID: 10092}
     - Class: 114
-      Script: {instanceID: 10094}
+      Script: {instanceID: 10148}
     - Class: 114
-      Script: {instanceID: 10222}
+      Script: {instanceID: 10280}
     - Class: 114
-      Script: {instanceID: 10526}
+      Script: {instanceID: 10420}
     - Class: 114
-      Script: {instanceID: 11048}
+      Script: {instanceID: 10532}
     - Class: 114
-      Script: {instanceID: 11226}
+      Script: {instanceID: 10684}
     - Class: 114
-      Script: {instanceID: 11410}
+      Script: {instanceID: 10798}
     - Class: 114
-      Script: {instanceID: 12190}
+      Script: {instanceID: 10800}
+    - Class: 114
+      Script: {instanceID: 11236}
+    - Class: 114
+      Script: {instanceID: 11478}
+    - Class: 114
+      Script: {instanceID: 11668}
+    - Class: 114
+      Script: {instanceID: 11764}
+    - Class: 114
+      Script: {instanceID: 11944}
+    - Class: 114
+      Script: {instanceID: 12214}
+    - Class: 114
+      Script: {instanceID: 12302}
+    - Class: 114
+      Script: {instanceID: 12384}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -113,12 +139,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Dropdown
-  - hash:
-      serializedVersion: 2
-      Hash: 17c0ae220b1e94ae2e1f2d2b472eebf5
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlatfomeDetector
   - hash:
       serializedVersion: 2
       Hash: 2b19be13f00df62e6d4d4f5539bcad51
@@ -229,6 +249,12 @@ ScriptsOnlyBuild:
     className: PolyShape
   - hash:
       serializedVersion: 2
+      Hash: 39766bb8342cdae3d842a183a5436216
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Pic
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -239,6 +265,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineExternalCamera
+  - hash:
+      serializedVersion: 2
+      Hash: be3926d7ee36a334604935e6734e221e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnergyZoneDetector
   - hash:
       serializedVersion: 2
       Hash: b5eb08b578a2f2d80bb106cbe65ab501
@@ -265,12 +297,6 @@ ScriptsOnlyBuild:
     className: LayoutElement
   - hash:
       serializedVersion: 2
-      Hash: da5c08d9b20f944949b811e4b76b2e10
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlatformsDetector
-  - hash:
-      serializedVersion: 2
       Hash: cbae2ed2d2d53cc8f539e7cb4f29bc1f
     assemblyName: Cinemachine.dll
     namespaceName: 
@@ -287,6 +313,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.ProBuilder.dll
     namespaceName: UnityEngine.ProBuilder
     className: ProBuilderMesh
+  - hash:
+      serializedVersion: 2
+      Hash: 39766bb8342cdae3d842a183a5436216
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PicGround
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -317,6 +349,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 8bf75ec771ecd1d16082f07cd8dda5bf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExtrudeWallZ
   - hash:
       serializedVersion: 2
       Hash: 666a1bc8d46f314c018ffaaa3f6628d1
@@ -355,7 +393,7 @@ ScriptsOnlyBuild:
     className: NoiseSettings
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: de55077927cf8e3b8843a849c781601f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RestartBlocking
@@ -391,12 +429,6 @@ ScriptsOnlyBuild:
     className: CinemachineFramingTransposer
   - hash:
       serializedVersion: 2
-      Hash: 28272946bf69a76befb004a2bb7be43e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Movement
-  - hash:
-      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -407,6 +439,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Selectable
+  - hash:
+      serializedVersion: 2
+      Hash: 7942bc658af1974f06fac7cfb29dc13b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerController
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -431,6 +469,18 @@ ScriptsOnlyBuild:
     assemblyName: NavMeshComponents.dll
     namespaceName: UnityEngine.AI
     className: NavMeshModifierVolume
+  - hash:
+      serializedVersion: 2
+      Hash: 8bf75ec771ecd1d16082f07cd8dda5bf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExtrudeWall
+  - hash:
+      serializedVersion: 2
+      Hash: ad19cb719b99b9d3c52cb8dbcebbd0c3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Glass
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -505,22 +555,10 @@ ScriptsOnlyBuild:
     className: CinemachineTrackedDolly
   - hash:
       serializedVersion: 2
-      Hash: 7035f9e251e339a6e87098675b79c251
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MovementInput
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachinePipeline
-  - hash:
-      serializedVersion: 2
-      Hash: cef3e9b094b20e63644e1c5bad3eee5e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerController
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -571,6 +609,12 @@ ScriptsOnlyBuild:
     className: CameraFollow
   - hash:
       serializedVersion: 2
+      Hash: 7def248209dbbb7e0534d2882de85bc7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraLock
+  - hash:
+      serializedVersion: 2
       Hash: ee1e338b53200b818750102b4ef1218a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -601,12 +645,6 @@ ScriptsOnlyBuild:
     className: IsGrounded
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: BlockingSpawn
-  - hash:
-      serializedVersion: 2
       Hash: d6a8e9bec3160a152b9b2710593d3caa
     assemblyName: Unity.ProBuilder.dll
     namespaceName: UnityEngine.ProBuilder
@@ -629,6 +667,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineBlendListCamera
+  - hash:
+      serializedVersion: 2
+      Hash: 5adb33260ee6f0356d84b666afce8bd3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ZoneController
   - hash:
       serializedVersion: 2
       Hash: 783f593b9380cf72d0f7ebfd4a0d4bcd
@@ -715,10 +759,28 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ModeSelection
+  - hash:
+      serializedVersion: 2
       Hash: 301f4da7cc3b301c161d089f9d22efed
     assemblyName: Unity.ProBuilder.dll
     namespaceName: UnityEngine.ProBuilder
     className: Entity
+  - hash:
+      serializedVersion: 2
+      Hash: 30b8143aba59423b541c8678c5c003cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GolemController
+  - hash:
+      serializedVersion: 2
+      Hash: 30b8143aba59423b541c8678c5c003cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Character
   - hash:
       serializedVersion: 2
       Hash: 6225eb0973ab0af667bc5f9d1b1b18de
@@ -727,10 +789,22 @@ ScriptsOnlyBuild:
     className: CinemachineCollider
   - hash:
       serializedVersion: 2
+      Hash: 39766bb8342cdae3d842a183a5436216
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PicWall
+  - hash:
+      serializedVersion: 2
       Hash: bd50beb95120324d8c4e8386692b6e82
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineBlenderSettings
+  - hash:
+      serializedVersion: 2
+      Hash: 30b8143aba59423b541c8678c5c003cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ProscritController
   - hash:
       serializedVersion: 2
       Hash: c0201dbecd85f700bcdff493a272631d
@@ -775,6 +849,12 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 8bf75ec771ecd1d16082f07cd8dda5bf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExtrudeGround
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -799,12 +879,6 @@ ScriptsOnlyBuild:
     className: ShowEnnemyCircles
   - hash:
       serializedVersion: 2
-      Hash: ca103cc561c98b06dd47628a84eb3299
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlatformeController
-  - hash:
-      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -821,6 +895,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraCollision
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InputMechanics
   - hash:
       serializedVersion: 2
       Hash: df434544c9f7b33d1cc7e635b180d279
@@ -859,6 +939,12 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
+      Hash: 39766bb8342cdae3d842a183a5436216
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PicWallZ
+  - hash:
+      serializedVersion: 2
       Hash: a63fc1a3b035e5a0b5839cd7f7b3086e
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -887,6 +973,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: 07e289ec44c9db4ee16c609532df5c55
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ZoneTester
   - hash:
       serializedVersion: 2
       Hash: dbfb4270852b0008a423a7418d9de4cf
@@ -944,4 +1036,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/_Scenes/Blocking.unity
-  playerPath: E:/TRAVAIL GAME/MATTER/buildBlocking/Matter.exe
+  playerPath: C:/Users/Guillaume/Desktop/BLOCKINGV2/Matter.exe

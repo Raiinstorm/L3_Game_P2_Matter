@@ -67,14 +67,7 @@ public class CameraController : MonoBehaviour
             Pivot.Rotate(finalInputZ, 0, 0);
         else
             Pivot.Rotate(-finalInputZ, 0, 0);
-        /*
-        // Limit Camera move
-        if (Pivot.rotation.eulerAngles.x > MaxViewAngle && Pivot.rotation.eulerAngles.x < 180f)
-            Pivot.rotation = Quaternion.Euler(MaxViewAngle, 0, 0);
 
-        if (Pivot.rotation.eulerAngles.x > 180f && Pivot.rotation.eulerAngles.x < 360f + MinViewAngle)
-            Pivot.rotation = Quaternion.Euler(360f + MinViewAngle, 0, 0);
-*/
         // Move the camera
         float desiredYAgnle = Pivot.eulerAngles.y;
         float desiredXAgnle = Pivot.eulerAngles.x;
@@ -88,5 +81,4 @@ public class CameraController : MonoBehaviour
 
         transform.LookAt(Target.transform);
     }
-
 }

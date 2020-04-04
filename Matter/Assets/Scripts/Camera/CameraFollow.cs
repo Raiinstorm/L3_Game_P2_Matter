@@ -34,9 +34,9 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         // mise en place de la rotation
-        float inputX = Input.GetAxis("RightStickHorizontal"); // récupération du float du joystick en horizontal
-        float inputZ = Input.GetAxis("RightStickVertical"); // "" vertical
-        mouseX = Input.GetAxis("Mouse X"); // Pareil mais cette fois pour la souris 
+        float inputX = Input.GetAxis("RightStickHorizontal");
+        float inputZ = Input.GetAxis("RightStickVertical"); 
+        mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");
 
         // fusionner les entrées de la souris avec celle des sticks manettes

@@ -7,9 +7,7 @@ public class ZoneController : MonoBehaviour
 	Stack<GenericElement> _activatedElements = new Stack<GenericElement> ();
 
 	[SerializeField] GenericElement[] _zoneElements = null;
-
-	public bool _activedZone = true;
-
+	[SerializeField] private bool _activedZone = true;
 	public bool ActivedZone => _activedZone;
 
 	/// <summary>
@@ -18,7 +16,7 @@ public class ZoneController : MonoBehaviour
 	public bool ChangedModeActivated()
 	{
 		_activedZone = !_activedZone;	
-		return _activedZone;
+		return ActivedZone;
 	}
 
 	/// <summary>

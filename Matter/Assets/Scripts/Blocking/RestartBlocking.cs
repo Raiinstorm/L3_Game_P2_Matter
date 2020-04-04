@@ -6,16 +6,21 @@ public class RestartBlocking : MonoBehaviour
 {
 	// Start is called before the first frame update
 
-	Transform _thisTransform;
+	Transform _playerTransform;
 	Vector3 _spawnPosition;
-	public static List<Vector3> spawns = new List<Vector3>();
+	public Transform[] spawns;
+	[SerializeField]
 	int _navigate;
+
+	bool _antiSpam;
+
+	[SerializeField]
+	Vector3 _position;
 
     void Start()
     {
-		_thisTransform = GetComponent<Transform>();
-		_spawnPosition = _thisTransform.position;
-		spawns.Add(_spawnPosition);
+		_playerTransform = GetComponent<Transform>();
+		_spawnPosition = _playerTransform.position;
     }
 
     // Update is called once per frame
@@ -23,39 +28,53 @@ public class RestartBlocking : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.R))
 		{
-			_thisTransform.position = _spawnPosition;
+			_playerTransform.position = _spawnPosition;
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
 		{
-			if(_navigate-1<0)
+			if(!_antiSpam)
 			{
-				_navigate = spawns.Count-1;
+				_antiSpam = true;
+
+				if (_navigate - 1 < 0)
+				{
+					_navigate = spawns.Length - 1;
+				}
+				else
+				{
+					_navigate--;
+				}
+				Tp();
 			}
-			else
-			{
-				_navigate--;
-			}
-			Tp();
 		}
-
-		if (Input.GetKeyDown(KeyCode.RightArrow))
+		else if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
-			if (_navigate + 1 == spawns.Count)
+			if(!_antiSpam)
 			{
-				_navigate = 0;
-			}
-			else
-			{
-				_navigate++;
-			}
+				_antiSpam = true;
 
-			Tp();
+				if (_navigate + 1 == spawns.Length)
+				{
+					_navigate = 0;
+				}
+				else
+				{
+					_navigate++;
+				}
+
+				Tp();
+			}
+		}
+		else
+		{
+			_antiSpam = false;
 		}
 	}
 
 	void Tp()
 	{
-		_thisTransform.position = spawns[_navigate];
+		_position = spawns[_navigate].position;
+		_playerTransform.position = _position;
 	}
 }
