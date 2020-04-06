@@ -27,7 +27,7 @@ public class Character : MonoBehaviour
     }
 
 
-    protected virtual bool IsGround()
+    public virtual bool IsGround()
     {
         bool _isGround = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
         if (_isGround)
@@ -44,12 +44,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    protected virtual void Run()
-    {
-
-    }
-
-    protected virtual void Jump()
+    public virtual void Jump()
     {
         _velocity = new Vector3(0.0f, _jumpPower, 0.0f);
     }

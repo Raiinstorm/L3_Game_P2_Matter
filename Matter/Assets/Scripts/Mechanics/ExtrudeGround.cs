@@ -12,7 +12,7 @@ public class ExtrudeGround : Extrude
 		Debug.Log("ExtrudeGround activé.");
 		/// Ici implémenter le comportement d'une extrude ground quand elle est activée.
 
-		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, init_pos.y + DistanceExtrude, transform.position.z), Time.deltaTime * SpeedExtrude);
+		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y + DistanceExtrude*10, transform.localPosition.z), Time.deltaTime * SpeedExtrude);
 	}
 
 	public override void Deactivate ()
@@ -21,6 +21,6 @@ public class ExtrudeGround : Extrude
 		Debug.Log ("ExtrudeGround désactivé.");
 		/// Ici implémenter le comportement d'une extrude ground quand elle est désactivée.
 
-		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, init_pos.y - DistanceExtrude, transform.position.z), Time.deltaTime * SpeedExtrude);
+		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y - DistanceExtrude*10, transform.localPosition.z), Time.deltaTime * SpeedExtrude);
 	}
 }

@@ -12,7 +12,7 @@ public class PicGround : Pic
 		Debug.Log("Pic activé.");
 		/// Ici implémenter le comportement d'un pic quand il est activé.
 
-		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, init_pos.y + _distancePics, transform.position.z), Time.deltaTime * _speedPics);
+		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y + _distancePics*10, transform.localPosition.z), Time.deltaTime * _speedPics);
 	}
 
 	public override void Deactivate()
@@ -21,6 +21,6 @@ public class PicGround : Pic
 		Debug.Log("Pic désactivé.");
 		/// Ici implémenter le comportement d'un pic quand il est désactivé.
 
-		transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, init_pos.y - _distancePics, transform.position.z), Time.deltaTime * _speedPics);
+		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y - _distancePics*10, transform.localPosition.z), Time.deltaTime * _speedPics);
 	}
 }

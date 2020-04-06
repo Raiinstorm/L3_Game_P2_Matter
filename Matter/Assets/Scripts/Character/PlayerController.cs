@@ -9,37 +9,35 @@ public class PlayerController : Character
     [SerializeField] Camera _mainCamera;
     [SerializeField] bool _blockRotationPlayer;
     [SerializeField] int _damageInfuseEnergy;
-
     int _energyPower;
     float _allowPlayerRotation = 0.1f;
-    float _inputX;
-    float _inputZ;
-
     Vector3 desiredMoveDirection;
+
+    public float InputX { get; private set;}
+    public float InputZ { get; private set; }
+    public bool FastRun { get; private set; }
+
 
     private void Start()
     {
         _maxHealth = 100;
         _health = 100;
         _energyPower = 100;
+        FastRun = false;
     }
     void Update()
     {
         Walk();
         Rotation();
-
-        if (Input.GetButtonDown("Jump") && IsGround())
-            Jump();
     }
 
     protected override void Walk()
     {
         base.Walk();
+        InputX = Input.GetAxisRaw("Horizontal");
+        InputZ = Input.GetAxisRaw("Vertical");
 
-        _inputX = Input.GetAxis("Horizontal");
-        _inputZ = Input.GetAxis("Vertical");
-
-        Vector3 move = _cameraBase.transform.right * _inputX + _cameraBase.transform.forward * _inputZ;
+        Vector3 move = _cameraBase.transform.right * InputX + _cameraBase.transform.forward * InputZ;
 
         _controller.Move(move * _walkingSpeed * Time.deltaTime);
         _velocity.y += _gravity * Time.deltaTime;
@@ -50,12 +48,12 @@ public class PlayerController : Character
     {
         //Calculate the Input Magnitude
         float speedMagnitude;
-        speedMagnitude = new Vector2(_inputX, _inputZ).sqrMagnitude;
+        speedMagnitude = new Vector2(InputX, InputZ).sqrMagnitude;
 
         if (speedMagnitude > _allowPlayerRotation)
         {
-            _inputX = Input.GetAxis("Horizontal");
-            _inputZ = Input.GetAxis("Vertical");
+            InputX = Input.GetAxis("Horizontal");
+            InputZ = Input.GetAxis("Vertical");
 
             var forward = _cameraBase.transform.forward;
             var right = _cameraBase.transform.right;
@@ -66,7 +64,7 @@ public class PlayerController : Character
             forward.Normalize();
             right.Normalize();
 
-            desiredMoveDirection = forward * _inputZ + right * _inputX;
+            desiredMoveDirection = forward * InputZ + right * InputX;
 
             if (_blockRotationPlayer == false)
             {
