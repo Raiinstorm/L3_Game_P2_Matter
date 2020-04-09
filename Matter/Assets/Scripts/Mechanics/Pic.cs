@@ -12,7 +12,7 @@ public class Pic : GenericElement
 	protected Vector3 init_pos;
 	void Start()
 	{
-		init_pos = transform.position;
+		init_pos = transform.localPosition;
 	}
 
 	private void OnTriggerEnter(Collider collision)

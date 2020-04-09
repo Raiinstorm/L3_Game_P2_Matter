@@ -6,7 +6,6 @@ public class RestartBlocking : MonoBehaviour
 {
 	// Start is called before the first frame update
 
-	Transform _playerTransform;
 	Vector3 _spawnPosition;
 	public Transform[] spawns;
 	[SerializeField]
@@ -19,8 +18,7 @@ public class RestartBlocking : MonoBehaviour
 
     void Start()
     {
-		_playerTransform = GetComponent<Transform>();
-		_spawnPosition = _playerTransform.position;
+		_spawnPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -28,7 +26,7 @@ public class RestartBlocking : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.R))
 		{
-			_playerTransform.position = _spawnPosition;
+			transform.position = _spawnPosition;
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -70,11 +68,16 @@ public class RestartBlocking : MonoBehaviour
 		{
 			_antiSpam = false;
 		}
+
+		if(Input.GetKeyDown(KeyCode.O))
+		{
+			Tp();
+		}
 	}
 
 	void Tp()
 	{
 		_position = spawns[_navigate].position;
-		_playerTransform.position = _position;
+		transform.position = _position;
 	}
 }

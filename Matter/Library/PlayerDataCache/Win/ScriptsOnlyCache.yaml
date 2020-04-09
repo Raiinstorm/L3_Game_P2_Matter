@@ -5,14 +5,10 @@ ScriptsOnlyBuild:
     - CameraFollow
     - EnergyZoneDetector
     - ExtrudeGround
-    - ExtrudeWall
-    - ExtrudeWallZ
     - Glass
     - InputMechanics
     - ModeSelection
     - PicGround
-    - PicWall
-    - PicWallZ
     - PlayerController
     - RestartBlocking
     - ZoneController
@@ -59,37 +55,29 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 10092}
+      Script: {instanceID: 10094}
     - Class: 114
-      Script: {instanceID: 10148}
+      Script: {instanceID: 10150}
     - Class: 114
-      Script: {instanceID: 10280}
+      Script: {instanceID: 10282}
     - Class: 114
-      Script: {instanceID: 10420}
+      Script: {instanceID: 10534}
     - Class: 114
-      Script: {instanceID: 10532}
+      Script: {instanceID: 10686}
     - Class: 114
-      Script: {instanceID: 10684}
+      Script: {instanceID: 10802}
     - Class: 114
-      Script: {instanceID: 10798}
+      Script: {instanceID: 11240}
     - Class: 114
-      Script: {instanceID: 10800}
+      Script: {instanceID: 11480}
     - Class: 114
-      Script: {instanceID: 11236}
+      Script: {instanceID: 11670}
     - Class: 114
-      Script: {instanceID: 11478}
+      Script: {instanceID: 11946}
     - Class: 114
-      Script: {instanceID: 11668}
+      Script: {instanceID: 12216}
     - Class: 114
-      Script: {instanceID: 11764}
-    - Class: 114
-      Script: {instanceID: 11944}
-    - Class: 114
-      Script: {instanceID: 12214}
-    - Class: 114
-      Script: {instanceID: 12302}
-    - Class: 114
-      Script: {instanceID: 12384}
+      Script: {instanceID: 12304}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -267,7 +255,7 @@ ScriptsOnlyBuild:
     className: CinemachineExternalCamera
   - hash:
       serializedVersion: 2
-      Hash: be3926d7ee36a334604935e6734e221e
+      Hash: bbded8569ce8349a3802eee36492b2ee
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnergyZoneDetector
@@ -505,6 +493,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnnemyDetection
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerAnimationEventHandler
   - hash:
       serializedVersion: 2
       Hash: 7ca765ad7969aae95e8011264b9c4046
@@ -1036,4 +1030,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/_Scenes/Blocking.unity
-  playerPath: C:/Users/Guillaume/Desktop/BLOCKINGV2/Matter.exe
+  playerPath: C:/Users/Guillaume/Desktop/BlockingV3/Matter.exe

@@ -10,10 +10,7 @@ public class EnergyZoneDetector : MonoBehaviour
     [SerializeField] Vector3 _boxScale;
     [SerializeField] float _boxZPosition;
     [SerializeField] GameObject _cubeVisualizer;
-    [SerializeField] ZoneController _zoneController = null;
     [SerializeField] protected PlayerController _player;
-
-    bool _activedZone = false;
     private InputMechanics _mechanics;
 
     private void Update()
@@ -27,6 +24,7 @@ public class EnergyZoneDetector : MonoBehaviour
     void Start()
     {
         InvokeRepeating("Detect", 0f, 0.5f);
+        InvokeRepeating("FeatBack", 0f, 0.5f);
         _mechanics = GetComponent<InputMechanics>();
     }
     void GetInput()
@@ -60,6 +58,12 @@ public class EnergyZoneDetector : MonoBehaviour
         }
     }
 
+    void FeatBack()
+    {
+        if(Faults.Count != 0)
+            Faults[0].GetComponent<Renderer>().material.SetColor("_Color",Color.red);
+    }
+
 #if UNITY_EDITOR
     void VisualizeBox()
     {
@@ -74,6 +78,10 @@ public class EnergyZoneDetector : MonoBehaviour
     /// </summary>
     void Detect()
     {
+        foreach(ZoneController Fault in Faults)
+        {
+            Fault.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+        }
         Faults.Clear();
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * _boxZPosition, _boxScale/2, transform.forward, transform.rotation, _boxScale.magnitude, FaultMask);
 
@@ -92,7 +100,7 @@ public class EnergyZoneDetector : MonoBehaviour
 
         foreach (ZoneController Fault in faults)
         {
-            if (Fault.CheckIfElementIsActive(_mechanics.ReturnMode) != filterActivatedElement)
+            if (!Fault.ActivedZone || Fault.CheckIfElementIsActive(_mechanics.ReturnMode) != filterActivatedElement)
                 continue;
 
             Vector3 directionToTarget = Fault.transform.position - currentPosition;

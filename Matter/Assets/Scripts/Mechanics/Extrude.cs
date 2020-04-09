@@ -10,9 +10,6 @@ public abstract class Extrude : GenericElement
 
 	void Start()
 	{
-		init_pos = transform.position;
+		init_pos = transform.localPosition;
 	}
-
-
-
 }
