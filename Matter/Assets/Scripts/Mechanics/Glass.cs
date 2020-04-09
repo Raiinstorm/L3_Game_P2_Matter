@@ -13,6 +13,11 @@ public class Glass : GenericElement
 		/// Ici implémenter le comportement de la glass quand elle est activée.
 	}
 
+	public override void apply(float enable = 1)
+	{
+		throw new System.NotImplementedException();
+	}
+
 	public override void Deactivate ()
 	{
 		base.Deactivate ();

@@ -22,4 +22,6 @@ public abstract class GenericElement : MonoBehaviour
 		Activated = false;
 		/// Ici implémenter tout autre comportement COMMUN à tous les éléments quand ils sont désactivés.
 	}
+
+	public abstract void apply(float enable = 1.0f);
 }

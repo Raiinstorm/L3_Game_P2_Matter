@@ -79,14 +79,14 @@ public class EnergyZoneDetector : MonoBehaviour
     void Detect()
     {
         foreach(ZoneController Fault in Faults)
-        {
             Fault.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-        }
+
         Faults.Clear();
         RaycastHit[] hits = Physics.BoxCastAll(transform.position + transform.forward * _boxZPosition, _boxScale/2, transform.forward, transform.rotation, _boxScale.magnitude, FaultMask);
 
         foreach (var hit in hits)
-            Faults.Add(hit.transform.gameObject.GetComponent<ZoneController>());
+            if(hit.transform.GetComponent<ZoneController>().ActivedZone)
+                Faults.Add(hit.transform.GetComponent<ZoneController>());
     }
 
     /// <summary>

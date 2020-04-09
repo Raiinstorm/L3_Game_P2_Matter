@@ -74,7 +74,8 @@ public class ZoneController : MonoBehaviour
 			return;
 		}
 
-		elementToActivate.Activate ();
+		//elementToActivate.Activate ();
+		elementToActivate.apply();
 		_activatedElements.Push (elementToActivate);
 	}
 
