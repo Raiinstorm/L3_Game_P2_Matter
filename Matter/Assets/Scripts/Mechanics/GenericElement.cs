@@ -10,6 +10,7 @@ public abstract class GenericElement : MonoBehaviour
 
 	public bool Detected;
 	public bool Activated;
+	public Vector3 Init_pos { get; protected set; }
 
 	public virtual void Activate ()
 	{
@@ -23,5 +24,8 @@ public abstract class GenericElement : MonoBehaviour
 		/// Ici implémenter tout autre comportement COMMUN à tous les éléments quand ils sont désactivés.
 	}
 
-	public abstract void apply(float enable = 1.0f);
+	public virtual void apply()
+	{
+		Activated = !Activated;
+	}
 }

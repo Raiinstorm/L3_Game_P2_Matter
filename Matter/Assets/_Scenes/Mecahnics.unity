@@ -3095,7 +3095,7 @@ PrefabInstance:
     - target: {fileID: 6577881720331281804, guid: fd1a431ce5d655f4584b9b03d1e285a0,
         type: 3}
       propertyPath: _distancePics
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd1a431ce5d655f4584b9b03d1e285a0, type: 3}

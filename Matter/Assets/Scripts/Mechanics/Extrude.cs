@@ -4,14 +4,24 @@ public class Extrude : GenericElement
 {
 	public override ElementType Type { get { return ElementType.Extrude; } }
 
-	public float SpeedExtrude = 15f;
-	public float DistanceExtrude = 2.2f;
+	[SerializeField] private float _speedExtrude = 15f;
+	[SerializeField] private float _distance = 20;
 	protected Vector3 init_pos;
 
 	void Start()
 	{
-		init_pos = transform.localPosition;
+		Init_pos = transform.localPosition;
 	}
+	private void Update()
+	{
+		if (Activated && transform.localPosition.y != Init_pos.y + _distance)
+			Translate();
+
+		if (!Activated && transform.localPosition.y != Init_pos.y)
+			Translate(0);
+	}
+
+	/*
 	public override void Activate()
 	{
 		base.Activate();
@@ -29,9 +39,9 @@ public class Extrude : GenericElement
 
 		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y - DistanceExtrude * 10, transform.localPosition.z), Time.deltaTime * SpeedExtrude);
 	}
-
-	public override void apply(float enable = 1)
+	*/
+	public void Translate(float enable = 1.0f)
 	{
-		throw new System.NotImplementedException();
+		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, Init_pos.y + _distance * enable, transform.localPosition.z), Time.deltaTime * _speedExtrude);
 	}
 }

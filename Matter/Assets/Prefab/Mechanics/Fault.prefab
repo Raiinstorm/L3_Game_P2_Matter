@@ -153,8 +153,8 @@ MonoBehaviour:
   Detected: 0
   Activated: 0
   _speedPics: 15
-  _distancePics: 10
   _damage: 12
+  _distance: 150
 --- !u!1 &9207460227021290509
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,5 +376,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Detected: 0
   Activated: 0
-  SpeedExtrude: 15
-  DistanceExtrude: 20
+  _speedExtrude: 15
+  _distance: 200

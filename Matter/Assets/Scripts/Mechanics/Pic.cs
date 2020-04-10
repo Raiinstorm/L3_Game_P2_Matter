@@ -6,12 +6,26 @@ public class Pic : GenericElement
 	public override ElementType Type { get { return ElementType.Pics; } }
 
 	[SerializeField] protected float _speedPics = 15f;
-	[SerializeField] protected float _distancePics = 10f;
 	[SerializeField] int _damage = 12;
-	protected Vector3 init_pos;
+	//public Vector3 Init_pos { get; private set; }
+	[SerializeField] private float _distance;
+
 	void Start()
 	{
-		init_pos = transform.localPosition;
+		Init_pos = transform.localPosition;
+	}
+
+	private void Update()
+	{
+		Debug.Log("MaPositionDeBase" + Init_pos.y);
+		Debug.Log("DistancePic" + _distance);
+
+		if (Activated && transform.localPosition.y != Init_pos.y + _distance)
+			Translate();
+
+		if (!Activated && transform.localPosition.y != Init_pos.y)
+			Translate(0);
+
 	}
 	private void OnTriggerEnter(Collider collision)
 	{
@@ -21,6 +35,7 @@ public class Pic : GenericElement
 			Debug.Log("Degat sur player");
 		}
 	}
+	/*
 	public override void Activate()
 	{
 		base.Activate();
@@ -37,16 +52,10 @@ public class Pic : GenericElement
 
 		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y, transform.localPosition.z), Time.deltaTime);
 	}
+	*/
 
-	 
-
-	public override void apply(float enable = 1.0f)
+	public void Translate(float enable = 1.0f)
 	{
-		transformPos(_distancePics * enable);
-	}
-
-	private void transformPos(float distancePics)
-	{
-		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, init_pos.y + _distancePics, transform.localPosition.z), Time.deltaTime);
+		transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, Init_pos.y + _distance * enable, transform.localPosition.z), Time.deltaTime * _speedPics);
 	}
 }
