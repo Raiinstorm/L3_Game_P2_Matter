@@ -48,7 +48,6 @@ public class PlayerController : Character
 
     protected override void Walk()
     {
-        base.Walk();
         //_rb.velocity = new Vector3(InputX * _walkingSpeed * 100 * Time.deltaTime, _rb.velocity.y, InputZ * _walkingSpeed * 100 * Time.deltaTime);
                
         smoothInputX = Mathf.SmoothDamp(smoothInputX, InputX, ref refX, dampFactor);
@@ -61,36 +60,52 @@ public class PlayerController : Character
     }
     protected override void Rotation()
     {
-        
+       
             //Calculate the Input Magnitude
             float speedMagnitude;
             speedMagnitude = new Vector2(InputX, InputZ).sqrMagnitude;
 
-            if (speedMagnitude > _allowPlayerRotation)
+        if (speedMagnitude > _allowPlayerRotation)
+        {
+            var forward = _cameraBase.transform.forward;
+            var right = _cameraBase.transform.right;
+
+            forward.y = 0f;
+            right.y = 0f;
+
+            forward.Normalize();
+            right.Normalize();
+
+            desiredMoveDirection = forward * InputZ + right * InputX;
+
+            if (_blockRotationPlayer == false)
             {
-                var forward = _cameraBase.transform.forward;
-                var right = _cameraBase.transform.right;
-
-                forward.y = 0f;
-                right.y = 0f;
-
-                forward.Normalize();
-                right.Normalize();
-
-                desiredMoveDirection = forward * InputZ + right * InputX;
-
-                if (_blockRotationPlayer == false)
+                
+                float dot = Vector3.Dot(transform.forward, (_cameraBase.transform.position - transform.position).normalized);
+                if(dot < 0.3f)
                 {
-                    //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
-                     _rb.rotation = Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+                    Quaternion deltaRotation = Quaternion.AngleAxis(InputX, transform.up) * Quaternion.AngleAxis(InputZ, transform.up);
+                    _rb.MoveRotation(deltaRotation * transform.rotation);
                 }
+                //_rb.rotation = Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+                else
+                {
+                    Quaternion deltaRotation = Quaternion.AngleAxis(InputX*-1, transform.up) * Quaternion.AngleAxis(InputZ*-1, transform.up);
+                    _rb.MoveRotation(deltaRotation * transform.rotation);
+                }
+                //_rb.rotation = Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection*-1), 0.1f);   
             }
-        
 
-        //Quaternion deltaRotation = Quaternion.AngleAxis(InputX, transform.up) * Quaternion.AngleAxis(InputZ,transform.right);
-        //_rb.MoveRotation(deltaRotation * transform.rotation);
+            /*
+                            _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f));
 
-        //_rb.rotation = Quaternion.Euler(_rb.rotation.eulerAngles + new Vector3(0f, _rotationSpeed * InputX * InputZ, 0f));
+
+                            Quaternion deltaRotation = Quaternion.AngleAxis(InputX, transform.up) * Quaternion.AngleAxis(InputZ,transform.up);
+                            _rb.MoveRotation(deltaRotation * transform.rotation);
+              */
+
+            //_rb.rotation = Quaternion.Euler(_rb.rotation.eulerAngles + new Vector3(0f, _rotationSpeed * InputX * InputZ, 0f));
+        }
     }
     public void InfuseEnergy(int enable = 1)
     {

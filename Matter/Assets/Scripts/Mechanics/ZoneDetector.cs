@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(InputMechanics))]
-public class EnergyZoneDetector : MonoBehaviour
+public class ZoneDetector : MonoBehaviour
 {
     public LayerMask FaultMask;
     public List<ZoneController> Faults = new List<ZoneController>();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected int _health;
     [SerializeField] protected int _maxHealth;
@@ -24,7 +24,8 @@ public class Character : MonoBehaviour
             _health = (value > 0) ? (value < MaxHealth ? value : MaxHealth) : 0;
         }        
     }
-
+    protected abstract void Walk();
+    protected abstract void Rotation();
 
     public virtual bool IsGround()
     {
@@ -34,19 +35,11 @@ public class Character : MonoBehaviour
         else
             return false; 
     }
-    
-    protected virtual void Walk()
-    {
-    }
 
     public virtual void Jump()
     {
         if (IsGround())
             _rb.AddForce(Vector3.up * Mathf.Sqrt(_jumpForce * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-    }
-    protected virtual void Rotation()
-    {
-
     }
 
     public virtual void GetDamage(int Damage)

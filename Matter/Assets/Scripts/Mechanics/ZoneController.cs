@@ -76,7 +76,6 @@ public class ZoneController : MonoBehaviour
 			return;
 		}
 
-		//elementToActivate.Activate ();
 		elementToActivate.apply();
 		_activatedElements.Push (elementToActivate);
 	}
@@ -92,7 +91,6 @@ public class ZoneController : MonoBehaviour
 			return;
 		}
 
-		//_activatedElements.Pop ().Deactivate ();
 		_activatedElements.Pop ().apply();
 	}
 
@@ -103,7 +101,6 @@ public class ZoneController : MonoBehaviour
 	{
 		while (_activatedElements.Count > 0)
 			_activatedElements.Pop ().apply();
-			//_activatedElements.Pop ().Deactivate ();
 	}
 
 	void Awake ()
