@@ -6,6 +6,7 @@ public class Glass : GenericElement
 
 	/// Ici déclarer les variables utilisées pour la glass.
 
+		/*
 	public override void Activate ()
 	{
 		base.Activate ();
@@ -19,4 +20,5 @@ public class Glass : GenericElement
 		Debug.Log ("Glass désactivé.");
 		/// Ici implémenter le comportement de la glass quand elle est désactivée.
 	}
+	*/
 }

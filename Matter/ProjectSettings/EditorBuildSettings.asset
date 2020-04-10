@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Scenes/SceneRestartBlocking.unity
+    guid: f39d0dce8e46f5047a9e34e8491b2af3
+  - enabled: 1
     path: Assets/_Scenes/Blocking.unity
     guid: aa587adb039323c4ebf779170f277941
   m_configObjects: {}

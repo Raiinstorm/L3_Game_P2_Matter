@@ -21,9 +21,11 @@ public class PlayerAnimationEventHandler : MonoBehaviour
         _animator.SetFloat("xSpeed", new Vector2(_playerController.InputX, _playerController.InputZ).magnitude);
 
         if(Input.GetButtonDown("Jump") && _playerController.IsGround())
-        {
             _animator.SetBool("jump", true);
-        }
     }
 
+    public void IsJump()
+    {
+        _animator.SetBool("jump", false);
+    }
 }

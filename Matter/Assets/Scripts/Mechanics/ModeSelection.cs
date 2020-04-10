@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ModeSelection : MonoBehaviour
 {
-    ElementType TypesSelection; 
+    public ElementType TypesSelection; 
 
     public ElementType Selection()
     {

@@ -7,15 +7,16 @@ public class Character : MonoBehaviour
     [SerializeField] protected int _health;
     [SerializeField] protected int _maxHealth;
     [SerializeField] protected float _walkingSpeed;
-    [SerializeField] protected float _runingSpeed;
-    [SerializeField] protected float _jumpPower;
-    [SerializeField] float _groundDistance = 0.4f;
-    [SerializeField] protected float _gravity = -9.81f;
+    [SerializeField] protected float _fastRunSpeed;
+    [SerializeField] protected float _jumpForce;
+	[SerializeField] protected float _gravity = -9.81f;
+	[SerializeField] float _groundDistance = 0.4f;
+    [SerializeField] protected float _fallAceleration;
     [SerializeField] LayerMask _groundMask;
     [SerializeField] Transform _groundCheck;
+	protected Vector3 _velocity;
 
-    protected Vector3 _moveDirection;
-    protected Vector3 _velocity;
+	protected Rigidbody _rb;
 
     public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
     public int Health { get => _health;
@@ -38,17 +39,15 @@ public class Character : MonoBehaviour
     
     protected virtual void Walk()
     {
-        if(IsGround() && _velocity.y < 0)
-        {
-            _velocity.y = -2f;
-        }
-    }
+		if (IsGround() && _velocity.y < 0)
+			_velocity.y = -2f;
+	}
 
     public virtual void Jump()
     {
-        _velocity = new Vector3(0.0f, _jumpPower, 0.0f);
-    }
-
+        if (IsGround())
+			_velocity = new Vector3(0.0f, _jumpForce, 0.0f);
+	}
     protected virtual void Rotation()
     {
 

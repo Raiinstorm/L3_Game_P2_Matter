@@ -8,7 +8,9 @@ public class ZoneController : MonoBehaviour
 
 	[SerializeField] GenericElement[] _zoneElements = null;
 	[SerializeField] private bool _activedZone = true;
+
 	public bool ActivedZone => _activedZone;
+
 
 	/// <summary>
 	/// Inverse le change de mode d'activation. Si l'élement est activé alors il sera désactivé. vise vers ça.
@@ -74,7 +76,8 @@ public class ZoneController : MonoBehaviour
 			return;
 		}
 
-		elementToActivate.Activate ();
+		//elementToActivate.Activate ();
+		elementToActivate.apply();
 		_activatedElements.Push (elementToActivate);
 	}
 
@@ -89,7 +92,8 @@ public class ZoneController : MonoBehaviour
 			return;
 		}
 
-		_activatedElements.Pop ().Deactivate ();
+		//_activatedElements.Pop ().Deactivate ();
+		_activatedElements.Pop ().apply();
 	}
 
 	/// <summary>
@@ -98,11 +102,13 @@ public class ZoneController : MonoBehaviour
 	public void CancelAll ()
 	{
 		while (_activatedElements.Count > 0)
-			_activatedElements.Pop ().Deactivate ();
+			_activatedElements.Pop ().apply();
+			//_activatedElements.Pop ().Deactivate ();
 	}
 
 	void Awake ()
 	{
 		InitializeDictionary ();
 	}
+
 }
