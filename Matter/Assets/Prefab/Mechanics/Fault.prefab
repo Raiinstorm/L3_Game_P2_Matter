@@ -153,8 +153,8 @@ MonoBehaviour:
   Detected: 0
   Activated: 0
   _speedPics: 15
-  _damage: 12
   _distance: 150
+  _damage: 12
 --- !u!1 &9207460227021290509
 GameObject:
   m_ObjectHideFlags: 0

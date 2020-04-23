@@ -18,11 +18,17 @@ public class PlayerController : Character
     float refX;
     float refZ;
     [SerializeField] float dampFactor;
-    [SerializeField] float _rotationSpeed = 60;
+    [SerializeField] float _rotationSpeed = 5000;
 
     public float InputX { get; private set;}
     public float InputZ { get; private set; }
     public bool FastRun { get; private set; }
+
+
+
+    Vector3 m_moveDirection;
+
+
 
 
     private void Start()
@@ -31,25 +37,27 @@ public class PlayerController : Character
         _health = 100;
         _energyPower = 100;
         FastRun = false;
-        _rb = GetComponent<Rigidbody>();
+        //_rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
-        //Walk();
         InputX = Input.GetAxisRaw("Horizontal");
         InputZ = Input.GetAxisRaw("Vertical");
+
+        float dot = Vector3.Dot((Camera.main.transform.position - transform.position).normalized, transform.forward);
+        InputX *= dot < 0f ? 1f : -1f;
+        InputZ *= dot < 0f ? 1f : -1f;
+        
+        Rotation();
     }
 
     private void FixedUpdate()
     {
         Walk();
-        Rotation();
     }
 
     protected override void Walk()
-    {
-        //_rb.velocity = new Vector3(InputX * _walkingSpeed * 100 * Time.deltaTime, _rb.velocity.y, InputZ * _walkingSpeed * 100 * Time.deltaTime);
-               
+    {        
         smoothInputX = Mathf.SmoothDamp(smoothInputX, InputX, ref refX, dampFactor);
         smoothInputZ = Mathf.SmoothDamp(smoothInputZ, InputZ, ref refZ, dampFactor);
 
@@ -60,15 +68,15 @@ public class PlayerController : Character
     }
     protected override void Rotation()
     {
-       
-            //Calculate the Input Magnitude
-            float speedMagnitude;
-            speedMagnitude = new Vector2(InputX, InputZ).sqrMagnitude;
+        //transform.Rotate(Vector3.up * InputX * _rotationSpeed * Time.deltaTime);
+
+        float speedMagnitude;
+        speedMagnitude = new Vector2(InputX, InputZ).sqrMagnitude;
 
         if (speedMagnitude > _allowPlayerRotation)
         {
-            var forward = _cameraBase.transform.forward;
-            var right = _cameraBase.transform.right;
+            var forward = Camera.main.transform.forward;
+            var right = Camera.main.transform.right;
 
             forward.y = 0f;
             right.y = 0f;
@@ -77,34 +85,13 @@ public class PlayerController : Character
             right.Normalize();
 
             desiredMoveDirection = forward * InputZ + right * InputX;
-
             if (_blockRotationPlayer == false)
             {
-                
-                float dot = Vector3.Dot(transform.forward, (_cameraBase.transform.position - transform.position).normalized);
-                if(dot < 0.3f)
-                {
-                    Quaternion deltaRotation = Quaternion.AngleAxis(InputX, transform.up) * Quaternion.AngleAxis(InputZ, transform.up);
-                    _rb.MoveRotation(deltaRotation * transform.rotation);
-                }
-                //_rb.rotation = Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
-                else
-                {
-                    Quaternion deltaRotation = Quaternion.AngleAxis(InputX*-1, transform.up) * Quaternion.AngleAxis(InputZ*-1, transform.up);
-                    _rb.MoveRotation(deltaRotation * transform.rotation);
-                }
-                //_rb.rotation = Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection*-1), 0.1f);   
+
+                //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+                transform.Rotate(Vector3.up * InputX * _rotationSpeed * Time.deltaTime);
+
             }
-
-            /*
-                            _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f));
-
-
-                            Quaternion deltaRotation = Quaternion.AngleAxis(InputX, transform.up) * Quaternion.AngleAxis(InputZ,transform.up);
-                            _rb.MoveRotation(deltaRotation * transform.rotation);
-              */
-
-            //_rb.rotation = Quaternion.Euler(_rb.rotation.eulerAngles + new Vector3(0f, _rotationSpeed * InputX * InputZ, 0f));
         }
     }
     public void InfuseEnergy(int enable = 1)
