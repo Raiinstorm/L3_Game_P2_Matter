@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerAnimationEventHandler : MonoBehaviour
 {
     Animator _animator;
-    PlayerController _playerController;
+    PlayerControllerV2 _playerController;
     private void Start()
     {
         _animator = GetComponentInChildren<Animator>();
-        _playerController = GetComponent<PlayerController>();
+        _playerController = GetComponent<PlayerControllerV2>();
     }
     private void Update()
     {

@@ -24,8 +24,6 @@ public abstract class Character : MonoBehaviour
             _health = (value > 0) ? (value < MaxHealth ? value : MaxHealth) : 0;
         }        
     }
-    protected abstract void Walk();
-    protected abstract void Rotation();
 
     public virtual bool IsGround()
     {
