@@ -2897,7 +2897,6 @@ MonoBehaviour:
   _walkingSpeed: 450
   _fastRunSpeed: 0
   _jumpForce: 10
-  _gravity: -9.81
   _groundDistance: 0.4
   _fallAceleration: 1.01
   _groundMask:
@@ -3084,11 +3083,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6376293075246065109, guid: fd1a431ce5d655f4584b9b03d1e285a0,
-        type: 3}
-      propertyPath: Activated
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9207460227021290515, guid: fd1a431ce5d655f4584b9b03d1e285a0,
         type: 3}
       propertyPath: _activedZone
@@ -3103,6 +3097,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _distancePics
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376293075246065109, guid: fd1a431ce5d655f4584b9b03d1e285a0,
+        type: 3}
+      propertyPath: Activated
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd1a431ce5d655f4584b9b03d1e285a0, type: 3}
