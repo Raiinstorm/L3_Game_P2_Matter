@@ -9,7 +9,7 @@ public class CameraLock : MonoBehaviour
 
     public void Lock()
     {
-        Faults = _player.GetComponent<EnergyZoneDetector>().Faults;
+        Faults = _player.GetComponent<ZoneDetector>().Faults;
         do
         {
             foreach (ZoneController Fault in Faults)

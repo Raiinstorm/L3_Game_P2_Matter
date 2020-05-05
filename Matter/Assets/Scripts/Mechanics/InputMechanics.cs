@@ -10,7 +10,7 @@ public class InputMechanics : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Mon mode de sélection est : " + myMode.Selection());
+        //Debug.Log("Mon mode de sélection est : " + myMode.Selection());
         returnMode = myMode.Selection();
         if (Input.GetAxisRaw("TypesRoulette") > 0)
         {

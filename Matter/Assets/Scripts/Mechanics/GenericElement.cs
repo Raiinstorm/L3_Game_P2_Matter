@@ -7,10 +7,10 @@
 public abstract class GenericElement : MonoBehaviour
 {
 	public abstract ElementType Type { get; }
+	protected Vector3 _init_pos;
 
 	public bool Detected;
 	public bool Activated;
-	public Vector3 Init_pos { get; protected set; }
 
 	public virtual void Activate ()
 	{
