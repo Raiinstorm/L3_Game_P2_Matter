@@ -3,25 +3,49 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - CameraCollision
     - CameraFollow
-    - EnergyZoneDetector
     - Extrude
+    - GlareEffect
     - Glass
     - InputMechanics
     - ModeSelection
     - Pic
+    - PlayerAnimationEventHandler
     - PlayerController
+    - PlayerControllerV2
     - RESTART
     - RestartBlocking
     - RestartNextScene
+    - SwitchCharacters
     - ZoneController
-    Unity.ProBuilder.Editor.dll:
-    - UnityEditor.ProBuilder.EditorToolbar
-    - UnityEditor.ProBuilder.ProBuilderEditor
+    - ZoneDetector
+    Unity.Postprocessing.Runtime.dll:
+    - UnityEngine.Rendering.PostProcessing.AmbientOcclusion
+    - UnityEngine.Rendering.PostProcessing.AutoExposure
+    - UnityEngine.Rendering.PostProcessing.Bloom
+    - UnityEngine.Rendering.PostProcessing.ChromaticAberration
+    - UnityEngine.Rendering.PostProcessing.ColorGrading
+    - UnityEngine.Rendering.PostProcessing.DepthOfField
+    - UnityEngine.Rendering.PostProcessing.Grain
+    - UnityEngine.Rendering.PostProcessing.LensDistortion
+    - UnityEngine.Rendering.PostProcessing.MotionBlur
+    - UnityEngine.Rendering.PostProcessing.PostProcessLayer
+    - UnityEngine.Rendering.PostProcessing.PostProcessProfile
+    - UnityEngine.Rendering.PostProcessing.PostProcessResources
+    - UnityEngine.Rendering.PostProcessing.PostProcessVolume
+    - UnityEngine.Rendering.PostProcessing.ScreenSpaceReflections
+    - UnityEngine.Rendering.PostProcessing.Vignette
     Unity.ProBuilder.dll:
     - UnityEngine.ProBuilder.PolyShape
+    - UnityEngine.ProBuilder.ProBuilderMesh
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
+    UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Text
   sceneClasses:
     Assets/_Scenes/Blocking.unity:
     - Class: 1
@@ -42,13 +66,21 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 72
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
@@ -57,32 +89,64 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 10094}
+      Script: {instanceID: 9798}
     - Class: 114
-      Script: {instanceID: 10114}
+      Script: {instanceID: 10060}
     - Class: 114
-      Script: {instanceID: 10150}
+      Script: {instanceID: 10168}
     - Class: 114
-      Script: {instanceID: 10444}
+      Script: {instanceID: 10188}
     - Class: 114
-      Script: {instanceID: 10530}
+      Script: {instanceID: 10224}
     - Class: 114
-      Script: {instanceID: 10682}
+      Script: {instanceID: 10348}
     - Class: 114
-      Script: {instanceID: 10796}
+      Script: {instanceID: 10518}
     - Class: 114
-      Script: {instanceID: 11234}
+      Script: {instanceID: 10604}
     - Class: 114
-      Script: {instanceID: 11474}
+      Script: {instanceID: 10670}
     - Class: 114
-      Script: {instanceID: 11664}
+      Script: {instanceID: 10756}
     - Class: 114
-      Script: {instanceID: 12206}
+      Script: {instanceID: 10870}
     - Class: 114
-      Script: {instanceID: 12294}
+      Script: {instanceID: 11306}
     - Class: 114
-      Script: {instanceID: 17962}
+      Script: {instanceID: 11546}
+    - Class: 114
+      Script: {instanceID: 11736}
+    - Class: 114
+      Script: {instanceID: 11994}
+    - Class: 114
+      Script: {instanceID: 12274}
+    - Class: 114
+      Script: {instanceID: 12362}
+    - Class: 114
+      Script: {instanceID: 12512}
+    - Class: 114
+      Script: {instanceID: 13782}
+    - Class: 114
+      Script: {instanceID: 13784}
+    - Class: 114
+      Script: {instanceID: 13788}
+    - Class: 114
+      Script: {instanceID: 13826}
+    - Class: 114
+      Script: {instanceID: 13846}
+    - Class: 114
+      Script: {instanceID: 13854}
+    - Class: 114
+      Script: {instanceID: 13876}
+    - Class: 114
+      Script: {instanceID: 13888}
+    - Class: 114
+      Script: {instanceID: 13944}
+    - Class: 114
+      Script: {instanceID: 13960}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 135
       Script: {instanceID: 0}
@@ -93,6 +157,55 @@ ScriptsOnlyBuild:
     - Class: 143
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/_Scenes/Menu_Blocking.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9798}
+    - Class: 114
+      Script: {instanceID: 10060}
+    - Class: 114
+      Script: {instanceID: 10670}
+    - Class: 114
+      Script: {instanceID: 11994}
+    - Class: 114
+      Script: {instanceID: 12512}
+    - Class: 114
+      Script: {instanceID: 13924}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
     Assets/_Scenes/SceneRestartBlocking.unity:
     - Class: 1
@@ -114,7 +227,7 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 17970}
+      Script: {instanceID: 13924}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -200,12 +313,6 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
-      Hash: 7203f7416dc6e56937db29773443f69e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Taurox
-  - hash:
-      serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -266,7 +373,7 @@ ScriptsOnlyBuild:
     className: PolyShape
   - hash:
       serializedVersion: 2
-      Hash: 1d44bdd85812b541c92e5dd455940753
+      Hash: 0fa92169152c21c4e36614ac4a21edb3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pic
@@ -287,7 +394,7 @@ ScriptsOnlyBuild:
       Hash: bbded8569ce8349a3802eee36492b2ee
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: EnergyZoneDetector
+    className: ZoneDetector
   - hash:
       serializedVersion: 2
       Hash: b5eb08b578a2f2d80bb106cbe65ab501
@@ -392,7 +499,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: d4a493bb4307ddafb51da21aff3cd832
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine.PostFX
     className: CinemachinePostProcessing
@@ -452,22 +559,10 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 14dcad84a79051eb2be134a4fe5b6531
+      Hash: 7942bc658af1974f06fac7cfb29dc13b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: AgentJump
-  - hash:
-      serializedVersion: 2
-      Hash: 8a244fb4b327a127f11a6b6d04a96a8e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: EnnemyIdlePattern
   - hash:
       serializedVersion: 2
       Hash: 380d3ba99e2d836ad5d66bded133d128
@@ -504,18 +599,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
-  - hash:
-      serializedVersion: 2
-      Hash: 515d09f37410945ae6e275ae7c8b3de4
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: EnnemyDetection
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerAnimationEventHandler
   - hash:
       serializedVersion: 2
       Hash: 7ca765ad7969aae95e8011264b9c4046
@@ -650,12 +733,6 @@ ScriptsOnlyBuild:
     className: CinemachineImpulseListener
   - hash:
       serializedVersion: 2
-      Hash: fdb38c49cd3e5bd021276ad2d9549fe7
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: IsGrounded
-  - hash:
-      serializedVersion: 2
       Hash: d6a8e9bec3160a152b9b2710593d3caa
     assemblyName: Unity.ProBuilder.dll
     namespaceName: UnityEngine.ProBuilder
@@ -758,12 +835,6 @@ ScriptsOnlyBuild:
     className: CinemachineVirtualCamera
   - hash:
       serializedVersion: 2
-      Hash: 17bd5ae0d072a7ffe494c4e20fd2e1b9
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Base
-  - hash:
-      serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -782,18 +853,6 @@ ScriptsOnlyBuild:
     className: Entity
   - hash:
       serializedVersion: 2
-      Hash: 18f44b9975c901e210c5644507f1f2e5
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GolemController
-  - hash:
-      serializedVersion: 2
-      Hash: 18f44b9975c901e210c5644507f1f2e5
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Character
-  - hash:
-      serializedVersion: 2
       Hash: 6225eb0973ab0af667bc5f9d1b1b18de
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -804,12 +863,6 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineBlenderSettings
-  - hash:
-      serializedVersion: 2
-      Hash: 18f44b9975c901e210c5644507f1f2e5
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ProscritController
   - hash:
       serializedVersion: 2
       Hash: c0201dbecd85f700bcdff493a272631d
@@ -842,12 +895,6 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
-      Hash: 5c1d5605ebd6ca6d8bd3d97cd21eb0a7
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Guardian
-  - hash:
-      serializedVersion: 2
       Hash: ae83e830e7a90c0aff918c4c2e520825
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -870,12 +917,6 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineHardLookAt
-  - hash:
-      serializedVersion: 2
-      Hash: c42dd24dfb8b35d36b6e2657a34e1b48
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ShowEnnemyCircles
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -1028,18 +1069,157 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
+      Hash: a1f19ad47d3094e235f21b74dfc423a8
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessLayer
+  - hash:
+      serializedVersion: 2
+      Hash: 4663ff4902e6399b2be6fae452f7bb00
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GlareEffect
+  - hash:
+      serializedVersion: 2
+      Hash: 726fcf7961cbb4108aa5be5e55b8c8bf
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ColorGrading
+  - hash:
+      serializedVersion: 2
+      Hash: b13de7a0a457cb8e026d4237dc1b5797
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: LensDistortion
+  - hash:
+      serializedVersion: 2
+      Hash: 71f7f12b8d0f4fd73590db8bcb6d453c
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Bloom
+  - hash:
+      serializedVersion: 2
+      Hash: af93f9c42e90877a9ba31e37adfd900c
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: MotionBlur
+  - hash:
+      serializedVersion: 2
+      Hash: f542c1afca5bb4022f91fdda19b8d622
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: DepthOfField
+  - hash:
+      serializedVersion: 2
+      Hash: 63d7b9b64a11859f416d72ba9a3c3fec
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ScreenSpaceReflections
+  - hash:
+      serializedVersion: 2
+      Hash: 38bcb4d3f9a1812fd650f92e87a4cf64
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessProfile
+  - hash:
+      serializedVersion: 2
+      Hash: e82c0521cdfe8cb6a168ef7208a98d4a
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Vignette
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RESTART
   - hash:
       serializedVersion: 2
+      Hash: 7e6ed836cbaa230e56d6a2bbae1b9bb5
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessEffectSettings
+  - hash:
+      serializedVersion: 2
+      Hash: a89f96dcc3dc1077c82408e3a2af7ffe
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SwitchCharacters
+  - hash:
+      serializedVersion: 2
+      Hash: 61b9d9b6f4b6a222dfea8b131b3d3227
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ChromaticAberration
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
+    className: PlayerAnimationEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: d6fc8d3165070298511ec776ea575626
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessResources
+  - hash:
+      serializedVersion: 2
+      Hash: a53651ee3996fbba20dfe0fce02f0b23
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: AutoExposure
+  - hash:
+      serializedVersion: 2
+      Hash: 50c443b12ccc0b475183318b5088bcc5
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessDebug
+  - hash:
+      serializedVersion: 2
+      Hash: 2b5af7d4b1b8c639706384ec9c0c961e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
     className: RestartNextScene
+  - hash:
+      serializedVersion: 2
+      Hash: 779875a740835de4ab50759cec779d32
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerControllerV2
+  - hash:
+      serializedVersion: 2
+      Hash: e377b50a1af82f705be963a97353a51c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExtrudeSchematic
+  - hash:
+      serializedVersion: 2
+      Hash: d5630f96bd5a6a6eed7e1754c3fb8703
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessVolume
+  - hash:
+      serializedVersion: 2
+      Hash: d0987ce3e9092dbe0fa30d73f333fffa
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Grain
+  - hash:
+      serializedVersion: 2
+      Hash: ac6acd886c54c48c599ab5fed5781ea7
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: AmbientOcclusion
+  - hash:
+      serializedVersion: 2
+      Hash: 30b8143aba59423b541c8678c5c003cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Character
   platform: 5
   scenePathNames:
+  - Assets/_Scenes/Menu_Blocking.unity
   - Assets/_Scenes/SceneRestartBlocking.unity
   - Assets/_Scenes/Blocking.unity
-  playerPath: C:/Users/Guillaume/Desktop/BlockingV3/Matter.exe
+  playerPath: C:/Users/Guillaume/Desktop/BlockingV4/Matter_Blocking.exe

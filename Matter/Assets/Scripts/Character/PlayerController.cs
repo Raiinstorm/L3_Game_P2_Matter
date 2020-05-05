@@ -2,86 +2,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : CharacterV2
+public class PlayerController : Character
 {
     [SerializeField] CharacterController _controller;
     [SerializeField] GameObject _cameraBase;
+    [SerializeField] Camera _mainCamera;
     [SerializeField] bool _blockRotationPlayer;
     [SerializeField] int _damageInfuseEnergy;
+
     int _energyPower;
+    float _allowPlayerRotation = 0.1f;
+    float _inputX;
+    float _inputZ;
+
     Vector3 desiredMoveDirection;
-    float _allowPlayerRotation = 0.01f;
-    
-    //SmoothingMove
-    float smoothInputX;
-    float smoothInputZ;
-    float refX;
-    float refZ;
-    [SerializeField] float dampFactor;
-    [SerializeField] float _rotationSpeed = 5000;
-
-    public float InputX { get; private set;}
-    public float InputZ { get; private set; }
-    public bool FastRun { get; private set; }
-    float _deadZone = 0.05f;
-
-
-    Vector3 m_moveDirection;
-
-
-
 
     private void Start()
     {
         _maxHealth = 100;
         _health = 100;
         _energyPower = 100;
-        FastRun = false;
-        _rb = GetComponent<Rigidbody>();
-
     }
     void Update()
     {
-        InputX = Input.GetAxisRaw("Horizontal");
-        InputZ = Input.GetAxisRaw("Vertical");
+        Walk();
+        Rotation();
 
-       float dot = Vector3.Dot((Camera.main.transform.position - transform.position).normalized, transform.forward);
-       InputX *= dot < 0f ? 1f : -1f;
-       InputZ *= dot < 0f ? 1f : -1f;
-        
-       Rotation();
+        if (Input.GetButtonDown("Jump") && IsGround())
+            Jump();
     }
 
-    private void FixedUpdate()
+    protected override void Walk()
     {
-       Walk();
-    }
-    
-    protected void Walk()
-    {        
-        smoothInputX = Mathf.SmoothDamp(smoothInputX, InputX, ref refX, dampFactor);
-        smoothInputZ = Mathf.SmoothDamp(smoothInputZ, InputZ, ref refZ, dampFactor);
+        base.Walk();
 
-        if (Mathf.Abs(smoothInputX) < 0.05f)
-            smoothInputX = 0;
+        _inputX = Input.GetAxis("Horizontal");
+        _inputZ = Input.GetAxis("Vertical");
 
-        _rb.velocity = new Vector3(smoothInputX * _walkingSpeed * Time.deltaTime, _rb.velocity.y, smoothInputZ * _walkingSpeed * Time.fixedDeltaTime);
+        Vector3 move = _cameraBase.transform.right * _inputX + _cameraBase.transform.forward * _inputZ;
+
+        _controller.Move(move * _walkingSpeed * Time.deltaTime);
+        _velocity.y += _gravity * Time.deltaTime;
+        _controller.Move(_velocity * Time.deltaTime);
     }
-    protected void Rotation()
+
+    protected override void Rotation()
     {
-        if (Mathf.Abs(InputX) < 0.01f && Mathf.Abs(InputZ) < 0.01f)
-            return;
+        //Calculate the Input Magnitude
+        float speedMagnitude;
+        speedMagnitude = new Vector2(_inputX, _inputZ).sqrMagnitude;
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(InputX, 0, InputZ)), Time.deltaTime * _rotationSpeed);
-        //transform.Rotate(Vector3.up * InputX * Time.deltaTime * _rotationSpeed);
+        if (speedMagnitude > _allowPlayerRotation)
+        {
+            _inputX = Input.GetAxis("Horizontal");
+            _inputZ = Input.GetAxis("Vertical");
 
+            var forward = _cameraBase.transform.forward;
+            var right = _cameraBase.transform.right;
+
+            forward.y = 0f;
+            right.y = 0f;
+
+            forward.Normalize();
+            right.Normalize();
+
+            desiredMoveDirection = forward * _inputZ + right * _inputX;
+
+            if (_blockRotationPlayer == false)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+            }
+        }
     }
-    
 
     public void InfuseEnergy(int enable = 1)
     {
         Health += (_damageInfuseEnergy * enable);
         Debug.Log("vie du joueur à : " + Health);
-
     }
 }

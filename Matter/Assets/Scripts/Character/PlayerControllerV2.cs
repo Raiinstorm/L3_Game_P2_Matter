@@ -46,7 +46,7 @@ public class PlayerControllerV2 : CharacterV2
 		CamInputX = Input.GetAxis("RightStickHorizontal");
 		CamInputZ = Input.GetAxis("RightStickVertical");
 
-		Debug.LogWarning(_rb.velocity);
+		//Debug.LogWarning(_rb.velocity);
 		//MoveInput();
 	}
 
