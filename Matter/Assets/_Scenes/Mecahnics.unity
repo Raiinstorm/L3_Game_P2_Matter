@@ -2849,20 +2849,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438fb4fce47b4ca47965a4e822c911d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravity: 50
   _health: 100
   _maxHealth: 100
-  _walkingSpeed: 0
-  _fastRunSpeed: 0
-  _jumpForce: 2.5
-  _groundDistance: 0.4
-  _fallAceleration: 0
+  _jumpForce: 100
+  MoveSpeed: 10
+  _damageInfuseEnergy: 0
   _groundMask:
     serializedVersion: 2
     m_Bits: 256
   _groundCheck: {fileID: 679843340}
-  _gravityScale: 0
-  MoveSpeed: 10
-  _damageInfuseEnergy: 0
+  _groundDistance: 0.4
   _mainCamera: {fileID: 1077214472}
 --- !u!136 &1960808289
 CapsuleCollider:
@@ -2970,7 +2967,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1001 &1965379095
 PrefabInstance:
   m_ObjectHideFlags: 0

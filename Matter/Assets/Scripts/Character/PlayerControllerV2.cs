@@ -2,15 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerV2 : Character
+public class PlayerControllerV2 : MonoBehaviour
 {
-	Vector3 _moveDirection;
-	public float _gravityScale;
-	float _deadZone = 0.25f;
+	Vector3 _velocity;
+	float _deadZone = 0.2f;
 	float _difAngle;
 	int _energyPower;
+	[SerializeField] float _gravity;
+	[SerializeField] protected int _health;
+	[SerializeField] protected int _maxHealth;
+	[SerializeField] protected float _jumpForce;
 	[SerializeField] float MoveSpeed;
 	[SerializeField] int _damageInfuseEnergy;
+	[SerializeField] LayerMask _groundMask;
+	[SerializeField] Transform _groundCheck;
+	[SerializeField] float _groundDistance = 0.4f;
+	protected Rigidbody _rb;
+
+	public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
+	public int Health
+	{
+		get => _health;
+		set
+		{
+			var _oldhealth = _health;
+			_health = (value > 0) ? (value < MaxHealth ? value : MaxHealth) : 0;
+		}
+	}
 
 	public float InputX { get; private set; }
 	public float InputZ { get; private set; }
@@ -35,7 +53,9 @@ public class PlayerControllerV2 : Character
 
 	private void FixedUpdate()
 	{
-		_rb.velocity = _moveDirection;
+		_rb.velocity = _velocity;
+		
+		MoveInput();
 	}
 
 	private void Update()
@@ -44,61 +64,55 @@ public class PlayerControllerV2 : Character
 		InputZ = Input.GetAxis("Vertical");
 		CamInputX = Input.GetAxis("RightStickHorizontal");
 		CamInputZ = Input.GetAxis("RightStickVertical");
-		MoveInput();
+
+	}
+
+	public bool IsGround()
+	{
+		bool _isGround = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
+		if (_isGround)
+			return true;
+		else
+			return false;
+	}
+	public void Jump()
+	{
+		if (IsGround())
+			_rb.AddForce(_jumpForce* Vector3.up *100);
+	}
+	public virtual void GetDamage(int Damage)
+	{
+		_health -= Damage;
 	}
 
 	void MoveInput()
 	{
-		if (_rb.velocity.y > 10 && IsGround())
-			_rb.velocity = Vector3.zero;
-
 		Vector2 stickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		if (stickInput.magnitude < _deadZone)                                                                   
 			stickInput = Vector2.zero;                                                                     
 		else                                                                                                    
 		{                                                                                                       
-			_difAngle = SignedAngle(transform.forward, new Vector3(_moveDirection.x, 0f, _moveDirection.z), Vector3.up);  
-			if (_difAngle > 4)                                                                                  
-			{                                                                                                   
+			_difAngle = SignedAngle(transform.forward, new Vector3(_velocity.x, 0f, _velocity.z), Vector3.up);  
+			if (_difAngle > 6)                                                                                   
 				transform.Rotate(new Vector3(0f, Mathf.Min(7f, _difAngle), 0f));                               
-			}                                                                                                   
 			else if (_difAngle < -4)                                                                            
-			{                                                                                                   
 				transform.Rotate(new Vector3(0f, Mathf.Max(-7f, _difAngle), 0f));                                
-			}
 		}
-
 		Vector2 stickInputR = new Vector2(CamInputX,CamInputZ);
 		if (stickInputR.magnitude < _deadZone)
 			stickInputR = Vector2.zero;
 
-		GetCamSettings();
+		CameraSetting();
+		_velocity = (_cameraRight.normalized * stickInput.x) + (_cameraForward.normalized * stickInput.y);
+		_velocity *= MoveSpeed * ((180 - Mathf.Abs(_difAngle)) / 180);
 
-		float yStored = _rb.velocity.y;
-		_moveDirection = (_cameraRight.normalized * stickInput.x) + (_cameraForward.normalized * stickInput.y);
-		_moveDirection *= MoveSpeed * ((180 - Mathf.Abs(_difAngle)) / 180);
-		_moveDirection.y = yStored;
-
-
-		#region Gravity
-		if (IsGround())
-		{
-			_gravityScale = 1;
-			_moveDirection.y = _rb.velocity.y;
-		}
-		else
-		{
-			_moveDirection.y = _rb.velocity.y - _gravityScale;
-			if (_moveDirection.y < 0)
-				_moveDirection.y *= 1.1f;
-			if (Mathf.Abs(_moveDirection.y) > 70)
-				_moveDirection.y = -71;
-		}
-		#endregion
+		if (IsGround() && _velocity.y < 0)
+			_velocity.y = -2f;
+		else if (!IsGround() && _velocity.y <= 0)
+			_velocity.y = Physics.gravity.y;
 
 	}
-
-	void GetCamSettings()
+	void CameraSetting()
 	{
 		_cameraForward = _mainCamera.transform.forward;
 		_cameraForward.y = 0;
