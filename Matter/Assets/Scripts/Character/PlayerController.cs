@@ -30,7 +30,20 @@ public class PlayerController : Character
 
         if (Input.GetButtonDown("Jump") && IsGround())
             Jump();
-    }
+
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			_projection = !_projection;
+			if(_projection)
+			{
+				_cubeProjection.SetActive(true);
+			}
+			else
+			{
+				_cubeProjection.SetActive(false);
+			}
+		}
+	}
 
     protected override void Walk()
     {

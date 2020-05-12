@@ -64,7 +64,6 @@ public class PlayerControllerV2 : MonoBehaviour
 		InputZ = Input.GetAxis("Vertical");
 		CamInputX = Input.GetAxis("RightStickHorizontal");
 		CamInputZ = Input.GetAxis("RightStickVertical");
-
 	}
 
 	public bool IsGround()

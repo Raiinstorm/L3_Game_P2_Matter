@@ -14,6 +14,10 @@ public class Character : MonoBehaviour
     [SerializeField] LayerMask _groundMask;
     [SerializeField] Transform _groundCheck;
 
+	[SerializeField] protected bool _projection;
+	float _projectionFloat;
+	[SerializeField] protected GameObject _cubeProjection;
+
     protected Vector3 _moveDirection;
     protected Vector3 _velocity;
 
@@ -51,7 +55,15 @@ public class Character : MonoBehaviour
 
     protected virtual void Jump()
     {
-        _velocity = new Vector3(0.0f, _jumpPower, 0.0f);
+		if(_projection)
+		{
+			_projectionFloat = 1.5f;
+		}
+		else
+		{
+			_projectionFloat = 1;
+		}
+        _velocity = new Vector3(0.0f, _jumpPower * _projectionFloat, 0.0f);
     }
 
     protected virtual void Rotation()
