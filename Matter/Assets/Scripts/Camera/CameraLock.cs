@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraLock : MonoBehaviour
 {
-    [SerializeField] PlayerController _player;
+    [SerializeField] PlayerControllerV3 _player;
     List<ZoneController> Faults = new List<ZoneController>();
 
     public void Lock()

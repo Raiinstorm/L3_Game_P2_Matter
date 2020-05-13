@@ -10,7 +10,7 @@ public class ZoneDetector : MonoBehaviour
     [SerializeField] Vector3 _boxScale;
     [SerializeField] float _boxZPosition;
     [SerializeField] GameObject _cubeVisualizer;
-    [SerializeField] protected PlayerController _player;
+    [SerializeField] protected PlayerControllerV3 _player;
     private InputMechanics _mechanics;
 
     private void Update()
