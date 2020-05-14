@@ -6,14 +6,17 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 {
 	Animator _animator;
 	PlayerControllerV3 _playerController;
+	public bool _canMove;
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
 		_playerController = GetComponent<PlayerControllerV3>();
+		_canMove = true;
 	}
 	private void Update()
 	{
-		GetInput();
+		if(_canMove)
+			GetInput();
 	}
 
 	void GetInput()
