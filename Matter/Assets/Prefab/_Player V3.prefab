@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 100
   _maxHealth: 100
-  _jumpForce: 5
+  _jumpForce: 8
   _groundDistance: 0.4
   _groundMask:
     serializedVersion: 2
@@ -125,7 +125,8 @@ MonoBehaviour:
   _groundCheck: {fileID: 6966424009174562961}
   _fallingFactor: 0.025
   CanStillJump: 0
-  _extraTimeToJump: 0.2
+  _extraTimeToJump: 0.15
+  _turnAroundSpeed: 0
   MoveSpeed: 10
   _damageInfuseEnergy: 0
   _mainCamera: {fileID: 7173648767454427127}
@@ -369,11 +370,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6966424010586333634}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 41848b2d3e833d54c8b3c3be8949f630,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerMesh
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 41848b2d3e833d54c8b3c3be8949f630,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -428,6 +424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 41848b2d3e833d54c8b3c3be8949f630,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerMesh
       objectReference: {fileID: 0}
     - target: {fileID: -4431429744085825124, guid: 41848b2d3e833d54c8b3c3be8949f630,
         type: 3}
@@ -2294,11 +2295,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6966424010586333634}
     m_Modifications:
-    - target: {fileID: 5152915578601833123, guid: b5f665ea5cc2387408578f648f8582b1,
-        type: 3}
-      propertyPath: m_Name
-      value: CameraFollow
-      objectReference: {fileID: 0}
     - target: {fileID: 5152915578601833120, guid: b5f665ea5cc2387408578f648f8582b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2353,6 +2349,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152915578601833123, guid: b5f665ea5cc2387408578f648f8582b1,
+        type: 3}
+      propertyPath: m_Name
+      value: CameraFollow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5f665ea5cc2387408578f648f8582b1, type: 3}

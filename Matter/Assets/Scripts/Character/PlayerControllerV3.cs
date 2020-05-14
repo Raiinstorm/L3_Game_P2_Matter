@@ -12,6 +12,8 @@ public class PlayerControllerV3 : CharacterV3
 	public bool CanStillJump;
 	[SerializeField] float _extraTimeToJump;
 
+	[SerializeField] [Range(0,.5f)] float _turnAroundSpeed;
+
 	[SerializeField] float MoveSpeed;
 	[SerializeField] int _damageInfuseEnergy;
 
@@ -50,8 +52,6 @@ public class PlayerControllerV3 : CharacterV3
 		InputZ = Input.GetAxis("Vertical");
 		CamInputX = Input.GetAxis("RightStickHorizontal");
 		CamInputZ = Input.GetAxis("RightStickVertical");
-
-		Debug.Log("y" + _rb.velocity.y);
 	}
 
 	void ApplyVelocity()
@@ -81,19 +81,30 @@ public class PlayerControllerV3 : CharacterV3
 		else
 		{
 			_difAngle = SignedAngle(transform.forward, new Vector3(_velocity.x, 0f, _velocity.z), Vector3.up);
-			if (_difAngle > 6)
+
+			if(_difAngle > 5 || _difAngle < -5)
+			{
+				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y + _difAngle, 0), _turnAroundSpeed);
+			}
+
+			/*if (_difAngle > 6)
 				transform.Rotate(new Vector3(0f, Mathf.Min(7f, _difAngle), 0f));
 			else if (_difAngle < -4)
-				transform.Rotate(new Vector3(0f, Mathf.Max(-7f, _difAngle), 0f));
+				transform.Rotate(new Vector3(0f, Mathf.Max(-7f, _difAngle), 0f));*/
 		}
+
 		Vector2 stickInputR = new Vector2(CamInputX, CamInputZ);
 		if (stickInputR.magnitude < _deadZone)
 			stickInputR = Vector2.zero;
 
 		CameraSetting();
 		_velocity = (_cameraRight.normalized * stickInput.x) + (_cameraForward.normalized * stickInput.y);
-		_velocity *= MoveSpeed * ((180 - Mathf.Abs(_difAngle)) / 180);
-
+		_velocity = _velocity.normalized * MoveSpeed;
+		if(_velocity.magnitude > MoveSpeed)
+		{
+			_velocity -= _velocity.normalized * (_velocity.magnitude - MoveSpeed);
+			//Debug.LogError(_velocity.magnitude);
+		}
 	}
 
 	void CameraSetting()
