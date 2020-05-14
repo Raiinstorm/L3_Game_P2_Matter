@@ -1,23 +1,23 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp-Editor-firstpass.dll:
+    - AmplifyShaderEditor.ReordenatorNode
+    - AmplifyShaderEditor.TemplateMultiPass
+    - AmplifyShaderEditor.TemplatesManager
+    Assembly-CSharp-firstpass.dll:
+    - HBAO
+    - VLB.Config
+    - VLB.VolumetricLightBeam
     Assembly-CSharp.dll:
     - CameraCollision
     - CameraFollow
-    - Extrude
-    - GlareEffect
-    - Glass
     - InputMechanics
     - ModeSelection
-    - Pic
-    - PlayerAnimationEventHandler
+    - PathCreation.Examples.PathPlacer
     - PlayerController
-    - PlayerControllerV2
-    - RESTART
-    - RestartBlocking
-    - RestartNextScene
-    - SwitchCharacters
-    - ZoneController
     - ZoneDetector
+    PathCreator.dll:
+    - PathCreation.PathCreator
     Unity.Postprocessing.Runtime.dll:
     - UnityEngine.Rendering.PostProcessing.AmbientOcclusion
     - UnityEngine.Rendering.PostProcessing.AutoExposure
@@ -40,14 +40,8 @@ ScriptsOnlyBuild:
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
-    UnityEngine.UI.dll:
-    - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.StandaloneInputModule
-    - UnityEngine.UI.CanvasScaler
-    - UnityEngine.UI.GraphicRaycaster
-    - UnityEngine.UI.Text
   sceneClasses:
-    Assets/_Scenes/Blocking.unity:
+    Assets/_Scenes/Diorama.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -66,7 +60,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
-    - Class: 54
+    - Class: 49
       Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
@@ -74,13 +68,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 72
       Script: {instanceID: 0}
-    - Class: 74
-      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 90
+    - Class: 89
       Script: {instanceID: 0}
-    - Class: 91
+    - Class: 90
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
@@ -88,69 +80,49 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9798}
+      Script: {instanceID: 10414}
     - Class: 114
-      Script: {instanceID: 10060}
+      Script: {instanceID: 10480}
     - Class: 114
-      Script: {instanceID: 10168}
+      Script: {instanceID: 10668}
     - Class: 114
-      Script: {instanceID: 10188}
+      Script: {instanceID: 10914}
     - Class: 114
-      Script: {instanceID: 10224}
+      Script: {instanceID: 10970}
     - Class: 114
-      Script: {instanceID: 10348}
+      Script: {instanceID: 11008}
     - Class: 114
-      Script: {instanceID: 10518}
+      Script: {instanceID: 11052}
     - Class: 114
-      Script: {instanceID: 10604}
+      Script: {instanceID: 11132}
     - Class: 114
-      Script: {instanceID: 10670}
+      Script: {instanceID: 11796}
     - Class: 114
-      Script: {instanceID: 10756}
+      Script: {instanceID: 12300}
     - Class: 114
-      Script: {instanceID: 10870}
+      Script: {instanceID: 12382}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 12612}
     - Class: 114
-      Script: {instanceID: 11546}
+      Script: {instanceID: 12924}
     - Class: 114
-      Script: {instanceID: 11736}
+      Script: {instanceID: 13216}
     - Class: 114
-      Script: {instanceID: 11994}
+      Script: {instanceID: 13266}
     - Class: 114
-      Script: {instanceID: 12274}
+      Script: {instanceID: 13390}
     - Class: 114
-      Script: {instanceID: 12362}
+      Script: {instanceID: 13964}
     - Class: 114
-      Script: {instanceID: 12512}
+      Script: {instanceID: 14062}
     - Class: 114
-      Script: {instanceID: 13782}
+      Script: {instanceID: 14072}
     - Class: 114
-      Script: {instanceID: 13784}
-    - Class: 114
-      Script: {instanceID: 13788}
-    - Class: 114
-      Script: {instanceID: 13826}
-    - Class: 114
-      Script: {instanceID: 13846}
-    - Class: 114
-      Script: {instanceID: 13854}
-    - Class: 114
-      Script: {instanceID: 13876}
-    - Class: 114
-      Script: {instanceID: 13888}
-    - Class: 114
-      Script: {instanceID: 13944}
-    - Class: 114
-      Script: {instanceID: 13960}
+      Script: {instanceID: 14146}
     - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 135
-      Script: {instanceID: 0}
-    - Class: 136
       Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
@@ -158,81 +130,19 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
-    - Class: 222
+    - Class: 198
       Script: {instanceID: 0}
-    - Class: 223
+    - Class: 199
       Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    Assets/_Scenes/Menu_Blocking.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 108
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 9798}
-    - Class: 114
-      Script: {instanceID: 10060}
-    - Class: 114
-      Script: {instanceID: 10670}
-    - Class: 114
-      Script: {instanceID: 11994}
-    - Class: 114
-      Script: {instanceID: 12512}
-    - Class: 114
-      Script: {instanceID: 13924}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    Assets/_Scenes/SceneRestartBlocking.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 108
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 13924}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 157
+    - Class: 258
       Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: a1f19ad47d3094e235f21b74dfc423a8
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessLayer
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -241,10 +151,34 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
+      Hash: 4663ff4902e6399b2be6fae452f7bb00
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GlareEffect
+  - hash:
+      serializedVersion: 2
+      Hash: 14285c3bd5db9ec1880c467fd290624a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: PathCreation.Examples
+    className: PathSpawner
+  - hash:
+      serializedVersion: 2
       Hash: 23d669c8bf2983ca4a3df160658318a6
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineStateDrivenCamera
+  - hash:
+      serializedVersion: 2
+      Hash: 726fcf7961cbb4108aa5be5e55b8c8bf
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ColorGrading
+  - hash:
+      serializedVersion: 2
+      Hash: b13de7a0a457cb8e026d4237dc1b5797
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: LensDistortion
   - hash:
       serializedVersion: 2
       Hash: 3c08375166df118bd1801438fc36b92f
@@ -301,10 +235,28 @@ ScriptsOnlyBuild:
     className: CinemachineFixedSignal
   - hash:
       serializedVersion: 2
+      Hash: 71f7f12b8d0f4fd73590db8bcb6d453c
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Bloom
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: af93f9c42e90877a9ba31e37adfd900c
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: MotionBlur
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB_Samples
+    className: CheckIfInsideBeam
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -343,6 +295,12 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
+      Hash: 801444548c9111f7522952c554439d5f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: DynamicOcclusion
+  - hash:
+      serializedVersion: 2
       Hash: c80bc562de10fdbf8b2e9bcb89d80421
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -355,10 +313,22 @@ ScriptsOnlyBuild:
     className: Image
   - hash:
       serializedVersion: 2
+      Hash: 0eaba8fcbfa6859be3e02bfe60166ccf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: PathCreation.Examples
+    className: PathPlacer
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: TestResultRendererCallback
+  - hash:
+      serializedVersion: 2
+      Hash: f542c1afca5bb4022f91fdda19b8d622
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: DepthOfField
   - hash:
       serializedVersion: 2
       Hash: 234235b9fb07320d11497e08a726cc56
@@ -379,10 +349,34 @@ ScriptsOnlyBuild:
     className: Pic
   - hash:
       serializedVersion: 2
+      Hash: 9a43467458987b1204c65383242fd932
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: HBAO_Core
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: TFHC_Shader_Samples
+    className: highlightAnimated
+  - hash:
+      serializedVersion: 2
+      Hash: 39918277f58bc5a51c50180ee0ae13d7
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: VolumetricLightBeam
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: e8b960265987b882f89959dad76cf4b7
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: TFHC_ForceShield_Shader_Sample
+    className: ForceShieldShootBall
   - hash:
       serializedVersion: 2
       Hash: 6dd3dc11942e98c0a809c81f95fc960c
@@ -395,6 +389,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ZoneDetector
+  - hash:
+      serializedVersion: 2
+      Hash: 63d7b9b64a11859f416d72ba9a3c3fec
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ScreenSpaceReflections
   - hash:
       serializedVersion: 2
       Hash: b5eb08b578a2f2d80bb106cbe65ab501
@@ -415,6 +415,12 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
+      Hash: 38bcb4d3f9a1812fd650f92e87a4cf64
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessProfile
+  - hash:
+      serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -433,10 +439,22 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
+      Hash: e82c0521cdfe8cb6a168ef7208a98d4a
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Vignette
+  - hash:
+      serializedVersion: 2
       Hash: 36f96c190e244321e128769d9c5120ac
     assemblyName: Unity.ProBuilder.dll
     namespaceName: UnityEngine.ProBuilder
     className: ProBuilderMesh
+  - hash:
+      serializedVersion: 2
+      Hash: 9a43467458987b1204c65383242fd932
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: HBAO_Integrated
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -445,10 +463,22 @@ ScriptsOnlyBuild:
     className: AnimationTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: TFHC_ForceShield_Shader_Sample
+    className: ForceShieldImpactDetection
+  - hash:
+      serializedVersion: 2
       Hash: cf9f5cf2c3145a37ac07f00e50e460f9
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: AspectRatioFitter
+  - hash:
+      serializedVersion: 2
+      Hash: 49eb8c37ded6124fbe01515f147667dc
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB_Samples
+    className: Rotater
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -517,6 +547,30 @@ ScriptsOnlyBuild:
     className: RestartBlocking
   - hash:
       serializedVersion: 2
+      Hash: 25fbf775203417687fa2b52d7ecef31d
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: ConfigOverride
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RESTART
+  - hash:
+      serializedVersion: 2
+      Hash: d3bbd1f86b55a6168b664522b2cf57b3
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: TFHC_ForceShield_Shader_Sample
+    className: ForceShieldDestroyBall
+  - hash:
+      serializedVersion: 2
+      Hash: 7e6ed836cbaa230e56d6a2bbae1b9bb5
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessEffectSettings
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -527,6 +581,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ControlPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB_Samples
+    className: FeaturesNotSupportedMessage
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -565,6 +625,12 @@ ScriptsOnlyBuild:
     className: PlayerController
   - hash:
       serializedVersion: 2
+      Hash: a89f96dcc3dc1077c82408e3a2af7ffe
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SwitchCharacters
+  - hash:
+      serializedVersion: 2
       Hash: 380d3ba99e2d836ad5d66bded133d128
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -575,6 +641,12 @@ ScriptsOnlyBuild:
     assemblyName: NavMeshComponents.dll
     namespaceName: UnityEngine.AI
     className: NavMeshModifierVolume
+  - hash:
+      serializedVersion: 2
+      Hash: 61b9d9b6f4b6a222dfea8b131b3d3227
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ChromaticAberration
   - hash:
       serializedVersion: 2
       Hash: ad19cb719b99b9d3c52cb8dbcebbd0c3
@@ -601,6 +673,12 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerAnimationEventHandler
+  - hash:
+      serializedVersion: 2
       Hash: 7ca765ad7969aae95e8011264b9c4046
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -625,10 +703,28 @@ ScriptsOnlyBuild:
     className: ColliderBehaviour
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: Pixelize
+  - hash:
+      serializedVersion: 2
       Hash: bd543bad7f9f6262f10595aadb130d22
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineComposer
+  - hash:
+      serializedVersion: 2
+      Hash: b233df5c6f9cea11b87e4e515556b495
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: PathCreation.Examples
+    className: GeneratePathExample
+  - hash:
+      serializedVersion: 2
+      Hash: 340ccdb19c568d6ee916fb0c6f5b48f9
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: Smear
   - hash:
       serializedVersion: 2
       Hash: 15882a52798c275361cd0a3ada984ec5
@@ -637,10 +733,22 @@ ScriptsOnlyBuild:
     className: CinemachineDollyCart
   - hash:
       serializedVersion: 2
+      Hash: d6fc8d3165070298511ec776ea575626
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessResources
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SpriteAnimator
+  - hash:
+      serializedVersion: 2
+      Hash: bfd0fa381ea0fbb32773b78e2b1e2c06
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: PathCreation.Examples
+    className: RoadMeshCreator
   - hash:
       serializedVersion: 2
       Hash: 204ea02909ea3f738dafe3ff633d2a93
@@ -653,6 +761,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachinePipeline
+  - hash:
+      serializedVersion: 2
+      Hash: a53651ee3996fbba20dfe0fce02f0b23
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: AutoExposure
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -671,6 +785,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachinePath
+  - hash:
+      serializedVersion: 2
+      Hash: 50c443b12ccc0b475183318b5088bcc5
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessDebug
   - hash:
       serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
@@ -703,10 +823,22 @@ ScriptsOnlyBuild:
     className: CameraFollow
   - hash:
       serializedVersion: 2
+      Hash: 1532436743ef194dbf67c97ed7b8e9f1
+    assemblyName: PathCreator.dll
+    namespaceName: PathCreation
+    className: GlobalDisplaySettings
+  - hash:
+      serializedVersion: 2
       Hash: 7def248209dbbb7e0534d2882de85bc7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraLock
+  - hash:
+      serializedVersion: 2
+      Hash: f06e3b2b2f9c55cfea72c954f24e54e6
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB_Samples
+    className: CameraToggleBeamVisibility
   - hash:
       serializedVersion: 2
       Hash: ee1e338b53200b818750102b4ef1218a
@@ -719,6 +851,18 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 04be7c99b2995968495dfd90246b77ab
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: PostProcessExample
+  - hash:
+      serializedVersion: 2
+      Hash: cc58244422a4957810806615ac70ed26
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: SimpleGPUInstancingExample
   - hash:
       serializedVersion: 2
       Hash: 7c792393fb82488bd20139dcc5ba26d8
@@ -745,10 +889,22 @@ ScriptsOnlyBuild:
     className: CinemachineGroupComposer
   - hash:
       serializedVersion: 2
+      Hash: c786f2d98c803eb9611d2a4e6ca117c1
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: TriggerZone
+  - hash:
+      serializedVersion: 2
       Hash: dbfb4270852b0008a423a7418d9de4cf
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineSameAsFollowTarget
+  - hash:
+      serializedVersion: 2
+      Hash: 25fbf775203417687fa2b52d7ecef31d
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: Config
   - hash:
       serializedVersion: 2
       Hash: 4a639215e29265dd99e4fed19e3fa9f4
@@ -779,6 +935,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineMixingCamera
+  - hash:
+      serializedVersion: 2
+      Hash: 2023515a447b9089d205e8fe2ea2e7ac
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: PathCreation.Examples
+    className: PathFollower
   - hash:
       serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
@@ -823,16 +985,34 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 737a19db869bacb007bc3ae8f3e006ab
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB_Samples
+    className: LightGenerator
+  - hash:
+      serializedVersion: 2
       Hash: 1e3d6222ff533d213aab144eb854a53b
     assemblyName: Cinemachine.dll
     namespaceName: 
     className: CinemachineTouchInputMapper
   - hash:
       serializedVersion: 2
+      Hash: f4085ac96a989ea758b34b65909722ea
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: SimpleMoveExample
+  - hash:
+      serializedVersion: 2
       Hash: df76de5fb2b27007d514fdb38b91cf89
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineVirtualCamera
+  - hash:
+      serializedVersion: 2
+      Hash: 2b5af7d4b1b8c639706384ec9c0c961e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RestartNextScene
   - hash:
       serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
@@ -853,6 +1033,24 @@ ScriptsOnlyBuild:
     className: Entity
   - hash:
       serializedVersion: 2
+      Hash: 5455126194c7fb60e2136719105446c8
+    assemblyName: PathCreator.dll
+    namespaceName: PathCreation
+    className: PathCreator
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: BeamGeometry
+  - hash:
+      serializedVersion: 2
+      Hash: 91cf1f49fc7a01b7ecf3deda152e5ced
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: VolumetricSphere
+  - hash:
+      serializedVersion: 2
       Hash: 6225eb0973ab0af667bc5f9d1b1b18de
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -869,6 +1067,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineImpulseSource
+  - hash:
+      serializedVersion: 2
+      Hash: 9a43467458987b1204c65383242fd932
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: HBAO
   - hash:
       serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
@@ -901,6 +1105,12 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 30b8143aba59423b541c8678c5c003cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Character
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -919,10 +1129,22 @@ ScriptsOnlyBuild:
     className: CinemachineHardLookAt
   - hash:
       serializedVersion: 2
+      Hash: 779875a740835de4ab50759cec779d32
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerControllerV2
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: MarkerTrack
+  - hash:
+      serializedVersion: 2
+      Hash: e377b50a1af82f705be963a97353a51c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExtrudeSchematic
   - hash:
       serializedVersion: 2
       Hash: d791aa6007fa3640be1164ea75bb087d
@@ -937,10 +1159,34 @@ ScriptsOnlyBuild:
     className: CameraCollision
   - hash:
       serializedVersion: 2
+      Hash: 0c78f51dfef1bc60e8c44b24510a613a
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB_Samples
+    className: FreeCameraController
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: SpriteMaskController
+  - hash:
+      serializedVersion: 2
+      Hash: d5630f96bd5a6a6eed7e1754c3fb8703
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessVolume
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InputMechanics
+  - hash:
+      serializedVersion: 2
+      Hash: d0987ce3e9092dbe0fa30d73f333fffa
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Grain
   - hash:
       serializedVersion: 2
       Hash: df434544c9f7b33d1cc7e635b180d279
@@ -955,10 +1201,22 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
+      Hash: 6d6593e39d5e343235e560eddad0292c
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: VLB
+    className: VolumetricDustParticles
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayModeRunnerCallback
+  - hash:
+      serializedVersion: 2
+      Hash: ac6acd886c54c48c599ab5fed5781ea7
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: AmbientOcclusion
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1069,157 +1327,17 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: a1f19ad47d3094e235f21b74dfc423a8
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: PostProcessLayer
-  - hash:
-      serializedVersion: 2
-      Hash: 4663ff4902e6399b2be6fae452f7bb00
+      Hash: 4701124375376784d36e75448a05319a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: GlareEffect
-  - hash:
-      serializedVersion: 2
-      Hash: 726fcf7961cbb4108aa5be5e55b8c8bf
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: ColorGrading
-  - hash:
-      serializedVersion: 2
-      Hash: b13de7a0a457cb8e026d4237dc1b5797
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: LensDistortion
-  - hash:
-      serializedVersion: 2
-      Hash: 71f7f12b8d0f4fd73590db8bcb6d453c
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: Bloom
-  - hash:
-      serializedVersion: 2
-      Hash: af93f9c42e90877a9ba31e37adfd900c
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: MotionBlur
-  - hash:
-      serializedVersion: 2
-      Hash: f542c1afca5bb4022f91fdda19b8d622
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: DepthOfField
-  - hash:
-      serializedVersion: 2
-      Hash: 63d7b9b64a11859f416d72ba9a3c3fec
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: ScreenSpaceReflections
-  - hash:
-      serializedVersion: 2
-      Hash: 38bcb4d3f9a1812fd650f92e87a4cf64
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: PostProcessProfile
-  - hash:
-      serializedVersion: 2
-      Hash: e82c0521cdfe8cb6a168ef7208a98d4a
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: Vignette
+    className: GE_UIResponder
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: RESTART
-  - hash:
-      serializedVersion: 2
-      Hash: 7e6ed836cbaa230e56d6a2bbae1b9bb5
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: PostProcessEffectSettings
-  - hash:
-      serializedVersion: 2
-      Hash: a89f96dcc3dc1077c82408e3a2af7ffe
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SwitchCharacters
-  - hash:
-      serializedVersion: 2
-      Hash: 61b9d9b6f4b6a222dfea8b131b3d3227
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: ChromaticAberration
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerAnimationEventHandler
-  - hash:
-      serializedVersion: 2
-      Hash: d6fc8d3165070298511ec776ea575626
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: PostProcessResources
-  - hash:
-      serializedVersion: 2
-      Hash: a53651ee3996fbba20dfe0fce02f0b23
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: AutoExposure
-  - hash:
-      serializedVersion: 2
-      Hash: 50c443b12ccc0b475183318b5088bcc5
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: PostProcessDebug
-  - hash:
-      serializedVersion: 2
-      Hash: 2b5af7d4b1b8c639706384ec9c0c961e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: RestartNextScene
-  - hash:
-      serializedVersion: 2
-      Hash: 779875a740835de4ab50759cec779d32
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerControllerV2
-  - hash:
-      serializedVersion: 2
-      Hash: e377b50a1af82f705be963a97353a51c
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ExtrudeSchematic
-  - hash:
-      serializedVersion: 2
-      Hash: d5630f96bd5a6a6eed7e1754c3fb8703
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: PostProcessVolume
-  - hash:
-      serializedVersion: 2
-      Hash: d0987ce3e9092dbe0fa30d73f333fffa
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: Grain
-  - hash:
-      serializedVersion: 2
-      Hash: ac6acd886c54c48c599ab5fed5781ea7
-    assemblyName: Unity.Postprocessing.Runtime.dll
-    namespaceName: UnityEngine.Rendering.PostProcessing
-    className: AmbientOcclusion
-  - hash:
-      serializedVersion: 2
-      Hash: 30b8143aba59423b541c8678c5c003cc
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Character
+    className: GE_ToggleFullScreenUI
   platform: 5
   scenePathNames:
-  - Assets/_Scenes/Menu_Blocking.unity
-  - Assets/_Scenes/SceneRestartBlocking.unity
-  - Assets/_Scenes/Blocking.unity
-  playerPath: C:/Users/Guillaume/Desktop/BlockingV4/Matter_Blocking.exe
+  - Assets/_Scenes/Diorama.unity
+  playerPath: D:/Pole 3D 3e annee/platformer3d_L3/_Shape_Fx/buildDiorama/Matter_Blocking.exe

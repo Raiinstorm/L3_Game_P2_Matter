@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7feba3f05571ae64ea719bf50b76f23f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _AlphaOutline: {fileID: 2800000, guid: da2cc4c8e852a8846860172a4a6c99ab, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Blocking.unity
     guid: aa587adb039323c4ebf779170f277941
+  - enabled: 0
+    path: Assets/_Scenes/Diorama.unity
+    guid: 50bb5b14a3691664f9b3c43afc768a99
   m_configObjects: {}
