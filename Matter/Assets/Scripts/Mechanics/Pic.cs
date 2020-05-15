@@ -26,7 +26,7 @@ public class Pic : GenericElement
 	{
 		if (collision.gameObject.tag == "Character")
 		{
-			collision.GetComponent<CharacterV2>().GetDamage(30);
+			collision.GetComponent<CharacterV3>().GetDamage(30);
 			Debug.Log("Degat sur player");
 		}
 	}
