@@ -5,15 +5,22 @@ using UnityEngine;
 public class PlayerControllerV3 : CharacterV3
 {
 	Vector3 _velocity;
+	Vector3 _rotation;
 	float _deadZone = 0.2f;
 	float _difAngle;
-	protected IEnumerator _lastFrameJump;
+	protected IEnumerator _jumpBuffer;
 	public bool CanStillJump;
 	public bool _canMove;
 
 	[SerializeField] float _extraTimeToJump;
 	[SerializeField] [Range(0,.5f)] float _turnAroundSpeed;
+
+	[SerializeField] [Range(0,1f)] float _smoothDamping;
+	float _smoothInput;
+	float _refSmoothInput;
+	float _smoothInputTarget;
 	[SerializeField] float MoveSpeed;
+
 	[SerializeField] int _damageInfuseEnergy;
 
 	public float InputX { get; private set; }
@@ -35,7 +42,7 @@ public class PlayerControllerV3 : CharacterV3
 		_health = 100;
 		FastRun = false;
 		_rb = GetComponent<Rigidbody>();
-		_lastFrameJump = LastFrameJump();
+		_jumpBuffer = JumpBuffer();
 		_canMove = true;
 	}
 	private void FixedUpdate()
@@ -58,14 +65,14 @@ public class PlayerControllerV3 : CharacterV3
 		{
 			if(!CanStillJump)
 			{
-				StartCoroutine(_lastFrameJump);
+				StartCoroutine(_jumpBuffer);
 			}
 			y = _rb.velocity.y -_fallingFactor;
 		}
 		else
 		{
 			y = _rb.velocity.y;
-			_lastFrameJump = LastFrameJump();
+			_jumpBuffer = JumpBuffer();
 		}
 		_rb.velocity = new Vector3(_velocity.x, y, _velocity.z);
 	}
@@ -73,20 +80,19 @@ public class PlayerControllerV3 : CharacterV3
 	{
 		Vector2 stickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		if (stickInput.magnitude < _deadZone)
+		{
 			stickInput = Vector2.zero;
+			_smoothInputTarget = 0;
+		}
 		else
 		{
-			_difAngle = SignedAngle(transform.forward, new Vector3(_velocity.x, 0f, _velocity.z), Vector3.up);
+			_smoothInputTarget = 1;
+			_difAngle = SignedAngle(transform.forward, new Vector3(_rotation.x, 0f, _rotation.z), Vector3.up);
 
 			if(_difAngle > 5 || _difAngle < -5)
 			{
 				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y + _difAngle, 0), _turnAroundSpeed);
 			}
-
-			/*if (_difAngle > 6)
-				transform.Rotate(new Vector3(0f, Mathf.Min(7f, _difAngle), 0f));
-			else if (_difAngle < -4)
-				transform.Rotate(new Vector3(0f, Mathf.Max(-7f, _difAngle), 0f));*/
 		}
 
 		Vector2 stickInputR = new Vector2(CamInputX, CamInputZ);
@@ -94,12 +100,22 @@ public class PlayerControllerV3 : CharacterV3
 			stickInputR = Vector2.zero;
 
 		CameraSetting();
-		_velocity = (_cameraRight.normalized * stickInput.x) + (_cameraForward.normalized * stickInput.y);
-		_velocity = _velocity.normalized * MoveSpeed;
-		if(_velocity.magnitude > MoveSpeed)
+
+		_velocity = (_cameraRight.normalized * stickInput.x) + (_cameraForward.normalized * stickInput.y); // get orientation
+		_rotation = _velocity;
+
+		if (!_isJumpingOnSpot)
 		{
-			_velocity -= _velocity.normalized * (_velocity.magnitude - MoveSpeed);
-			//Debug.LogError(_velocity.magnitude);
+			_smoothInput = Mathf.SmoothDamp(_smoothInput, _smoothInputTarget, ref _refSmoothInput, _smoothDamping); //augmentation progressive de la vitesse
+			_velocity = _velocity.normalized * MoveSpeed * _smoothInput;
+			if (_velocity.magnitude > MoveSpeed)
+			{
+				_velocity -= _velocity.normalized * (_velocity.magnitude - MoveSpeed);
+			}
+		}
+		else
+		{
+			_velocity = Vector3.zero;
 		}
 	}
 
@@ -124,10 +140,15 @@ public class PlayerControllerV3 : CharacterV3
 		Debug.Log("vie du joueur à : " + Health);
 
 	}
-	IEnumerator LastFrameJump()
+	IEnumerator JumpBuffer()
 	{
 		CanStillJump = true;
 		yield return new WaitForSeconds(_extraTimeToJump);
 		CanStillJump = false;
+	}
+
+	public void IsJumpingOnSpot()
+	{
+		_isJumpingOnSpot = true;
 	}
 }

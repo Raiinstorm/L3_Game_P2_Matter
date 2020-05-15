@@ -11,6 +11,8 @@ public abstract class CharacterV3 : MonoBehaviour
 	[SerializeField] LayerMask _groundMask;
 	[SerializeField] Transform _groundCheck;
 
+	protected bool _isJumpingOnSpot;
+
 	[SerializeField] [Range(0,.1f)] protected float _fallingFactor;
 
 	protected Rigidbody _rb;
@@ -37,6 +39,7 @@ public abstract class CharacterV3 : MonoBehaviour
 
 	public virtual void Jump()
 	{
+		_isJumpingOnSpot = false;
 		_rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
 		_rb.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
 	}
@@ -45,4 +48,5 @@ public abstract class CharacterV3 : MonoBehaviour
 	{
 		_health -= Damage;
 	}
+
 }
