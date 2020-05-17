@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LightExtrude
+  m_Shader: {fileID: 4800000, guid: 47a2c22f26df1ba4e8174b7da1a1a2bc, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _Albedo: 2
+    - _Cutoff: 0.5
+    - _DepthDistance: 1
+    - _DistanceGradientAlpha: -1
+    - _PositionGradientAlpha: 0
+    - __dirty: 0
+    - _depthDistance: 4.7
+    - _depthDistance1: 1
+    m_Colors:
+    - _ColorAlbedo: {r: 5.992157, g: 4.329412, b: 4.329412, a: 0}
+    - _ColorHDRemissive: {r: 0.7037376, g: 0.5588504, b: 0.98833734, a: 0}
