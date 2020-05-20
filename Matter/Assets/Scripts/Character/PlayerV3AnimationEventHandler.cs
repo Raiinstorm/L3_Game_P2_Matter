@@ -16,7 +16,9 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	private void Update()
 	{
 		if(_canMove)
+		{
 			GetInput();
+		}
 	}
 
 	void GetInput()
@@ -34,4 +36,5 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	{
 		_animator.SetBool("jump", false);
 	}
+
 }
