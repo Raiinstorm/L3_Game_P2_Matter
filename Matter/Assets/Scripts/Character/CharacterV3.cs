@@ -10,10 +10,10 @@ public abstract class CharacterV3 : MonoBehaviour
 	[SerializeField] float _groundDistance = 0.4f;
 	[SerializeField] LayerMask _groundMask;
 	[SerializeField] Transform _groundCheck;
+	[SerializeField] protected Transform _inputCheckerTransform;
+	protected Transform _thisTransform;
 
 	protected bool _isJumpingOnSpot;
-
-	[SerializeField] [Range(0,.1f)] protected float _fallingFactor;
 
 	protected Rigidbody _rb;
 
@@ -30,11 +30,16 @@ public abstract class CharacterV3 : MonoBehaviour
 
 	public virtual bool IsGround()
 	{
+		//bool _isGround = Physics.CheckBox(_groundCheck.position, new Vector3(0, _groundDistance, 0),Quaternion.identity,_groundMask);
 		bool _isGround = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
 		if (_isGround)
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 
 	public virtual void Jump()
@@ -47,6 +52,11 @@ public abstract class CharacterV3 : MonoBehaviour
 	public virtual void GetDamage(int Damage)
 	{
 		_health -= Damage;
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawWireSphere(_groundCheck.position, _groundDistance);
 	}
 
 }

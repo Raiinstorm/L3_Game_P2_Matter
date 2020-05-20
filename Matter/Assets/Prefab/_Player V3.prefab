@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4093206970104508197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6863188978145912455}
+  - component: {fileID: 8505756999050831557}
+  m_Layer: 0
+  m_Name: WallDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6863188978145912455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093206970104508197}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6966424010586333634}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8505756999050831557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093206970104508197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dc99b742348eb47b290aac4bbe35c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallDetected: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &6966424009174562966
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +147,8 @@ Transform:
   - {fileID: 7173648767827863901}
   - {fileID: 2823581940718549384}
   - {fileID: 6966424009174562961}
+  - {fileID: 6863188978145912455}
+  - {fileID: 5261094391745510091}
   m_Father: {fileID: 6966424009771481343}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -117,20 +166,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 100
   _maxHealth: 100
-  _jumpForce: 8
+  _jumpForce: 12
   _groundDistance: 0.4
   _groundMask:
     serializedVersion: 2
     m_Bits: 256
   _groundCheck: {fileID: 6966424009174562961}
-  _fallingFactor: 0.03
+  _inputCheckerTransform: {fileID: 0}
   CanStillJump: 0
   _canMove: 0
   _extraTimeToJump: 0.15
   _turnAroundSpeed: 0.2
   _smoothDamping: 0.3
   MoveSpeed: 10
+  _runMultiplicator: 2
+  _maxSlopeAngle: 45
   _damageInfuseEnergy: 0
+  _slopeDetector: {fileID: 3054874260983058918}
   _mainCamera: {fileID: 7173648767454427127}
 --- !u!114 &6966424010586333689
 MonoBehaviour:
@@ -217,7 +269,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6966424010586333635}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 05c601b28a1103f4496f7eda69e9b7ea, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35
@@ -240,6 +292,54 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!1 &8739295942357924131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5261094391745510091}
+  - component: {fileID: 3054874260983058918}
+  m_Layer: 0
+  m_Name: SlopeDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5261094391745510091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739295942357924131}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6966424010586333634}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3054874260983058918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739295942357924131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5fad294138af841a4bf7a2ced163c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _checkDistance: 0.1
+  slopeAngles: 0
+  slopeDirection: {x: 0, y: 0, z: 0}
+  isOnSlope: 0
+  debugRayCast: 1
 --- !u!1001 &6966424009176149473
 PrefabInstance:
   m_ObjectHideFlags: 0
