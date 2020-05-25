@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControllerV3 : CharacterV3
 {
+
 	Vector3 _velocity;
 	Vector3 _rotation;
 	float _deadZone = 0.2f;
@@ -16,23 +17,37 @@ public class PlayerControllerV3 : CharacterV3
 	Vector3 _velocityMemory;
 	Vector3 _rbMemory;
 
-	[SerializeField] float _extraTimeToJump;
-	[SerializeField] [Range(0,.5f)] float _turnAroundSpeed;
-
-	[SerializeField] [Range(0,1f)] float _smoothDamping;
+	[Header ("Velocity")]
+	[SerializeField] [Range(0, 1f)] float _smoothDamping;
 	float _smoothInput;
 	float _refSmoothInput;
 	float _smoothInputTarget;
 	[SerializeField] float MoveSpeed;
-	[SerializeField] [Range(1,3)] float _runMultiplicator;
+	[SerializeField] [Range(1, 3)] float _runMultiplicator;
 	[SerializeField] float _maxSlopeAngle;
 	float _moveSpeedRun;
-
 	bool _isRunning;
+	bool _nerfVelocity;
+	[SerializeField] float _extraTimeToJump;
+	[SerializeField] [Range(0, .5f)] float _turnAroundSpeed;
 
+	[Header("")]
 	[SerializeField] int _damageInfuseEnergy;
 	[SerializeField] SlopeDetector _slopeDetector;
-	bool _nerfVelocity;
+
+	[HideInInspector] public bool IsJumping;
+
+	[Header ("Propulsion")]
+	public Vector3 PropulsionVector;
+	[SerializeField] AnimationCurve _propulsionCurve;
+	[SerializeField] float _propulsionTime;
+	[SerializeField] float _propulsionPower;
+	float _propulsionIntensity;
+	float _lerpValue;
+	[HideInInspector] public bool _propulsed;
+	float _propulsionInterpolator;
+
+	[SerializeField] float _fallMultiplicator;
 
 	public float InputX { get; private set; }
 	public float InputZ { get; private set; }
@@ -60,7 +75,7 @@ public class PlayerControllerV3 : CharacterV3
 	}
 	private void FixedUpdate()
 	{
-		if(_canMove)
+		if (_canMove)
 		{
 			ApplyVelocity();
 			MoveInput();
@@ -77,14 +92,19 @@ public class PlayerControllerV3 : CharacterV3
 		CamInputX = Input.GetAxis("RightStickHorizontal");
 		CamInputZ = Input.GetAxis("RightStickVertical");
 
-		if(Input.GetButtonDown("Run"))
+		if (Input.GetButtonDown("Run"))
 		{
 			_isRunning = true;
+		}
+
+		if(_propulsed)
+		{
+			Propulsion();
 		}
 	}
 	void ApplyVelocity()
 	{
-		if(_gameIsPaused)
+		if (_gameIsPaused)
 		{
 			_gameIsPaused = false;
 			_rb.velocity = _rbMemory;
@@ -93,9 +113,9 @@ public class PlayerControllerV3 : CharacterV3
 		}
 
 		float y = 0;
-		if(!IsGround())
+		if (!IsGround())
 		{
-			if(!CanStillJump)
+			if (!CanStillJump)
 			{
 				StartCoroutine(_jumpBuffer);
 			}
@@ -104,8 +124,40 @@ public class PlayerControllerV3 : CharacterV3
 		{
 			_jumpBuffer = JumpBuffer();
 		}
+
 		y = _rb.velocity.y;
-		_rb.velocity = new Vector3(_velocity.x, y, _velocity.z);
+
+
+		if(y <0) //la ligne de code magique
+		{
+			y += Vector3.up.y * Physics.gravity.y * (_fallMultiplicator - 1) * Time.deltaTime;
+		}
+
+		if (_nerfVelocity && y >= 10 && !IsJumping)
+		{
+			_rb.velocity = new Vector3(_velocity.x, y / 2, _velocity.z);
+		}
+		else
+		{
+			_rb.velocity = (new Vector3(_velocity.x , y, _velocity.z) + (PropulsionVector*_propulsionIntensity));
+			PropulsionVector.y *= 1/(-Physics.gravity.y*.1f);
+		}
+	}
+
+	void Propulsion()
+	{
+		_lerpValue = Mathf.Lerp(0, 1, _propulsionInterpolator);
+		_propulsionIntensity = _propulsionCurve.Evaluate(_lerpValue) * _propulsionPower;
+
+		_propulsionInterpolator += Time.deltaTime / _propulsionTime;
+
+		if(_propulsionIntensity <= .01f)
+		{
+			_propulsed = false;
+			_propulsionIntensity = 0;
+			_lerpValue = 0;
+			_propulsionInterpolator = 0;
+		}
 	}
 	void MoveInput()
 	{
@@ -141,9 +193,11 @@ public class PlayerControllerV3 : CharacterV3
 		{
 			_smoothInput = Mathf.SmoothDamp(_smoothInput, _smoothInputTarget, ref _refSmoothInput, _smoothDamping); //augmentation progressive de la vitesse
 
-			if(_nerfVelocity)
+
+
+			if (_nerfVelocity)
 			{
-				_velocity = (_velocity.normalized * MoveSpeed * _smoothInput)/MoveSpeed;
+				_velocity = (_velocity.normalized * MoveSpeed * _smoothInput) / MoveSpeed;
 			}
 			else
 			{
@@ -155,7 +209,7 @@ public class PlayerControllerV3 : CharacterV3
 			{
 				_velocity -= _velocity.normalized * (_velocity.magnitude - MoveSpeed);
 			}
-			if(_isRunning && _velocity.magnitude > _moveSpeedRun)
+			if (_isRunning && _velocity.magnitude > _moveSpeedRun)
 			{
 				_velocity -= _velocity.normalized * (_velocity.magnitude - _moveSpeedRun);
 			}
@@ -201,7 +255,7 @@ public class PlayerControllerV3 : CharacterV3
 
 	void PauseState()
 	{
-		if(!_gameIsPaused)
+		if (!_gameIsPaused)
 		{
 			_gameIsPaused = true;
 			_velocityMemory = _velocity;
@@ -214,10 +268,11 @@ public class PlayerControllerV3 : CharacterV3
 
 	void CheckSlope()
 	{
-		if(_slopeDetector.isOnSlope && _slopeDetector.slopeAngles >= _maxSlopeAngle && IsGround())
+		if (_slopeDetector.isOnSlope && _slopeDetector.slopeAngles >= _maxSlopeAngle)
 		{
 			_smoothInputTarget = 0;
 			_nerfVelocity = true;
+			Debug.LogWarning(_slopeDetector.slopeAngles);
 		}
 		else
 		{
@@ -228,7 +283,7 @@ public class PlayerControllerV3 : CharacterV3
 
 	float SmoothInput()
 	{
-		if(_isRunning)
+		if (_isRunning)
 		{
 			return _runMultiplicator;
 		}
@@ -237,21 +292,4 @@ public class PlayerControllerV3 : CharacterV3
 			return 1;
 		}
 	}
-
-	/*void CheckWalls()
-	{
-		_wallDetectorTransform.position = new Vector3(_thisTransform.position.x + (_velocity.normalized.x/2), _wallDetectorTransform.position.y, _thisTransform.position.z + (_velocity.normalized.z/2));
-		if(_wallDetector.WallDetected && !IsGround())
-		{
-			_smoothInputTarget = 0;
-		}
-		else if (_isRunning)
-		{
-			_smoothInputTarget = _runMultiplicator;
-		}
-		else
-		{
-			_smoothInputTarget = 1;
-		}
-	}*/
 }

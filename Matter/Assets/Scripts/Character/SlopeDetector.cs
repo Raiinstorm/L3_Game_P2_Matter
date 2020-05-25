@@ -32,7 +32,7 @@ public class SlopeDetector : MonoBehaviour
         RaycastHit hitUnderPlayer;
         RaycastHit hitCheckSlope;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hitUnderPlayer))
+        if (Physics.Raycast(transform.position, Vector3.down*.5f, out hitUnderPlayer))
         {
             _underPlayerPoint = hitUnderPlayer.point;
             _underPlayerNormal = hitUnderPlayer.normal;
@@ -54,8 +54,9 @@ public class SlopeDetector : MonoBehaviour
                 isOnSlope = false;
             else
                 isOnSlope = true;
-            Debug.Log("slopeAngles == " + slopeAngles);
-            Debug.Log("isOnSlope == " + isOnSlope);
+
+            /*Debug.Log("slopeAngles == " + slopeAngles);
+            Debug.Log("isOnSlope == " + isOnSlope);*/
         }
     }
 

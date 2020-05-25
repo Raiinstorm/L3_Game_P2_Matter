@@ -4,13 +4,15 @@ using UnityEngine;
 
 public abstract class CharacterV3 : MonoBehaviour
 {
+	[Header ("Stats")]
 	[SerializeField] protected int _health;
 	[SerializeField] protected int _maxHealth;
 	[SerializeField] protected float _jumpForce;
+
+	[Header ("Ground")]
 	[SerializeField] float _groundDistance = 0.4f;
 	[SerializeField] LayerMask _groundMask;
 	[SerializeField] Transform _groundCheck;
-	[SerializeField] protected Transform _inputCheckerTransform;
 	protected Transform _thisTransform;
 
 	protected bool _isJumpingOnSpot;
@@ -30,8 +32,8 @@ public abstract class CharacterV3 : MonoBehaviour
 
 	public virtual bool IsGround()
 	{
-		//bool _isGround = Physics.CheckBox(_groundCheck.position, new Vector3(0, _groundDistance, 0),Quaternion.identity,_groundMask);
-		bool _isGround = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
+		bool _isGround = Physics.CheckBox(_groundCheck.position, new Vector3(0, _groundDistance, 0),Quaternion.identity,_groundMask);
+		//bool _isGround = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
 		if (_isGround)
 		{
 			return true;

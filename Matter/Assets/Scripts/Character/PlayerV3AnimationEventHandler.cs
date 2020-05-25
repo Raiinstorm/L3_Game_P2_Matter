@@ -29,12 +29,14 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 		{
 			_playerController.CanStillJump = false;
 			_animator.SetBool("jump", true);
+			_playerController.IsJumping = true;
 		}
 	}
 
 	public void IsJump()
 	{
 		_animator.SetBool("jump", false);
+		_playerController.IsJumping = false;
 	}
 
 }
