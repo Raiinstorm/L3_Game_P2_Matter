@@ -4,13 +4,15 @@ using UnityEngine;
 
 public abstract class CharacterV3 : MonoBehaviour
 {
+	[Header ("Stats")]
 	[SerializeField] protected int _health;
 	[SerializeField] protected int _maxHealth;
 	[SerializeField] protected float _jumpForce;
+
+	[Header ("Ground")]
 	[SerializeField] float _groundDistance = 0.4f;
 	[SerializeField] LayerMask _groundMask;
 	[SerializeField] Transform _groundCheck;
-	[SerializeField] protected Transform _inputCheckerTransform;
 	protected Transform _thisTransform;
 
 	protected bool _isJumpingOnSpot;

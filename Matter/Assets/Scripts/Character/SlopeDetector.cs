@@ -14,13 +14,15 @@ public class SlopeDetector : MonoBehaviour
 
     private Vector3 _oneNormalPoint;
 
-    [HideInInspector] public float slopeAngles;
+    [HideInInspector] public float SlopeAngles;
 
-    [HideInInspector] public Vector3 slopeDirection;
+    [HideInInspector] public Vector3 SlopeDirection;
 
-    [HideInInspector] public bool isOnSlope = false;
+    [HideInInspector] public bool IsOnSlope = false;
 
-    public bool debugRayCast = true;
+	[HideInInspector] public float SlopeDistance;
+
+    public bool DebugRayCast = true;
 
     private void Update()
     {
@@ -37,8 +39,9 @@ public class SlopeDetector : MonoBehaviour
             _underPlayerPoint = hitUnderPlayer.point;
             _underPlayerNormal = hitUnderPlayer.normal;
             _underPlayerCollider = hitUnderPlayer.collider;
+			SlopeDistance = hitUnderPlayer.distance;
 
-            _oneNormalPoint = _underPlayerPoint + (_underPlayerNormal.normalized * _checkDistance);
+			_oneNormalPoint = _underPlayerPoint + (_underPlayerNormal.normalized * _checkDistance);
 
             Physics.Raycast(transform.position, _oneNormalPoint - transform.position, out hitCheckSlope);
 
@@ -47,13 +50,13 @@ public class SlopeDetector : MonoBehaviour
             else
                 _checkingPoint = _underPlayerPoint;
 
-            slopeDirection = ((_checkingPoint - _underPlayerPoint).normalized * 1);
-            slopeAngles = Mathf.Abs(Vector3.Angle(Vector3.down, slopeDirection) - 90);
+            SlopeDirection = ((_checkingPoint - _underPlayerPoint).normalized * 1);
+            SlopeAngles = Mathf.Abs(Vector3.Angle(Vector3.down, SlopeDirection) - 90);
 
-            if (slopeAngles <= 10 || slopeAngles == 90)
-                isOnSlope = false;
+            if (SlopeAngles <= 10 || SlopeAngles == 90)
+                IsOnSlope = false;
             else
-                isOnSlope = true;
+                IsOnSlope = true;
 
             /*Debug.Log("slopeAngles == " + slopeAngles);
             Debug.Log("isOnSlope == " + isOnSlope);*/
@@ -62,12 +65,12 @@ public class SlopeDetector : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (debugRayCast)
+        if (DebugRayCast)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, _underPlayerPoint - transform.position);
 
-            if (isOnSlope)
+            if (IsOnSlope)
             {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawRay(_underPlayerPoint, _underPlayerNormal);
@@ -76,7 +79,7 @@ public class SlopeDetector : MonoBehaviour
                 Gizmos.DrawRay(transform.position, _oneNormalPoint - transform.position);
 
                 Gizmos.color = Color.black;
-                Gizmos.DrawRay(_underPlayerPoint, slopeDirection);
+                Gizmos.DrawRay(_underPlayerPoint, SlopeDirection);
             }
         }   
     }

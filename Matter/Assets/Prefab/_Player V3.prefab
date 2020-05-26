@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6966424010586333690}
   m_Layer: 0
   m_Name: PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,10 +172,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _groundCheck: {fileID: 6966424009174562961}
-  _inputCheckerTransform: {fileID: 0}
   CanStillJump: 0
   _canMove: 0
-  _extraTimeToJump: 0.15
+  _extraTimeToJump: 0.1
   _turnAroundSpeed: 0.2
   _smoothDamping: 0.3
   MoveSpeed: 10
@@ -183,6 +182,37 @@ MonoBehaviour:
   _maxSlopeAngle: 45
   _damageInfuseEnergy: 0
   _slopeDetector: {fileID: 3054874260983058918}
+  IsJumping: 0
+  PropulsionVector: {x: 0, y: 0, z: 0}
+  _propulsionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.0583184
+      outSlope: -2.0583184
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.04583335
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _propulsionTime: 1.5
+  _propulsionPower: 20
+  _propulsionIntensity: 0
+  _propulsed: 0
+  _fallMultiplicator: 1.75
   _mainCamera: {fileID: 7173648767454427127}
 --- !u!114 &6966424010586333689
 MonoBehaviour:
