@@ -19,8 +19,8 @@ public class CameraFollow : MonoBehaviour
     public float finalInputZ;
     public float smoothX;
     public float smoothY;
-    private float rotX = 0.0f; // rotation cam
-    private float rotY = 0.0f;
+    [HideInInspector] public float rotX = 0.0f; // rotation cam
+    [HideInInspector] public float rotY = 0.0f;
         
     void Start()
     {

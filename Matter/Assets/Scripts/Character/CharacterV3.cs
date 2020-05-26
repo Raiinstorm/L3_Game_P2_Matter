@@ -19,6 +19,8 @@ public abstract class CharacterV3 : MonoBehaviour
 
 	protected Rigidbody _rb;
 
+	[HideInInspector] public Vector3 RespawnPosition;
+
 	public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
 	public int Health
 	{
