@@ -174,12 +174,12 @@ MonoBehaviour:
   _groundCheck: {fileID: 6966424009174562961}
   CanStillJump: 0
   _canMove: 0
-  _extraTimeToJump: 0.1
-  _turnAroundSpeed: 0.2
   _smoothDamping: 0.3
   MoveSpeed: 10
   _runMultiplicator: 1.6
   _maxSlopeAngle: 45
+  _extraTimeToJump: 0.1
+  _turnAroundSpeed: 0.2
   _damageInfuseEnergy: 0
   _slopeDetector: {fileID: 3054874260983058918}
   IsJumping: 0
@@ -210,10 +210,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   _propulsionTime: 1.5
   _propulsionPower: 20
-  _propulsionIntensity: 0
   _propulsed: 0
   _fallMultiplicator: 1.75
   _mainCamera: {fileID: 7173648767454427127}
+  _cameraFollow: {fileID: 7173648767827863902}
 --- !u!114 &6966424010586333689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,10 +366,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkDistance: 0.1
-  slopeAngles: 0
-  slopeDirection: {x: 0, y: 0, z: 0}
-  isOnSlope: 0
-  debugRayCast: 1
+  SlopeAngles: 0
+  SlopeDirection: {x: 0, y: 0, z: 0}
+  IsOnSlope: 0
+  SlopeDistance: 0
+  DebugRayCast: 1
 --- !u!1001 &6966424009176149473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -490,6 +491,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6966424009176149473}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7173648767827863902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 225283549949723839, guid: 19029af8acd799f49930d0ed2e4ca496,
+    type: 3}
+  m_PrefabInstance: {fileID: 6966424009176149473}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045172d8366675f40a434ed6b2b67061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &7173648767454427127 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 225283549576059414, guid: 19029af8acd799f49930d0ed2e4ca496,

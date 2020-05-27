@@ -27,6 +27,7 @@ public class Extrude : GenericElement
 		_propulsionScript = _propulsionGameObject.GetComponent<Propulsion>();
 
 		_propulsionScript._direction = transform.up;
+
 		_propulsionScript.ClippingTransform.position = transform.position + transform.up*_distance;
 	}
 	private void Update()

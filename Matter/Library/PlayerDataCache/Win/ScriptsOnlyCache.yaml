@@ -45,6 +45,14 @@ ScriptsOnlyBuild:
     Unity.ProBuilder.dll:
     - UnityEngine.ProBuilder.PolyShape
     - UnityEngine.ProBuilder.ProBuilderMesh
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationBlendTree.Node
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -55,9 +63,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
-    - UnityEngine.UI.Text
   sceneClasses:
-    Assets/_Scenes/Blocking.unity:
+    Assets/_Scenes/Game.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -215,7 +222,13 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -225,8 +238,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 10244}
-    - Class: 114
-      Script: {instanceID: 10660}
     - Class: 114
       Script: {instanceID: 10764}
     - Class: 114
@@ -243,13 +254,15 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14688}
     - Class: 115
       Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 198
       Script: {instanceID: 0}
     - Class: 199
+      Script: {instanceID: 0}
+    - Class: 210
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -258,6 +271,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 331
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -850,7 +865,7 @@ ScriptsOnlyBuild:
     className: CinemachineTargetGroup
   - hash:
       serializedVersion: 2
-      Hash: f5adb0687ae1598ee72a0b9924b4f4a7
+      Hash: b668d93c7f63a05b7e527111b4b81a75
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraFollow
@@ -886,7 +901,7 @@ ScriptsOnlyBuild:
     className: SlopeDetector
   - hash:
       serializedVersion: 2
-      Hash: 74b1364b95e1112007e92395aa43b7ca
+      Hash: f9fb4c49cd24aee369bf412c88e83912
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerControllerV3
@@ -1340,8 +1355,20 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: c30d1ccf409e304cd6c87933965ec84e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CheckPoint
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: OptionMenu
   platform: 5
   scenePathNames:
   - Assets/_Scenes/Menu.unity
-  - Assets/_Scenes/Blocking.unity
-  playerPath: "C:/Users/Rapha\xEBl/Desktop/BluidDu26.05/Matter_Blocking.exe"
+  - Assets/_Scenes/Game.unity
+  playerPath: "C:/Users/Rapha\xEBl/Desktop/Build_27.05/Matter_Blocking.exe"

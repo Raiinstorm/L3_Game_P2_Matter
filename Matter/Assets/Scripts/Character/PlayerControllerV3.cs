@@ -30,6 +30,7 @@ public class PlayerControllerV3 : CharacterV3
 	bool _nerfVelocity;
 	[SerializeField] float _extraTimeToJump;
 	[SerializeField] [Range(0, .5f)] float _turnAroundSpeed;
+	float _powerInput;
 
 	[Header("")]
 	[SerializeField] int _damageInfuseEnergy;
@@ -46,6 +47,7 @@ public class PlayerControllerV3 : CharacterV3
 	float _lerpValue;
 	[HideInInspector] public bool _propulsed;
 	float _propulsionInterpolator;
+	bool _antiSpamPropulsion;
 
 	[SerializeField] float _fallMultiplicator;
 
@@ -57,6 +59,10 @@ public class PlayerControllerV3 : CharacterV3
 
 	[Header("Camera")]
 	[SerializeField] Camera _mainCamera;
+	[SerializeField] CameraFollow _cameraFollow;
+
+	public bool _dead;
+	bool _canRespawn;
 
 	Vector3 _cameraForward;      // vector forward "normalisé" de la cam
 	Vector3 _cameraRight;        // vector right "normalisé" de la cam
@@ -64,6 +70,8 @@ public class PlayerControllerV3 : CharacterV3
 
 	private void Start()
 	{
+		_canRespawn = true;
+		RespawnPosition = transform.position;
 		_maxHealth = 100;
 		_health = 100;
 		FastRun = false;
@@ -100,6 +108,21 @@ public class PlayerControllerV3 : CharacterV3
 		if(_propulsed)
 		{
 			Propulsion();
+
+			if(!_antiSpamPropulsion)
+			{
+				_antiSpamPropulsion = true;
+				CheckRotationPropulsion();
+			}
+		}
+		else
+		{
+			_antiSpamPropulsion = false;
+		}
+
+		if(_dead)
+		{
+			Death();
 		}
 	}
 	void ApplyVelocity()
@@ -139,7 +162,10 @@ public class PlayerControllerV3 : CharacterV3
 		}
 		else
 		{
-			_rb.velocity = (new Vector3(_velocity.x , y, _velocity.z) + (PropulsionVector*_propulsionIntensity));
+			_rb.velocity = new Vector3(_velocity.x , y, _velocity.z) + (PropulsionVector*_propulsionIntensity);
+
+			//Debug.Log("velocity : " + new Vector3(_velocity.x, y, _velocity.z) + " | Propulsion : " + (PropulsionVector * _propulsionIntensity));
+
 			PropulsionVector.y *= 1/(-Physics.gravity.y*.1f);
 		}
 	}
@@ -159,6 +185,24 @@ public class PlayerControllerV3 : CharacterV3
 			_propulsionInterpolator = 0;
 		}
 	}
+
+	void CheckRotationPropulsion()
+	{
+		float difAngle = SignedAngle(transform.forward, new Vector3(PropulsionVector.x, 0, PropulsionVector.z), Vector3.up);
+
+		Debug.Log(PropulsionVector);
+
+		if ((difAngle <= -90 || difAngle >= 90) && PropulsionVector.y < .90f)
+		{
+			transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + difAngle, 0);
+
+
+			_cameraFollow.rotX = PropulsionVector.x;
+			_cameraFollow.rotY = transform.rotation.eulerAngles.y;
+		}
+	}
+
+
 	void MoveInput()
 	{
 		Vector2 stickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -174,7 +218,7 @@ public class PlayerControllerV3 : CharacterV3
 
 			_difAngle = SignedAngle(transform.forward, new Vector3(_rotation.x, 0f, _rotation.z), Vector3.up);
 
-			if (_difAngle > 5 || _difAngle < -5)
+			if (Mathf.Abs(_difAngle)>5)
 			{
 				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y + _difAngle, 0), _turnAroundSpeed);
 			}
@@ -189,19 +233,20 @@ public class PlayerControllerV3 : CharacterV3
 		_velocity = (_cameraRight.normalized * stickInput.x) + (_cameraForward.normalized * stickInput.y); // get orientation
 		_rotation = _velocity;
 
+		_powerInput = PowerInput(_velocity);
+
 		if (!_isJumpingOnSpot)
 		{
 			_smoothInput = Mathf.SmoothDamp(_smoothInput, _smoothInputTarget, ref _refSmoothInput, _smoothDamping); //augmentation progressive de la vitesse
 
 
-
 			if (_nerfVelocity && !_propulsed)
 			{
-				_velocity = (_velocity.normalized * MoveSpeed * _smoothInput) / MoveSpeed;
+				_velocity = (_velocity.normalized * MoveSpeed * _smoothInput * _powerInput) / MoveSpeed;
 			}
 			else
 			{
-				_velocity = _velocity.normalized * MoveSpeed * _smoothInput;
+				_velocity = _velocity.normalized * MoveSpeed * _smoothInput * _powerInput;
 			}
 
 
@@ -217,6 +262,20 @@ public class PlayerControllerV3 : CharacterV3
 		else
 		{
 			_velocity = Vector3.zero;
+		}
+	}
+
+	float PowerInput(Vector3 velocity)
+	{
+		float stickPower = Mathf.Max(Mathf.Abs(velocity.x),Mathf.Abs(velocity.z));
+
+		if(_isRunning || stickPower > 1)
+		{
+			return 1;
+		}
+		else
+		{
+			return stickPower;
 		}
 	}
 
@@ -268,12 +327,10 @@ public class PlayerControllerV3 : CharacterV3
 
 	void CheckSlope()
 	{
-		if (_slopeDetector.IsOnSlope && _slopeDetector.SlopeAngles >= _maxSlopeAngle && _slopeDetector.SlopeDistance <= 1.5f)
+		if (_slopeDetector.IsOnSlope && _slopeDetector.SlopeAngles >= _maxSlopeAngle && _slopeDetector.SlopeDistance <= 2f)
 		{
-			Debug.Log("slope Distance :" +_slopeDetector.SlopeDistance);
 			_smoothInputTarget = 0;
 			_nerfVelocity = true;
-			Debug.LogWarning(_slopeDetector.SlopeAngles);
 		}
 		else
 		{
@@ -292,5 +349,24 @@ public class PlayerControllerV3 : CharacterV3
 		{
 			return 1;
 		}
+	}
+
+	void Death()
+	{
+		_dead = false;
+
+		if (_canRespawn)
+		{
+			Respawn();
+		}
+		else
+		{
+
+		}
+	}
+
+	void Respawn()
+	{
+		transform.position = RespawnPosition;
 	}
 }
