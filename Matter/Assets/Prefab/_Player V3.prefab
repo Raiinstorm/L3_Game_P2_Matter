@@ -172,6 +172,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _groundCheck: {fileID: 6966424009174562961}
+  RespawnPosition: {x: 0, y: 0, z: 0}
   CanStillJump: 0
   _canMove: 0
   _smoothDamping: 0.3
@@ -180,6 +181,7 @@ MonoBehaviour:
   _maxSlopeAngle: 45
   _extraTimeToJump: 0.1
   _turnAroundSpeed: 0.2
+  _fallMultiplicator: 1.75
   _damageInfuseEnergy: 0
   _slopeDetector: {fileID: 3054874260983058918}
   IsJumping: 0
@@ -209,11 +211,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _propulsionTime: 1.5
-  _propulsionPower: 20
+  _propulsionPower: 30
   _propulsed: 0
-  _fallMultiplicator: 1.75
+  _rotationPropulsionTime: 0.5
   _mainCamera: {fileID: 7173648767454427127}
   _cameraFollow: {fileID: 7173648767827863902}
+  _dead: 0
 --- !u!114 &6966424010586333689
 MonoBehaviour:
   m_ObjectHideFlags: 0

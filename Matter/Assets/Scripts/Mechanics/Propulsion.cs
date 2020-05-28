@@ -22,6 +22,7 @@ public class Propulsion : MonoBehaviour
 			_antispam = true;
 			_player.PropulsionVector = _direction;
 			_player.transform.position = ClippingTransform.position;
+			_player.ResetPropulsion();
 			_player._propulsed = true;
 		}
 	}

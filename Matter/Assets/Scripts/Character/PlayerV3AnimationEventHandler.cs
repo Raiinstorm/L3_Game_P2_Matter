@@ -7,6 +7,7 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	Animator _animator;
 	PlayerControllerV3 _playerController;
 	public bool _canMove;
+	bool soundAntispam;
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
@@ -23,9 +24,9 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 
 	void GetInput()
 	{
-		_animator.SetFloat("xSpeed", new Vector2(_playerController.InputX, _playerController.InputZ).magnitude);
+		_animator.SetFloat("xSpeed",(_playerController._velocity.magnitude/_playerController.MoveSpeed));
 
-		if (Input.GetButtonDown("Jump") && _playerController.IsGround() || Input.GetButtonDown("Jump") && _playerController.CanStillJump)
+		if ((Input.GetButtonDown("Jump") && _playerController.IsGround() || Input.GetButtonDown("Jump") && _playerController.CanStillJump) && !_playerController._propulsed)
 		{
 			_playerController.CanStillJump = false;
 			_animator.SetBool("jump", true);
@@ -37,6 +38,16 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	{
 		_animator.SetBool("jump", false);
 		_playerController.IsJumping = false;
+	}
+
+	public void MoveSound()
+	{
+		if(!soundAntispam)
+		{
+			SoundManager.PlaySound(SoundManager.Sound.PlayerMove);
+		}
+
+		soundAntispam = !soundAntispam;
 	}
 
 }

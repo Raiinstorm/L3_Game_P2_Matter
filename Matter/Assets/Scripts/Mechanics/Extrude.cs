@@ -8,7 +8,7 @@ public class Extrude : GenericElement
 	[SerializeField] private float _timeExtrude = 15f;
 	[SerializeField] private float _distance = 20;
 	float _extrudeInterpolator;
-	bool _switchResetInterpolator;
+	bool _switchReset;
 
 	Vector3 _oldPos;
 	Vector3 _targetPos;
@@ -27,15 +27,20 @@ public class Extrude : GenericElement
 		_propulsionScript = _propulsionGameObject.GetComponent<Propulsion>();
 
 		_propulsionScript._direction = transform.up;
+
 		_propulsionScript.ClippingTransform.position = transform.position + transform.up*_distance;
+
+		SoundManager.PlaySoundSpacialized("Energie", SoundManager.Sound.Energy, transform.position, 50, .25f, true);
 	}
 	private void Update()
 	{
 		if (Activated && transform.position != _oldPos + transform.up * _distance)
 		{
-			if(!_switchResetInterpolator)
+			if(!_switchReset)
 			{
 				ResetInterpolator();
+
+				SoundExtrude();
 			}
 
 			if(!_CoroutineAntiSpam)
@@ -48,9 +53,10 @@ public class Extrude : GenericElement
 
 		if (!Activated && transform.position != _oldPos)
 		{
-			if (_switchResetInterpolator)
+			if (_switchReset)
 			{
 				ResetInterpolator();
+				SoundExtrude(true);
 			}
 
 			_CoroutineAntiSpam = false;
@@ -65,14 +71,26 @@ public class Extrude : GenericElement
 		transform.position = Vector3.Lerp(transform.position, _targetPos, _extrudeInterpolator);
 
 		_extrudeInterpolator += Time.deltaTime / _timeExtrude;
-
-		/*Vector3 target = new Vector3(transform.localPosition.x, _init_pos.y + _distance * enable, transform.localPosition.z);
-		transform.localPosition = Vector3.Lerp(transform.localPosition, target, Time.deltaTime * _speedExtrude);*/
 	}
 
 	void ResetInterpolator()
 	{
 		_extrudeInterpolator = 0f;
-		_switchResetInterpolator = !_switchResetInterpolator;
+		_switchReset = !_switchReset;
 	}
+
+	void SoundExtrude(bool end = false)
+	{
+		if(!end)
+		{
+			SoundManager.PlaySoundSpacialized("Extrude", SoundManager.Sound.Extrude, transform.position);
+		}
+		else
+		{
+			SoundManager.PlaySoundSpacialized("ExtrudeEnd", SoundManager.Sound.ExtrudeEnd, transform.position);
+		}
+
+	}
+
+
 }
