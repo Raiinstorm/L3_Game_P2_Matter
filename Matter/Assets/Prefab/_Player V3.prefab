@@ -172,6 +172,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _groundCheck: {fileID: 6966424009174562961}
+  RespawnPosition: {x: 0, y: 0, z: 0}
   CanStillJump: 0
   _canMove: 0
   _smoothDamping: 0.3
@@ -214,6 +215,7 @@ MonoBehaviour:
   _fallMultiplicator: 1.75
   _mainCamera: {fileID: 7173648767454427127}
   _cameraFollow: {fileID: 7173648767827863902}
+  _dead: 0
 --- !u!114 &6966424010586333689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 41848b2d3e833d54c8b3c3be8949f630,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 41848b2d3e833d54c8b3c3be8949f630,
         type: 3}
