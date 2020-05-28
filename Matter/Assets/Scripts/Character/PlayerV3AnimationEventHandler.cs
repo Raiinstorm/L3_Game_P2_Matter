@@ -15,10 +15,10 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	}
 	private void Update()
 	{
+		Velocity();
+		IsGround();		
 		if(_canMove)
-		{
 			GetInput();
-		}
 	}
 
 	void GetInput()
@@ -31,12 +31,34 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 			_animator.SetBool("jump", true);
 			_playerController.IsJumping = true;
 		}
+
+		if (Input.GetButtonDown("MainMechanic"))
+			Power();
 	}
 
 	public void IsJump()
 	{
+		Debug.Log("Jetouchelesolkonord");
 		_animator.SetBool("jump", false);
 		_playerController.IsJumping = false;
 	}
 
+	public void IsGround()
+	{
+		Debug.Log("Check");
+		if (_playerController.IsGround())
+			_animator.SetBool("isGround", true);
+		else
+			_animator.SetBool("isGround", false);
+	}
+
+	public void Velocity()
+	{
+		_animator.SetFloat("ySpeed", _playerController.IsGround() ? 0 : _playerController._rb.velocity.y);
+	}
+
+	public void Power()
+	{
+		_animator.SetTrigger("power");
+	}
 }

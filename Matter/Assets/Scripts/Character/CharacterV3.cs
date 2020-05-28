@@ -17,7 +17,7 @@ public abstract class CharacterV3 : MonoBehaviour
 
 	protected bool _isJumpingOnSpot;
 
-	protected Rigidbody _rb;
+	public Rigidbody _rb;
 
 	[HideInInspector] public Vector3 RespawnPosition;
 
