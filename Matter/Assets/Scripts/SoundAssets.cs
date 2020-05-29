@@ -9,6 +9,7 @@ public class SoundAssets : MonoBehaviour
 
 	public AnimationCurve SpacializedSoundCurve;
 
+
 	public static SoundAssets i
 	{ get
 		{

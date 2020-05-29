@@ -11,8 +11,8 @@ public static class SoundManager
 
 	public enum Sound
 	{
-		PlayerMove,
-		PlayerLanding,
+		PlayerWalk,
+		PlayerRun,
 
 		AmbientInGameLoop,
 		
@@ -25,7 +25,7 @@ public static class SoundManager
 		MusicLoop,
 	}
 
-	public static void PlayLoop(string name, Sound sound, float volume = 1f)
+	public static void PlayLoop(string name, Sound sound, float volume = 1f,bool bypassFilter = false)
 	{
 		GameObject loop = new GameObject(name);
 		AudioSource sourceLoop = loop.AddComponent<AudioSource>();
@@ -33,6 +33,10 @@ public static class SoundManager
 		sourceLoop.loop = true;
 		sourceLoop.volume = volume;
 		sourceLoop.clip = GetAudioClip(sound);
+		if (bypassFilter)
+		{
+			sourceLoop.bypassEffects = true;
+		}
 
 		SoundAssets.i.AudioLoops.Add(loop);
 
@@ -40,17 +44,24 @@ public static class SoundManager
 	}
 
 
-	public static void PlaySound(Sound sound, float volume = 1f) //not Spacialized
+	public static void PlaySound(Sound sound, float volume = 1f,bool bypassFilter = false) //not Spacialized
 	{
 		if (_oneShotGameObject == null)
 		{
 			_oneShotGameObject = new GameObject("OneShotSound");
 			_oneShotAudioSource = _oneShotGameObject.AddComponent<AudioSource>();
 		}
+
+		_oneShotAudioSource.bypassEffects = false;
+		if (bypassFilter)
+		{
+			_oneShotAudioSource.bypassEffects = true;
+		}
+
 		_oneShotAudioSource.PlayOneShot(GetAudioClip(sound), volume);
 	}
 
-	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false)
+	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false, bool bypassFilter = false)
 	{
 		GameObject soundGameObject = new GameObject(name);
 		soundGameObject.transform.position = position;
@@ -67,6 +78,10 @@ public static class SoundManager
 		{
 			audioSource.loop = true;
 			SoundAssets.i.AudioLoops.Add(soundGameObject);
+		}
+		if (bypassFilter)
+		{
+			audioSource.bypassEffects = true;
 		}
 
 		audioSource.Play();

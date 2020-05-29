@@ -42,9 +42,18 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 
 	public void MoveSound()
 	{
+		float volume = .5f;
+
 		if(!soundAntispam)
 		{
-			SoundManager.PlaySound(SoundManager.Sound.PlayerMove);
+			if(!_playerController.IsRunning)
+			{
+				SoundManager.PlaySound(SoundManager.Sound.PlayerWalk,volume);
+			}
+			else
+			{
+				SoundManager.PlaySound(SoundManager.Sound.PlayerRun,volume*2);
+			}
 		}
 
 		soundAntispam = !soundAntispam;

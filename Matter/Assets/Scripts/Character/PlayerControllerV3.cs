@@ -26,7 +26,6 @@ public class PlayerControllerV3 : CharacterV3
 	[SerializeField] [Range(1, 3)] float _runMultiplicator;
 	[SerializeField] float _maxSlopeAngle;
 	float _moveSpeedRun;
-	bool _isRunning;
 	bool _nerfVelocity;
 	[SerializeField] float _extraTimeToJump;
 	[SerializeField] [Range(0, .5f)] float _turnAroundSpeed;
@@ -113,7 +112,7 @@ public class PlayerControllerV3 : CharacterV3
 
 		if (Input.GetButtonDown("Run"))
 		{
-			_isRunning = true;
+			IsRunning = true;
 		}
 
 		if(_propulsed)
@@ -265,7 +264,7 @@ public class PlayerControllerV3 : CharacterV3
 		{
 			stickInput = Vector2.zero;
 			_smoothInputTarget = 0;
-			_isRunning = false;
+			IsRunning = false;
 		}
 		else
 		{
@@ -305,11 +304,11 @@ public class PlayerControllerV3 : CharacterV3
 			}
 
 
-			if (_velocity.magnitude > MoveSpeed && !_isRunning)
+			if (_velocity.magnitude > MoveSpeed && !IsRunning)
 			{
 				_velocity -= _velocity.normalized * (_velocity.magnitude - MoveSpeed);
 			}
-			if (_isRunning && _velocity.magnitude > _moveSpeedRun)
+			if (IsRunning && _velocity.magnitude > _moveSpeedRun)
 			{
 				_velocity -= _velocity.normalized * (_velocity.magnitude - _moveSpeedRun);
 			}
@@ -324,7 +323,7 @@ public class PlayerControllerV3 : CharacterV3
 	{
 		float stickPower = Mathf.Max(Mathf.Abs(velocity.x),Mathf.Abs(velocity.z));
 
-		if(_isRunning || stickPower > 1)
+		if(IsRunning || stickPower > 1)
 		{
 			return 1;
 		}
@@ -397,7 +396,7 @@ public class PlayerControllerV3 : CharacterV3
 
 	float SmoothInput()
 	{
-		if (_isRunning)
+		if (IsRunning)
 		{
 			return _runMultiplicator;
 		}
