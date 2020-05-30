@@ -479,6 +479,9 @@ MonoBehaviour:
   _timeExtrude: 0.25
   _distance: 10
   _propulsionGameObject: {fileID: 621895682763291025}
+  _meshRenderers:
+  - {fileID: 9207460227021290512}
+  - {fileID: 3712986882494742028}
 --- !u!1001 &4095658442821931401
 PrefabInstance:
   m_ObjectHideFlags: 0

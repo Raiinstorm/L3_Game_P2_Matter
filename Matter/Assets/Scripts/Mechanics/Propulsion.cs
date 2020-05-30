@@ -13,15 +13,19 @@ public class Propulsion : MonoBehaviour
 
 	PlayerControllerV3 _player;
 	bool _antispam;
+	[HideInInspector] public bool IsPropulsing;
 
 
 	void Update()
 	{
 		if (_propulsionActivated && _playerOnPlatform && !_antispam)
 		{
+			IsPropulsing = true;
 			_antispam = true;
 			_player.PropulsionVector = _direction;
 			_player.transform.position = ClippingTransform.position;
+			_player.ResetPropulsion();
+			_player.AntiSpamPropulsion = false;
 			_player._propulsed = true;
 		}
 	}

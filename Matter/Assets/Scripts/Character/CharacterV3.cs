@@ -16,8 +16,9 @@ public abstract class CharacterV3 : MonoBehaviour
 	protected Transform _thisTransform;
 
 	protected bool _isJumpingOnSpot;
+	[HideInInspector] public bool IsRunning;
 
-	public Rigidbody _rb;
+	[HideInInspector] public Rigidbody _rb;
 
 	[HideInInspector] public Vector3 RespawnPosition;
 

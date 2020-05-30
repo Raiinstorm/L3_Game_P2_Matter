@@ -47,10 +47,22 @@ public class CameraFollow : MonoBehaviour
         rotY += finalInputX * inputSensibility * Time.deltaTime;
         rotX += finalInputZ * inputSensibility * Time.deltaTime;
 
+		//clamp Rotation Y
+		if (rotY <= 0)
+		{
+			rotY = 360;
+		}
+		else if (rotY >= 360)
+		{
+			rotY = 0 ;
+		}
+
         //bloquer l'angle de rotation
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
         transform.rotation = localRotation;
+
+		//Debug.Log("rotX : " + rotX + " | rotY : " + rotY);
     }
 
     void LateUpdate()
