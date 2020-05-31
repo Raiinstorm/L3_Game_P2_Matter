@@ -69,6 +69,7 @@ public class PlayerControllerV3 : CharacterV3
 
 	public bool _dead;
 	bool _canRespawn;
+	bool RespawnPlayer; // Bloque les mouvements du player durant l'animation.
 
 	public bool PressInterruptor;
 

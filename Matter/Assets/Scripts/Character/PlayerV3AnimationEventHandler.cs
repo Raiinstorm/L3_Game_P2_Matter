@@ -6,6 +6,7 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 {
 	Animator _animator;
 	PlayerControllerV3 _playerController;
+	DeathPlayer _deathPlayer;
 	public bool _canMove;
 	bool soundAntispam;
 	private void Start()
@@ -13,11 +14,15 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 		_animator = GetComponentInChildren<Animator>();
 		_playerController = GetComponent<PlayerControllerV3>();
 		_canMove = true;
+		_deathPlayer = GetComponent<DeathPlayer>();
 	}
 	private void Update()
 	{
 		Velocity();
 		IsGround();
+		Propulsion();
+		PropulsionIntensity();
+		Respawn();
 		if (_canMove)
 			GetInput();
 	}
@@ -54,7 +59,8 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 
 	public void Velocity()
 	{
-		_animator.SetFloat("ySpeed", _playerController.IsGround() ? 0 : _playerController._rb.velocity.y);
+		_animator.SetFloat("ySpeedRB", _playerController.IsGround() ? 0 : _playerController._rb.velocity.y);
+		_animator.SetFloat("xSpeedRB", _playerController.IsGround() ? 0 : _playerController._rb.velocity.x);
 	}
 
 	public void Power()
@@ -79,6 +85,34 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 		}
 
 		soundAntispam = !soundAntispam;
+	}
+
+	public void Propulsion()
+	{
+		if (_playerController._propulsed)
+			_animator.SetBool("propulsed", true);
+		else 
+			_animator.SetBool("propulsed", false);
+	}
+
+	public void PropulsionIntensity()
+	{
+		_animator.SetFloat("propulsionIntensity", _playerController._propulsionIntensity);
+	}
+
+	public void Respawn()
+	{
+		if (_deathPlayer.Respawn)
+		{
+			_animator.SetTrigger("respawn");
+			_deathPlayer.Respawn = false;
+			_playerController._canMove = false;
+		}
+	}
+
+	public void CanMove()
+	{
+		_playerController._canMove = true;
 	}
 
 }
