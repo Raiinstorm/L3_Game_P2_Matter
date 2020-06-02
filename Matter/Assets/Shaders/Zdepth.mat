@@ -36,4 +36,4 @@ Material:
     - __dirty: 0
     - _blenddistance: 0
     m_Colors:
-    - _ColorFog: {r: 0.49411765, g: 0.64447206, b: 0.8901961, a: 0}
+    - _ColorFog: {r: 0.7169812, g: 0.6360953, b: 0.5783197, a: 0}
