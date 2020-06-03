@@ -24,15 +24,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex1:
-        m_Texture: {fileID: 2800000, guid: 45f39aed1770b0b4c9c09748ad29b64c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3089404bc07ef7040b828f32601545af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 3746a8a3e713db6499b59a7363e5af7a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0d11935844e5464478a7bb7611b6570e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex3:
-        m_Texture: {fileID: 2800000, guid: 29a4da69648f1a34a9c11c803f3bf0da, type: 3}
+        m_Texture: {fileID: 2800000, guid: e4634bfdc9dd1354ab72739f3c578157, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Stone_01_normal:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Hardness: 0
+    - _Hardness: 1
     - _NormalMap: 1
     - _ScaleNormal: 1.5
     - __dirty: 0
