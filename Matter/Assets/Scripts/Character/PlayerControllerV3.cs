@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControllerV3 : CharacterV3
 {
-
+	#region Variables
 	[HideInInspector] public Vector3 _velocity;
 	Vector3 _rotation;
 	float _deadZone = 0.2f;
@@ -16,6 +16,10 @@ public class PlayerControllerV3 : CharacterV3
 	bool _gameIsPaused;
 	Vector3 _velocityMemory;
 	Vector3 _rbMemory;
+	bool _antispamJumpImpulse;
+	Vector3 _jumpImpulse;
+	float _currentJumpImpulse;
+	float _refJumpImpulse;
 
 	[Header("Velocity")]
 	[SerializeField] [Range(0, 1f)] float _smoothDamping;
@@ -24,19 +28,31 @@ public class PlayerControllerV3 : CharacterV3
 	float _smoothInputTarget;
 	public float MoveSpeed;
 	[SerializeField] [Range(1, 3)] float _runMultiplicator;
-	[SerializeField] float _maxSlopeAngle;
 	float _moveSpeedRun;
 	bool _nerfVelocity;
 	[SerializeField] float _extraTimeToJump;
 	[SerializeField] [Range(0, .5f)] float _turnAroundSpeed;
 	float _powerInput;
 	[SerializeField] float _fallMultiplicator;
+	[SerializeField] [Range(0,1)] float _jumpImpulseIntensity;
 
 	[Header("")]
 	[SerializeField] int _damageInfuseEnergy;
-	[SerializeField] SlopeDetector _slopeDetector;
+	[SerializeField] PhysicMaterial _physicMaterial;
+
 
 	[HideInInspector] public bool IsJumping;
+
+	[Header("Slope")]
+	[SerializeField] float _maxSlopeAngle;
+	[SerializeField] float _maxSpeedOnSlope;
+	[SerializeField] float _speedIncreasingOnSlope;
+	bool _onSlope;
+	Vector3 _onSlopeDirection;
+	Vector3 _onSlopeVelocity;
+	float _onSlopeSpeed;
+	[SerializeField] SlopeDetector _slopeDetector;
+
 
 	[Header("Propulsion")]
 	public Vector3 PropulsionVector;
@@ -48,6 +64,7 @@ public class PlayerControllerV3 : CharacterV3
 	[HideInInspector] public bool _propulsed;
 	float _propulsionInterpolator;
 	[HideInInspector] public bool AntiSpamPropulsion;
+	float _targetRotationPropulsion;
 
 	[SerializeField] float _rotationPropulsionTime;
 	bool _rotationPropulsion;
@@ -70,11 +87,11 @@ public class PlayerControllerV3 : CharacterV3
 	public bool _dead;
 	bool _canRespawn;
 
-	public bool PressInterruptor;
-
 	Vector3 _cameraForward;      // vector forward "normalisé" de la cam
 	Vector3 _cameraRight;        // vector right "normalisé" de la cam
 	Vector3 _cameraUp;
+
+	#endregion
 
 	private void Start()
 	{
@@ -88,6 +105,7 @@ public class PlayerControllerV3 : CharacterV3
 		_canMove = true;
 		_moveSpeedRun = MoveSpeed * _runMultiplicator;
 		_thisTransform = GetComponent<Transform>();
+		_physicMaterial = GetComponent<Collider>().material;
 
 		Debug.Log(SoundAssets.i.Hello());
 	}
@@ -105,12 +123,13 @@ public class PlayerControllerV3 : CharacterV3
 	}
 	private void Update()
 	{
+
 		InputX = Input.GetAxis("Horizontal");
 		InputZ = Input.GetAxis("Vertical");
 		CamInputX = Input.GetAxis("RightStickHorizontal");
 		CamInputZ = Input.GetAxis("RightStickVertical");
 
-		if (Input.GetButtonDown("Run"))
+		if (Input.GetButtonDown("Run") && IsGround())
 		{
 			IsRunning = true;
 		}
@@ -118,23 +137,6 @@ public class PlayerControllerV3 : CharacterV3
 		if(_propulsed)
 		{
 			Propulsion();
-
-			if(!AntiSpamPropulsion)
-			{
-				AntiSpamPropulsion = true;
-
-				if(_rb.velocity.y < 0)
-				{
-					_rb.velocity = Vector3.zero;
-
-				}
-				else
-				{
-					_rb.velocity = new Vector3(0, _rb.velocity.y, 0);
-				}
-
-				CheckRotationPropulsion();
-			}
 		}
 		else
 		{
@@ -146,14 +148,14 @@ public class PlayerControllerV3 : CharacterV3
 			Death();
 		}
 
-		if(_rotationPropulsion)
+		if(IsJumping)
 		{
-			RotationPropulsionLerp();
+			JumpingImpulse();
 		}
-
-		if(PressInterruptor)
+		else
 		{
-			PressingInterruptor();
+			_antispamJumpImpulse = false;
+			_currentJumpImpulse = 0;
 		}
 
 	}
@@ -180,6 +182,16 @@ public class PlayerControllerV3 : CharacterV3
 			_jumpBuffer = JumpBuffer();
 		}
 
+		if(_onSlope)
+		{
+			SlopeVelocity();
+		}
+		else
+		{
+			_onSlopeSpeed = 0;
+			_onSlopeVelocity = Vector3.zero;
+		}
+
 		y = _rb.velocity.y;
 
 
@@ -188,13 +200,21 @@ public class PlayerControllerV3 : CharacterV3
 			y += Vector3.up.y * Physics.gravity.y * (_fallMultiplicator - 1) * Time.deltaTime;
 		}
 
-		if (_nerfVelocity && y >= 10 && !IsJumping)
+		if (_nerfVelocity && y > 0 && !IsJumping && !_propulsed)
 		{
-			_rb.velocity = new Vector3(_velocity.x, y / 2, _velocity.z);
+			_rb.velocity = new Vector3(_velocity.x, y/2 , _velocity.z);
 		}
 		else
 		{
-			_rb.velocity = new Vector3(_velocity.x , y, _velocity.z) + (PropulsionVector*_propulsionIntensity);
+
+			if(_propulsed)
+			{
+				_onSlopeVelocity = Vector3.zero;
+			}
+
+			//Debug.Log("velocity :" + _velocity.z);
+
+			_rb.velocity = new Vector3(_velocity.x , y, _velocity.z) + (PropulsionVector*_propulsionIntensity) + (_onSlopeVelocity) + (_jumpImpulse * _currentJumpImpulse);
 
 			//Debug.Log("velocity : " + new Vector3(_velocity.x, y, _velocity.z) + " | Propulsion : " + (PropulsionVector * _propulsionIntensity));
 
@@ -208,65 +228,11 @@ public class PlayerControllerV3 : CharacterV3
 				}
 			}
 		}
+
+		FrictionMaterial();
 	}
 
-	void Propulsion()
-	{
-		_lerpValue = Mathf.Lerp(0, 1, _propulsionInterpolator);
-		_propulsionIntensity = _propulsionCurve.Evaluate(_lerpValue) * _propulsionPower;
-
-		_propulsionInterpolator += Time.deltaTime / _propulsionTime;
-
-		if(_propulsionIntensity <= .01f)
-		{
-			ResetPropulsion();
-		}
-	}
-
-	public void ResetPropulsion()
-	{
-		_propulsed = false;
-		_propulsionIntensity = 0;
-		_lerpValue = 0;
-		_propulsionInterpolator = 0;
-	}
-
-	void CheckRotationPropulsion()
-	{
-		float difAngle = SignedAngle(transform.forward, new Vector3(PropulsionVector.x, 0, PropulsionVector.z), Vector3.up);
-
-		//Debug.Log(PropulsionVector);
-
-		if ((difAngle <= -90 || difAngle >= 90) && PropulsionVector.y < .90f)
-		{
-			transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + difAngle, 0);
-
-			_rotX = PropulsionVector.x;
-			_rotY = transform.rotation.eulerAngles.y;
-			_cameraRotX = _cameraFollow.rotX;
-			_cameraRotY = _cameraFollow.rotY;
-
-			StartCoroutine(RotationPropulsionCooldown());
-		}
-	}
-
-	IEnumerator RotationPropulsionCooldown()
-	{
-		_rotationPropulsionInterpolator = 0;
-		_rotationPropulsion = true;
-		yield return new WaitForSeconds(_rotationPropulsionTime);
-		_rotationPropulsion = false;
-	}
-
-	void RotationPropulsionLerp()
-	{
-		_cameraFollow.rotX = Mathf.Lerp(_cameraRotX,_rotX,_rotationPropulsionInterpolator);
-		_cameraFollow.rotY = Mathf.Lerp(_cameraRotY,_rotY,_rotationPropulsionInterpolator);
-
-		_rotationPropulsionInterpolator += Time.deltaTime / _rotationPropulsionTime;
-	}
-
-
+	#region Input
 	void MoveInput()
 	{
 		Vector2 stickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -282,6 +248,7 @@ public class PlayerControllerV3 : CharacterV3
 
 			_difAngle = SignedAngle(transform.forward, new Vector3(_rotation.x, 0f, _rotation.z), Vector3.up);
 
+			//Debug.Log("difangle : " +_difAngle + " | rotation : " + transform.rotation.eulerAngles.y);
 			if (Mathf.Abs(_difAngle)>5)
 			{
 				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y + _difAngle, 0), _turnAroundSpeed);
@@ -303,16 +270,7 @@ public class PlayerControllerV3 : CharacterV3
 		{
 			_smoothInput = Mathf.SmoothDamp(_smoothInput, _smoothInputTarget, ref _refSmoothInput, _smoothDamping); //augmentation progressive de la vitesse
 
-
-			if (_nerfVelocity && !_propulsed)
-			{
-				_velocity = (_velocity.normalized * MoveSpeed * _smoothInput * _powerInput) / MoveSpeed;
-			}
-			else
-			{
-				_velocity = _velocity.normalized * MoveSpeed * _smoothInput * _powerInput;
-			}
-
+			_velocity = _velocity.normalized * MoveSpeed * _smoothInput * _powerInput;
 
 			if (_velocity.magnitude > MoveSpeed && !IsRunning)
 			{
@@ -343,6 +301,191 @@ public class PlayerControllerV3 : CharacterV3
 			return stickPower;
 		}
 	}
+
+	float SmoothInput()
+	{
+		if(_nerfVelocity)
+		{
+			return 0;
+		}
+		if (IsRunning)
+		{
+			return _runMultiplicator;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+
+	void FrictionMaterial()
+	{
+		_physicMaterial.staticFriction = _rb.velocity.magnitude < .5f ? 1 : 0;
+		//Debug.Log(_physicMaterial.staticFriction);
+	}
+
+	void JumpingImpulse()
+	{
+		if (!_antispamJumpImpulse)
+		{
+			_antispamJumpImpulse = true;
+			_jumpImpulse = new Vector3(_velocity.x, 0, _velocity.z);
+			_currentJumpImpulse = _jumpImpulseIntensity;
+		}
+
+		_currentJumpImpulse = Mathf.SmoothDamp(_currentJumpImpulse, 0, ref _refJumpImpulse, .5f);
+		//Debug.Log("jumpImpulse :" + _jumpImpulse + " | intensity :" + _currentJumpImpulse);
+
+	}
+
+	#endregion
+
+	#region Propulsion
+
+	void Propulsion()
+	{
+
+		if (!AntiSpamPropulsion)
+		{
+			AntiSpamPropulsion = true;
+
+			if (_rb.velocity.y < 0)
+			{
+				_rb.velocity = Vector3.zero;
+
+			}
+			else
+			{
+				_rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+			}
+
+			CheckRotationPropulsion();
+		}
+
+
+		if (_rotationPropulsion)
+		{
+			RotationPropulsionLerp();
+		}
+
+
+		_lerpValue = Mathf.Lerp(0, 1, _propulsionInterpolator);
+		_propulsionIntensity = _propulsionCurve.Evaluate(_lerpValue) * _propulsionPower;
+
+		_propulsionInterpolator += Time.deltaTime / _propulsionTime;
+
+		if (_propulsionIntensity <= .01f)
+		{
+			ResetPropulsion();
+		}
+	}
+
+	public void ResetPropulsion()
+	{
+		_propulsed = false;
+		_propulsionIntensity = 0;
+		_lerpValue = 0;
+		_propulsionInterpolator = 0;
+	}
+
+	void CheckRotationPropulsion()
+	{
+		_difAngle = SignedAngle(transform.forward, new Vector3(PropulsionVector.x, 0, PropulsionVector.z), Vector3.up);
+
+		//Debug.Log(PropulsionVector);
+		//Debug.Log(transform.rotation.eulerAngles.y);
+
+		if ((_difAngle <= -75 || _difAngle >= 75) && PropulsionVector.y < .90f)
+		{
+			float target = transform.rotation.eulerAngles.y + _difAngle;
+
+			if(target > -5 && target < 5)
+			{
+				target = 0;
+			}
+
+			if(target > 360)
+			{
+				target -= 360;
+			}
+			if(target <0)
+			{
+				target += 360;
+			}
+
+			_targetRotationPropulsion = target;
+
+			//Debug.Log("cam : " + _cameraFollow.rotY + " | target : " + target +  " | dif : " + (_cameraFollow.rotY - target) + " | dif + 360 : " + (_cameraFollow.rotY - (target + 360)));
+
+			if((_cameraFollow.rotY - target) < 45 && (_cameraFollow.rotY - target) > -45 || (_cameraFollow.rotY - (target + 360)) < 45 && (_cameraFollow.rotY - (target+360)) >-45) { }
+			else
+			{
+				_cameraFollow.rotY = transform.rotation.eulerAngles.y;
+			}
+
+			if(_cameraFollow.rotY >180 && target == 0)
+			{
+				_targetRotationPropulsion = 360;
+			}
+			else if(_cameraFollow.rotY < 180 && target == 360)
+			{
+				_targetRotationPropulsion = 0;
+			}
+
+			_rotX = PropulsionVector.x;
+			_rotY = _targetRotationPropulsion;
+			_cameraRotX = _cameraFollow.rotX;
+			_cameraRotY = _cameraFollow.rotY;
+
+
+			StartCoroutine(RotationPropulsionCooldown());
+		}
+	}
+
+	IEnumerator RotationPropulsionCooldown()
+	{
+		_rotationPropulsionInterpolator = 0;
+		_rotationPropulsion = true;
+		yield return new WaitForSeconds(_rotationPropulsionTime);
+		_rotationPropulsion = false;
+	}
+
+	void RotationPropulsionLerp()
+	{
+		_cameraFollow.rotX = Mathf.Lerp(_cameraRotX, _rotX, _rotationPropulsionInterpolator);
+		_cameraFollow.rotY = Mathf.Lerp(_cameraRotY, _rotY, _rotationPropulsionInterpolator);
+		transform.rotation = Quaternion.Slerp(transform.rotation, (Quaternion.Euler(0,_targetRotationPropulsion, 0)),_rotationPropulsionInterpolator);
+
+		_rotationPropulsionInterpolator += Time.deltaTime / _rotationPropulsionTime;
+	}
+
+	#endregion
+
+	#region Slope
+	void CheckSlope()
+	{
+		if (_slopeDetector.IsOnSlope && _slopeDetector.SlopeAngles >= _maxSlopeAngle && _slopeDetector.SlopeDistance <= 3f)
+		{
+			_nerfVelocity = true;
+			_onSlope = true;
+			_onSlopeDirection = _slopeDetector.SlopeDirection;
+		}
+		else
+		{
+			_nerfVelocity = false;
+			_onSlope = false;
+		}
+
+		_smoothInputTarget = SmoothInput();
+	}
+
+	void SlopeVelocity()
+	{
+		_onSlopeVelocity = _onSlopeDirection * _onSlopeSpeed;
+
+		_onSlopeSpeed = _onSlopeSpeed > _maxSpeedOnSlope ? _maxSpeedOnSlope : _onSlopeSpeed + _speedIncreasingOnSlope * Time.deltaTime; ;
+	}
+	#endregion
 
 	void CameraSetting()
 	{
@@ -390,32 +533,6 @@ public class PlayerControllerV3 : CharacterV3
 		_rb.velocity = Vector3.zero;
 	}
 
-	void CheckSlope()
-	{
-		if (_slopeDetector.IsOnSlope && _slopeDetector.SlopeAngles >= _maxSlopeAngle && _slopeDetector.SlopeDistance <= 2f)
-		{
-			_smoothInputTarget = 0;
-			_nerfVelocity = true;
-		}
-		else
-		{
-			_nerfVelocity = false;
-			_smoothInputTarget = SmoothInput();
-		}
-	}
-
-	float SmoothInput()
-	{
-		if (IsRunning)
-		{
-			return _runMultiplicator;
-		}
-		else
-		{
-			return 1;
-		}
-	}
-
 	void Death()
 	{
 		_dead = false;
@@ -435,9 +552,4 @@ public class PlayerControllerV3 : CharacterV3
 		transform.position = RespawnPosition;
 	}
 
-	void PressingInterruptor()
-	{
-		PressInterruptor = false;
-		SoundManager.PlaySound(SoundManager.Sound.BigExtrude);
-	}
 }

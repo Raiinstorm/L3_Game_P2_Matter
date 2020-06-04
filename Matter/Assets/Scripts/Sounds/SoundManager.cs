@@ -61,10 +61,16 @@ public static class SoundManager
 		_oneShotAudioSource.PlayOneShot(GetAudioClip(sound), volume);
 	}
 
-	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false, bool bypassFilter = false)
+	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false, bool bypassFilter = false, bool objectParent = false, Transform parent = null)
 	{
 		GameObject soundGameObject = new GameObject(name);
 		soundGameObject.transform.position = position;
+
+		if(objectParent && parent != null)
+		{
+			soundGameObject.transform.parent = parent;
+		}
+
 		AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
 		audioSource.clip = GetAudioClip(sound);
 		audioSource.maxDistance = maxDistance;

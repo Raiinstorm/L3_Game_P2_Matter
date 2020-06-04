@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238441f988f990f4d9b7b98ce7d790d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activatedElements: []
   _zoneElements:
   - {fileID: 6376293075246065109}
   - {fileID: 6577881720331281804}
@@ -476,12 +477,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Detected: 0
   Activated: 0
+  _zoneController: {fileID: 9207460227021290515}
   _timeExtrude: 0.25
   _distance: 10
   _propulsionGameObject: {fileID: 621895682763291025}
   _meshRenderers:
   - {fileID: 9207460227021290512}
   - {fileID: 3712986882494742028}
+  _disableExtrudeSwitch: 1
+  _disableCooldownTime: 5
+  AutoSwitch: 0
+  SecondSwitching: 0
 --- !u!1001 &4095658442821931401
 PrefabInstance:
   m_ObjectHideFlags: 0

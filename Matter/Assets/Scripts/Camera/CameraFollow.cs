@@ -20,7 +20,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothX;
     public float smoothY;
     [HideInInspector] public float rotX = 0.0f; // rotation cam
-    [HideInInspector] public float rotY = 0.0f;
+    public float rotY = 0.0f;
         
     void Start()
     {
@@ -48,11 +48,11 @@ public class CameraFollow : MonoBehaviour
         rotX += finalInputZ * inputSensibility * Time.deltaTime;
 
 		//clamp Rotation Y
-		if (rotY <= 0)
+		if (rotY < 0)
 		{
 			rotY = 360;
 		}
-		else if (rotY >= 360)
+		else if (rotY > 360)
 		{
 			rotY = 0 ;
 		}
