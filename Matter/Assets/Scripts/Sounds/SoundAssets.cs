@@ -5,11 +5,10 @@ using UnityEngine;
 public class SoundAssets : MonoBehaviour
 {
 
-	static SoundAssets _i;
-
 	public AnimationCurve SpacializedSoundCurve;
 
 
+	static SoundAssets _i;
 	public static SoundAssets i
 	{ get
 		{

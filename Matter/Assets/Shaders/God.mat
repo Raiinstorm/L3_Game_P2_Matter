@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex3:
-        m_Texture: {fileID: 2800000, guid: d276bbcd8ebd90143a8966609de8b627, type: 3}
+        m_Texture: {fileID: 2800000, guid: b3be347d5ec5811469344366f3348e22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Stone_01_normal:

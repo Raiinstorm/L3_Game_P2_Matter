@@ -1,12 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 
 public class Extrude : GenericElement
 {
 	public override ElementType Type { get { return ElementType.Extrude; } }
+	public ZoneController _zoneController;
+	Transform _zoneControllerTransform;
 
 	[Header ("Extrude")]
 	[SerializeField] private float _timeExtrude = 15f;
 	[SerializeField] private float _distance = 20;
+	[SerializeField] Transform _directionTransform;
 	float _extrudeInterpolator;
 	bool _switchReset;
 
@@ -20,28 +26,84 @@ public class Extrude : GenericElement
 
 	[SerializeField] MeshRenderer[] _meshRenderers;
 
+
+	Vector3 _direction;
+
+	[SerializeField] bool _minusDistance;
+
+
+	[Header("Tempo")]
+	[SerializeField] bool _disableExtrudeSwitch;
+	[SerializeField] float _disableCooldownTime = 5;
+	IEnumerator _disableCooldown;
+
+	[Header ("AutoSwitch - Ne pas cumuler avec le disableExtrudeSwitch")]
+	public bool AutoSwitch;
+	public bool SecondSwitching;
+
+	[Header("Is BigExtrude")]
+	[SerializeField] bool _isBigExtrude;
+
+
 	void Start()
 	{
-		_init_pos = transform.localPosition; //doit être conservée ?
+		//_init_pos = transform.localPosition; //doit être conservée ?
 
-		_oldPos = transform.position;
+		if(_directionTransform != null)
+		{
+			_direction = _directionTransform.up;
+		}
+		else
+		{
+			_direction = transform.up;
+		}
+
+		if(_minusDistance)
+		{
+			transform.position -= _direction * _distance;
+		}
+
+		if(_propulsionGameObject == null)
+		{
+			_propulsionGameObject = new GameObject("generatedPropulsionGameObject");
+			_propulsionGameObject.AddComponent<Propulsion>();
+			_propulsionGameObject.transform.parent = GameMaster.i.TrashCan.transform;
+		}
+
+		if (_zoneController != null)
+		{
+			_zoneControllerTransform = _zoneController.transform;
+			_oldPos = _zoneControllerTransform.position;
+		}
+		else
+			_oldPos = transform.position;
 
 		_propulsionScript = _propulsionGameObject.GetComponent<Propulsion>();
+		_propulsionScript._direction = _direction;
+		_propulsionScript.ClippingTransform.position = _oldPos + _direction*_distance;
 
-		_propulsionScript._direction = transform.up;
-
-		_propulsionScript.ClippingTransform.position = transform.position + transform.up*_distance;
-
-		SoundManager.PlaySoundSpacialized("Energie", SoundManager.Sound.Energy, transform.position, 50, .25f, true);
+		if(!_isBigExtrude || _zoneController !=null)
+		SoundManager.PlaySoundSpacialized("Energie", SoundManager.Sound.Energy, _oldPos, 50, .25f, true,false,true,_zoneControllerTransform);
 
 		foreach (MeshRenderer mesh in _meshRenderers)
 		{
 			mesh.enabled = false;
 		}
+
+		if(AutoSwitch)
+		{
+			GameMaster.i.AutoSwitchExtrudes.Add(this);
+		}
+
+		_disableCooldown = DisableCooldown();
 	}
 	private void Update()
 	{
-		if (Activated && transform.position != _oldPos + transform.up * _distance)
+		if(_zoneControllerTransform != null)
+		_oldPos = _zoneControllerTransform.position;
+
+
+		if (Activated && transform.position != _oldPos + _direction * _distance)
 		{
 			if(!_switchReset)
 			{
@@ -49,10 +111,18 @@ public class Extrude : GenericElement
 
 				SoundExtrude();
 
+				if(_disableExtrudeSwitch)
+				{
+					StopCoroutine(_disableCooldown);
+					_disableCooldown = DisableCooldown();
+					StartCoroutine(_disableCooldown);
+				}
+
 				foreach (MeshRenderer mesh in _meshRenderers)
 				{
 					mesh.enabled = true;
 				}
+
 			}
 
 			if(!_CoroutineAntiSpam)
@@ -75,15 +145,25 @@ public class Extrude : GenericElement
 			Translate(0);
 		}
 
-		if(_propulsionScript.IsPropulsing && Activated && transform.position == _oldPos + transform.up * _distance)
+		if(_propulsionScript.IsPropulsing && Activated && transform.position == _oldPos +_direction * _distance)
 		{
-			Activated = false;
 			_propulsionScript.IsPropulsing = false;
+
+			if(AutoSwitch)
+			{
+				GameMaster.i.Activate();
+			}
+			else
+			{
+				_zoneController.Cancel();
+			}
 		}
+
+
 	}
 	public void Translate(float enable = 1.0f)
 	{
-		_targetPos = _oldPos + transform.up * (_distance * enable);
+		_targetPos = _oldPos +_direction * (_distance * enable);
 
 		transform.position = Vector3.Lerp(transform.position, _targetPos, _extrudeInterpolator);
 
@@ -109,5 +189,11 @@ public class Extrude : GenericElement
 
 	}
 
+	IEnumerator DisableCooldown()
+	{
+		yield return new WaitForSeconds(_disableCooldownTime);
+		_zoneController.Cancel();
+
+	}
 
 }

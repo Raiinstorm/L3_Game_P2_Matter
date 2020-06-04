@@ -109,7 +109,6 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 			_playerController._canMove = false;
 		}
 	}
-
 	public void CanMove()
 	{
 		_playerController._canMove = true;

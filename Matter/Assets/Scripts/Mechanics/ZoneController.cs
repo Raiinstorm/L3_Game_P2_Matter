@@ -4,7 +4,7 @@ using UnityEngine;
 public class ZoneController : MonoBehaviour
 {
 	Dictionary<ElementType, GenericElement> _elementsByType = new Dictionary<ElementType, GenericElement> ();
-	Stack<GenericElement> _activatedElements = new Stack<GenericElement> ();
+	[HideInInspector] public List<GenericElement> _activatedElements = new List<GenericElement> ();
 
 	[SerializeField] GenericElement[] _zoneElements = null;
 	[SerializeField] private bool _activedZone = true;
@@ -77,7 +77,10 @@ public class ZoneController : MonoBehaviour
 		}
 
 		elementToActivate.apply();
-		_activatedElements.Push (elementToActivate);
+
+		CallGameMaster(elementToActivate);
+
+		_activatedElements.Add (elementToActivate);
 	}
 
 	/// <summary>
@@ -90,8 +93,13 @@ public class ZoneController : MonoBehaviour
 			Debug.Log ("ZoneController INFO: Tous les éléments de la zone sont déjà inactifs.", gameObject);
 			return;
 		}
+		var elementToDeactivate = _activatedElements[_activatedElements.Count - 1];
 
-		_activatedElements.Pop ().apply();
+		CallGameMaster(elementToDeactivate);
+
+		elementToDeactivate.apply();
+		_activatedElements.Remove(elementToDeactivate);
+
 	}
 
 	/// <summary>
@@ -99,13 +107,32 @@ public class ZoneController : MonoBehaviour
 	/// </summary>
 	public void CancelAll ()
 	{
-		while (_activatedElements.Count > 0)
-			_activatedElements.Pop ().apply();
+		/*while (_activatedElements.Count > 0)
+			_activatedElements.Pop ().apply();*/
 	}
 
 	void Awake ()
 	{
 		InitializeDictionary ();
+	}
+
+	void CallGameMaster(GenericElement elementToInterract)
+	{
+		Extrude extrude = null;
+
+		foreach (GenericElement element in _zoneElements)
+		{
+			if (element is Extrude)
+			{
+				extrude = (Extrude)element;
+			}
+		}
+
+		if (extrude.AutoSwitch)
+		{
+			GameMaster.i.Exception = elementToInterract;
+			GameMaster.i.Activate();
+		}
 	}
 
 }
