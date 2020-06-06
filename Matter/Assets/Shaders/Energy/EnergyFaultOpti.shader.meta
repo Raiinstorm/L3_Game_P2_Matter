@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 09d2ce6e7c90b8e4cb1107a829bd33a8
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _MainText: {fileID: 2800000, guid: b24870fb88aedeb48a32ee9c030fd504, type: 3}
+  - _TextNoiseMask: {fileID: 2800000, guid: b4899a8185d80da41917b6d1ceef9d38, type: 3}
+  - _StarField: {fileID: 2800000, guid: f7b201bd0d48ae04883264fe3f4ca965, type: 3}
+  - _TextMask2: {fileID: 2800000, guid: ae1b02e7eac6a2148b03cd035a28bd24, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
