@@ -91,6 +91,8 @@ public class PlayerControllerV3 : CharacterV3
 	Vector3 _cameraRight;        // vector right "normalisé" de la cam
 	Vector3 _cameraUp;
 
+	[SerializeField] bool _testSounds;
+
 	#endregion
 
 	private void Start()
@@ -157,6 +159,17 @@ public class PlayerControllerV3 : CharacterV3
 			_antispamJumpImpulse = false;
 			_currentJumpImpulse = 0;
 		}
+		if(!_onLand && IsGround() && !IsJumping)
+		{
+			_onLand = true;
+			LandingSound();
+		}
+
+		if(_testSounds)
+		{
+			_testSounds = false;
+			StartCoroutine(SoundMenu.i.TestSoundMenu());
+		}
 
 	}
 	void ApplyVelocity()
@@ -172,6 +185,8 @@ public class PlayerControllerV3 : CharacterV3
 		float y = 0;
 		if (!IsGround())
 		{
+			_onLand = false;
+
 			if (!CanStillJump)
 			{
 				StartCoroutine(_jumpBuffer);
@@ -358,6 +373,8 @@ public class PlayerControllerV3 : CharacterV3
 			{
 				_rb.velocity = new Vector3(0, _rb.velocity.y, 0);
 			}
+
+			SoundManager.PlaySound(SoundManager.Sound.PlayerPropulsed,.5f);
 
 			CheckRotationPropulsion();
 		}
@@ -550,6 +567,13 @@ public class PlayerControllerV3 : CharacterV3
 	void Respawn()
 	{
 		transform.position = RespawnPosition;
+	}
+
+
+	void LandingSound()
+	{
+		float volume = .5f;
+		SoundManager.PlaySound(SoundManager.Sound.PlayerLand, volume);
 	}
 
 }

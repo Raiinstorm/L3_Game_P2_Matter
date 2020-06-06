@@ -3,7 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void StartGame()
+	[SerializeField] bool _playMusic;
+	[SerializeField] float _volume = .1f;
+
+	private void Start()
+	{
+		if(_playMusic)
+		{
+			PlayMusic();
+		}
+	}
+
+	public void StartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -13,4 +24,9 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+
+	void PlayMusic()
+	{
+		SoundManager.PlayLoop("MainTheme", SoundManager.Sound.TitleMusic, _volume, true);
+	}
 }

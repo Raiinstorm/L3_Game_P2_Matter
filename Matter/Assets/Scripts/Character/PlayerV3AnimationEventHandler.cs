@@ -8,6 +8,8 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	PlayerControllerV3 _playerController;
 	public bool _canMove;
 	bool soundAntispam;
+
+
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
@@ -31,10 +33,14 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 			_playerController.CanStillJump = false;
 			_animator.SetBool("jump", true);
 			_playerController.IsJumping = true;
+
+
 		}
 
 		if (Input.GetButtonDown("MainMechanic") || Input.GetButtonDown("MainMechanicCancel"))
+		{
 			Power();
+		}
 	}
 
 	public void IsJump()

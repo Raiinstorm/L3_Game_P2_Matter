@@ -23,6 +23,24 @@ public static class SoundManager
 		BigExtrude,
 
 		MusicLoop,
+		TitleMusic,
+
+		UIAppear,
+		UIMove,
+		UIDisappear,
+		UIValidate,
+		UICancel,
+
+		RockSliding,
+		DustFalling,
+
+		PlayerJump,
+		PlayerLand,
+		PlayerPropulsed,
+
+		PlayerPower,
+		Genial,
+		feetBack,
 	}
 
 	public static void PlayLoop(string name, Sound sound, float volume = 1f,bool bypassFilter = false)
@@ -44,7 +62,7 @@ public static class SoundManager
 	}
 
 
-	public static void PlaySound(Sound sound, float volume = 1f,bool bypassFilter = false) //not Spacialized
+	public static void PlaySound(Sound sound, float volume = 1f,bool bypassFilter = false,float pitch = 1) //not Spacialized
 	{
 		if (_oneShotGameObject == null)
 		{
@@ -61,7 +79,7 @@ public static class SoundManager
 		_oneShotAudioSource.PlayOneShot(GetAudioClip(sound), volume);
 	}
 
-	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false, bool bypassFilter = false, bool objectParent = false, Transform parent = null)
+	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false, bool bypassFilter = false, bool objectParent = false, Transform parent = null, AudioClip audioClip = null)
 	{
 		GameObject soundGameObject = new GameObject(name);
 		soundGameObject.transform.position = position;
@@ -72,6 +90,8 @@ public static class SoundManager
 		}
 
 		AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+
+
 		audioSource.clip = GetAudioClip(sound);
 		audioSource.maxDistance = maxDistance;
 		audioSource.volume = volume;
@@ -98,6 +118,45 @@ public static class SoundManager
 		}
 	}
 
+	public static void PlaySoundSpacialized(string name, AudioClip audioClip, Vector3 position, float maxDistance = 50, float volume = 1f, bool loop = false, bool bypassFilter = false, bool objectParent = false, Transform parent = null)
+	{
+		GameObject soundGameObject = new GameObject(name);
+		soundGameObject.transform.position = position;
+
+		if (objectParent && parent != null)
+		{
+			soundGameObject.transform.parent = parent;
+		}
+
+		AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+
+
+		audioSource.clip = audioClip;
+		audioSource.maxDistance = maxDistance;
+		audioSource.volume = volume;
+		audioSource.spatialBlend = 1f;
+		audioSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, SoundAssets.i.SpacializedSoundCurve);
+		audioSource.rolloffMode = AudioRolloffMode.Custom;
+		audioSource.dopplerLevel = 0f;
+
+		if (loop)
+		{
+			audioSource.loop = true;
+			SoundAssets.i.AudioLoops.Add(soundGameObject);
+		}
+		if (bypassFilter)
+		{
+			audioSource.bypassEffects = true;
+		}
+
+		audioSource.Play();
+
+		if (!loop)
+		{
+			Object.Destroy(soundGameObject, audioSource.clip.length);
+		}
+	}
+
 	static AudioClip GetAudioClip(Sound sound)
 	{
 		List<AudioClip> audioClips = new List<AudioClip>();
@@ -110,6 +169,5 @@ public static class SoundManager
 		}
 		return audioClips[Random.Range(0,audioClips.Count)];
 	}
-
 
 }

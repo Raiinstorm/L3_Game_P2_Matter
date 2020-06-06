@@ -480,14 +480,17 @@ MonoBehaviour:
   _zoneController: {fileID: 9207460227021290515}
   _timeExtrude: 0.25
   _distance: 10
+  _directionTransform: {fileID: 0}
   _propulsionGameObject: {fileID: 621895682763291025}
   _meshRenderers:
   - {fileID: 9207460227021290512}
   - {fileID: 3712986882494742028}
+  _minusDistance: 0
   _disableExtrudeSwitch: 1
-  _disableCooldownTime: 5
+  _disableCooldownTime: 10
   AutoSwitch: 0
   SecondSwitching: 0
+  _isBigExtrude: 0
 --- !u!1001 &4095658442821931401
 PrefabInstance:
   m_ObjectHideFlags: 0
