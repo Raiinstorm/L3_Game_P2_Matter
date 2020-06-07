@@ -97,6 +97,8 @@ public class PlayerControllerV3 : CharacterV3
 
 	private void Start()
 	{
+		GameMaster.i.Hello();
+
 		_canRespawn = true;
 		RespawnPosition = transform.position;
 		_maxHealth = 100;
@@ -532,9 +534,14 @@ public class PlayerControllerV3 : CharacterV3
 		CanStillJump = false;
 	}
 
-	public void IsJumpingOnSpot()
+	public void CheckJumpingOnSpot()
 	{
+		if(_velocity == Vector3.zero)
 		_isJumpingOnSpot = true;
+		else
+		{
+			_isJumpingOnSpot = false;
+		}
 	}
 
 	void PauseState()

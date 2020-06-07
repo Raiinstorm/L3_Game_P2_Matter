@@ -15,9 +15,9 @@ public class Propulsion : MonoBehaviour
 	bool _antispam;
 	[HideInInspector] public bool IsPropulsing;
 
-	private void Start()
+	private void Awake()
 	{
-		if(ClippingTransform == null)
+		if (ClippingTransform == null)
 		{
 			ClippingTransform = new GameObject("GeneratedClippingTransform").transform;
 			ClippingTransform.parent = GameMaster.i.TrashCan.transform;

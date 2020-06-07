@@ -57,6 +57,12 @@ public class CameraFollow : MonoBehaviour
 			rotY = 0 ;
 		}
 
+		if(GameMaster.i.ResetRotation)
+		{
+			rotX = 0;
+			rotY = 0;
+		}
+
         //bloquer l'angle de rotation
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);

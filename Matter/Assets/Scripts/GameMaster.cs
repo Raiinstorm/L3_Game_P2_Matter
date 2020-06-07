@@ -12,6 +12,8 @@ public class GameMaster : MonoBehaviour
 	[SerializeField] float _minWaitForSounds = 1;
 	[SerializeField] float _maxWaitForSounds = 100;
 
+	[HideInInspector] public bool ResetRotation;
+
 	static GameMaster _i;
 	public static GameMaster i
 	{
@@ -49,6 +51,11 @@ public class GameMaster : MonoBehaviour
 			_extrudesSwitch = ExtrudesAutoSwitch();
 			StartCoroutine(_extrudesSwitch);
 		}
+	}
+
+	public void Hello()
+	{
+		//Debug.Log("hello");
 	}
 
 	IEnumerator PlayLoops()
@@ -118,11 +125,11 @@ public class GameMaster : MonoBehaviour
 
 	IEnumerator RockAndDustRoutine(float waitTime1, float waitTime2, float whoFirst)
 	{
-		Debug.Log("waitTime1 :" + waitTime1);
-		Debug.Log("waitTime2 :" + waitTime2);
+		//Debug.Log("waitTime1 :" + waitTime1);
+		//Debug.Log("waitTime2 :" + waitTime2);
 
 		yield return new WaitForSeconds(waitTime1);
-		Debug.Log("1");
+		//Debug.Log("1");
 
 		if(whoFirst == 1)
 		SoundManager.PlaySound(SoundManager.Sound.RockSliding, _volume/2);
@@ -130,7 +137,7 @@ public class GameMaster : MonoBehaviour
 		SoundManager.PlaySound(SoundManager.Sound.DustFalling, _volume / 2);
 
 		yield return new WaitForSeconds(waitTime2);
-		Debug.Log("2");
+		//Debug.Log("2");
 
 		if (whoFirst == 1)
 			SoundManager.PlaySound(SoundManager.Sound.DustFalling, _volume / 2);

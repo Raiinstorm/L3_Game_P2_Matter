@@ -24,6 +24,8 @@ public class slt : MonoBehaviour
 	[SerializeField] GameObject _guest2;
 	GameObject _player;
 
+	[HideInInspector] public bool LockRot;
+
 	float _rot = 45;
 	bool firstRot = true;
 
@@ -109,13 +111,16 @@ public class slt : MonoBehaviour
 	{
 		GameObject guest1 = Instantiate(_guest1);
 		GameObject guest2 = Instantiate(_guest2);
+
+		GameMaster.i.ResetRotation = true;
+
 		guest1.transform.position = _player.transform.position + new Vector3(3, 0, 3);
 		guest2.transform.position = _player.transform.position + new Vector3(-3, 0, 3);
 		guest1.transform.LookAt(_player.transform,Vector3.up);
 		guest2.transform.LookAt(_player.transform,Vector3.up);
 		guest2.transform.rotation = Quaternion.Euler(guest2.transform.rotation.eulerAngles.x-90,guest2.transform.rotation.eulerAngles.y,0);
 
-		SoundManager.PlaySound(SoundManager.Sound.feetBack, .5f, true);
+		SoundManager.PlaySound(SoundManager.Sound.feetBack, .25f, true);
 
 		yield return new WaitForSeconds(.5f);
 
@@ -209,6 +214,8 @@ public class slt : MonoBehaviour
 		Destroy(guest2);
 		firstRot = true;
 		_rot *= .5f;
+
+		GameMaster.i.ResetRotation = false;
 
 
 	}
