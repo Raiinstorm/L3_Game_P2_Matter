@@ -7,8 +7,12 @@ public class GameMaster : MonoBehaviour
 {
 	public GenericElement Exception;
 
-	public bool playLoops;
-	[SerializeField] float volume = 1;
+	public bool playSounds;
+	[SerializeField] float _volume = 1;
+	[SerializeField] float _minWaitForSounds = 1;
+	[SerializeField] float _maxWaitForSounds = 100;
+
+	[HideInInspector] public bool ResetRotation;
 
 	static GameMaster _i;
 	public static GameMaster i
@@ -27,32 +31,39 @@ public class GameMaster : MonoBehaviour
 	public List<Extrude> AutoSwitchExtrudes;
 	[SerializeField] float _switchTime = 2f;
 
-	IEnumerator extrudesSwitch;
+	IEnumerator _extrudesSwitch;
+	IEnumerator _rockAndDust;
 
-	public List<GenericElement> elements;
+	public List<GenericElement> Elements;
 
 	public GameObject TrashCan;
 
 	void Start()
 	{
 
-		if (playLoops)
+		if (playSounds)
 		{
 			StartCoroutine(PlayLoops());
+			RockAndDust();
 		}
 		if(AutoSwitchExtrudes.Count != 0)
 		{
-			extrudesSwitch = ExtrudesAutoSwitch();
-			StartCoroutine(extrudesSwitch);
+			_extrudesSwitch = ExtrudesAutoSwitch();
+			StartCoroutine(_extrudesSwitch);
 		}
+	}
+
+	public void Hello()
+	{
+		//Debug.Log("hello");
 	}
 
 	IEnumerator PlayLoops()
 	{
 		yield return new WaitForSeconds(1);
 
-		SoundManager.PlayLoop("Ambient", SoundManager.Sound.AmbientInGameLoop,volume,true);
-		SoundManager.PlayLoop("Music", SoundManager.Sound.MusicLoop,volume,true);
+		SoundManager.PlayLoop("Ambient", SoundManager.Sound.AmbientInGameLoop,_volume,true);
+		SoundManager.PlayLoop("Music", SoundManager.Sound.MusicLoop,_volume,true);
 	}
 
 	IEnumerator ExtrudesAutoSwitch()
@@ -92,13 +103,47 @@ public class GameMaster : MonoBehaviour
 
 		Exception = null;
 
-		ResetRoutine();
+		ResetRoutineAutoSwitch();
 	}
 
-	void ResetRoutine()
+	void ResetRoutineAutoSwitch()
 	{
-		StopCoroutine(extrudesSwitch);
-		extrudesSwitch = ExtrudesAutoSwitch();
-		StartCoroutine(extrudesSwitch);
+		StopCoroutine(_extrudesSwitch);
+		_extrudesSwitch = ExtrudesAutoSwitch();
+		StartCoroutine(_extrudesSwitch);
+	}
+
+	void RockAndDust()
+	{
+		float waitTime1 = Random.Range(_minWaitForSounds, _maxWaitForSounds);
+		float waitTime2 = Random.Range(_minWaitForSounds, _maxWaitForSounds);
+		float whoFirst = Random.Range(1, 2);
+
+		_rockAndDust = RockAndDustRoutine(waitTime1,waitTime2,whoFirst);
+		StartCoroutine(_rockAndDust);
+	}
+
+	IEnumerator RockAndDustRoutine(float waitTime1, float waitTime2, float whoFirst)
+	{
+		//Debug.Log("waitTime1 :" + waitTime1);
+		//Debug.Log("waitTime2 :" + waitTime2);
+
+		yield return new WaitForSeconds(waitTime1);
+		//Debug.Log("1");
+
+		if(whoFirst == 1)
+		SoundManager.PlaySound(SoundManager.Sound.RockSliding, _volume/2);
+		else
+		SoundManager.PlaySound(SoundManager.Sound.DustFalling, _volume / 2);
+
+		yield return new WaitForSeconds(waitTime2);
+		//Debug.Log("2");
+
+		if (whoFirst == 1)
+			SoundManager.PlaySound(SoundManager.Sound.DustFalling, _volume / 2);
+		else
+			SoundManager.PlaySound(SoundManager.Sound.RockSliding, _volume / 2);
+
+		RockAndDust();
 	}
 }

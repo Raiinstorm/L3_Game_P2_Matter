@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2961368270087468080}
-  - component: {fileID: 2961368270087468081}
   - component: {fileID: 2961368270087468086}
   - component: {fileID: 2961368270087468087}
   - component: {fileID: 2961368270087468084}
@@ -36,27 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -30.000002, z: 0}
---- !u!114 &2961368270087468081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2961368270087468090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb977b126bc1b4f15813dcf9da9bb600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Points:
-  - {x: -0, y: 0, z: -0}
-  - {x: 0, y: 0, z: -10}
-  - {x: 10, y: 0, z: -10}
-  - {x: 10, y: 0, z: 0}
-  m_Extrude: 0
-  m_EditMode: 0
-  m_FlipNormals: 0
-  isOnGrid: 1
 --- !u!33 &2961368270087468086
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -434,6 +412,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: cd863ec3e262adb42ae3a1d509e27499, type: 2}
+    - target: {fileID: -6057140222963153312, guid: 660bd117bfe0a7344afc4bae886abf70,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 660bd117bfe0a7344afc4bae886abf70, type: 3}
 --- !u!4 &7809892727617127956 stripped

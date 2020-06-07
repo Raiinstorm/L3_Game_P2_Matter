@@ -22,6 +22,8 @@ public abstract class CharacterV3 : MonoBehaviour
 
 	[HideInInspector] public Vector3 RespawnPosition;
 
+	protected bool _onLand;
+
 	public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
 	public int Health
 	{
@@ -52,6 +54,9 @@ public abstract class CharacterV3 : MonoBehaviour
 		_isJumpingOnSpot = false;
 		_rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
 		_rb.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
+		_onLand = false;
+
+		JumpSound();
 	}
 
 	public virtual void GetDamage(int Damage)
@@ -62,6 +67,12 @@ public abstract class CharacterV3 : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.DrawWireSphere(_groundCheck.position, _groundDistance);
+	}
+
+	void JumpSound()
+	{
+		float volume = .5f;
+		SoundManager.PlaySound(SoundManager.Sound.PlayerJump, volume);
 	}
 
 }

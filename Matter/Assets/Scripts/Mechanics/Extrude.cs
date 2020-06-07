@@ -77,7 +77,6 @@ public class Extrude : GenericElement
 		}
 		else
 			_oldPos = transform.position;
-
 		_propulsionScript = _propulsionGameObject.GetComponent<Propulsion>();
 		_propulsionScript._direction = _direction;
 		_propulsionScript.ClippingTransform.position = _oldPos + _direction*_distance;
@@ -101,6 +100,8 @@ public class Extrude : GenericElement
 	{
 		if(_zoneControllerTransform != null)
 		_oldPos = _zoneControllerTransform.position;
+
+		//Debug.Log(_oldPos);
 
 
 		if (Activated && transform.position != _oldPos + _direction * _distance)

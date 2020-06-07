@@ -36,13 +36,21 @@ public class ZoneDetector : MonoBehaviour
 
             ZoneController zoneController = GetClosestGameObject(Faults, false);
             if (zoneController != null && zoneController.ActivedZone)
-                zoneController.ActivateElementOfType(_mechanics.ReturnMode);
+			{
+				zoneController.ActivateElementOfType(_mechanics.ReturnMode);
+				PowerSound();
+
+			}
         }
         else if (Input.GetButtonDown("MainMechanicCancel"))
         {
             ZoneController zoneController = GetClosestGameObject(Faults, true);
             if (zoneController != null)
-                zoneController.Cancel();
+			{
+				zoneController.Cancel();
+				PowerSound();
+
+			}
         }
         else if (Input.GetButtonDown("InfuseEnergy"))
         {
@@ -113,4 +121,10 @@ public class ZoneDetector : MonoBehaviour
         }
         return bestTarget;
     }
+
+	public void PowerSound()
+	{
+		float volume = .5f;
+		SoundManager.PlaySound(SoundManager.Sound.PlayerPower, volume);
+	}
 }

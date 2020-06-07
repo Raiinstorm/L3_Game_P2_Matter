@@ -9,6 +9,8 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	DeathPlayer _deathPlayer;
 	public bool _canMove;
 	bool soundAntispam;
+
+	int i;
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
@@ -36,6 +38,8 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 			_playerController.CanStillJump = false;
 			_animator.SetBool("jump", true);
 			_playerController.IsJumping = true;
+			_playerController.CheckJumpingOnSpot();
+			StartCoroutine(PreventSwitchAnim());
 		}
 
 		if (Input.GetButtonDown("MainMechanic") || Input.GetButtonDown("MainMechanicCancel"))
@@ -52,7 +56,11 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	{
 		//Debug.Log("Check");
 		if (_playerController.IsGround())
+		{
 			_animator.SetBool("isGround", true);
+			if (_animator.GetBool("preventSwitchAnim") == false)
+				ResetStates();
+		}
 		else
 			_animator.SetBool("isGround", false);
 	}
@@ -72,19 +80,24 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	{
 		float volume = .5f;
 
-		if(!soundAntispam)
+		if(i == 0)
 		{
-			if(!_playerController.IsRunning)
+			if (!_playerController.IsRunning)
 			{
-				SoundManager.PlaySound(SoundManager.Sound.PlayerWalk,volume);
+				SoundManager.PlaySound(SoundManager.Sound.PlayerWalk, volume);
 			}
 			else
 			{
-				SoundManager.PlaySound(SoundManager.Sound.PlayerRun,volume*2);
+				SoundManager.PlaySound(SoundManager.Sound.PlayerRun, volume * 2);
 			}
 		}
 
-		soundAntispam = !soundAntispam;
+		i++;
+		if (i == 4)
+		{
+			i = 0;
+		}
+
 	}
 
 	public void Propulsion()
@@ -112,6 +125,18 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	public void CanMove()
 	{
 		_playerController._canMove = true;
+	}
+
+	public void ResetStates()
+	{
+		_animator.SetBool("jump", false);
+	}
+
+	IEnumerator PreventSwitchAnim()
+	{
+		_animator.SetBool("preventSwitchAnim", true);
+		yield return new WaitForSeconds(.5f);
+		_animator.SetBool("preventSwitchAnim", false);
 	}
 
 }
