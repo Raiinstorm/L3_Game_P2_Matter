@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5261275562471310955}
   - component: {fileID: 807120083893116715}
   - component: {fileID: 8074298205176306699}
+  - component: {fileID: 6221315095437494316}
   m_Layer: 0
   m_Name: Cylinder014
   m_TagString: Untagged
@@ -78,6 +79,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6221315095437494316
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160112459598893003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 6571506424998889177, guid: 611669b7419aa994786a19e136c6b7bc, type: 3}
 --- !u!1 &2970843353731382897
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +104,7 @@ GameObject:
   - component: {fileID: 9143176301472430471}
   - component: {fileID: 9038316509501072470}
   - component: {fileID: 4311037277275287952}
+  - component: {fileID: 511736626550261344}
   m_Layer: 0
   m_Name: Pylone026
   m_TagString: Untagged
@@ -156,6 +172,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &511736626550261344
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970843353731382897}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -2840450979646666915, guid: 611669b7419aa994786a19e136c6b7bc, type: 3}
 --- !u!1 &4434043725538143408
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +197,7 @@ GameObject:
   - component: {fileID: 537422960781718561}
   - component: {fileID: 1111364689068918526}
   - component: {fileID: 6301694265119002825}
+  - component: {fileID: 6299909914100393689}
   m_Layer: 0
   m_Name: Plane010
   m_TagString: Untagged
@@ -234,6 +265,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6299909914100393689
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4434043725538143408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -4239224724994408158, guid: 611669b7419aa994786a19e136c6b7bc, type: 3}
 --- !u!1 &7010003742423844155
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +290,7 @@ GameObject:
   - component: {fileID: 4485689143616180604}
   - component: {fileID: 6147642366704926516}
   - component: {fileID: 1523668770872215158}
+  - component: {fileID: 1508931206421265433}
   m_Layer: 0
   m_Name: Pylone025
   m_TagString: Untagged
@@ -312,6 +358,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1508931206421265433
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010003742423844155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -4037133501609611834, guid: 611669b7419aa994786a19e136c6b7bc, type: 3}
 --- !u!1 &7237718212763078102
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +417,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7237718212763078102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 611669b7419aa994786a19e136c6b7bc, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -457,6 +517,7 @@ GameObject:
   - component: {fileID: 8922815318510322101}
   - component: {fileID: 4462160682865262830}
   - component: {fileID: 280975990594929541}
+  - component: {fileID: 1441931342916994980}
   m_Layer: 0
   m_Name: Pylone024
   m_TagString: Untagged
@@ -524,3 +585,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1441931342916994980
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314737791488265066}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -3931177543987410144, guid: 611669b7419aa994786a19e136c6b7bc, type: 3}
