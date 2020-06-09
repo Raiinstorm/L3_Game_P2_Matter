@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ZoneController : MonoBehaviour
 {
+	public Transform _feedbackSelection;
+
 	Dictionary<ElementType, GenericElement> _elementsByType = new Dictionary<ElementType, GenericElement> ();
 	[HideInInspector] public List<GenericElement> _activatedElements = new List<GenericElement> ();
 

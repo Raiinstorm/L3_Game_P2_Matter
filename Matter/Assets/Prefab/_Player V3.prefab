@@ -183,13 +183,17 @@ MonoBehaviour:
   _smoothDamping: 0.3
   MoveSpeed: 10
   _runMultiplicator: 1.6
-  _maxSlopeAngle: 45
   _extraTimeToJump: 0.1
   _turnAroundSpeed: 0.2
   _fallMultiplicator: 1.75
+  _jumpImpulseIntensity: 0.5
   _damageInfuseEnergy: 0
-  _slopeDetector: {fileID: 3054874260983058918}
+  _physicMaterial: {fileID: 13400000, guid: 5039de080a6ad134eb7b47337b7f8543, type: 2}
   IsJumping: 0
+  _maxSlopeAngle: 45
+  _maxSpeedOnSlope: 15
+  _speedIncreasingOnSlope: 2
+  _slopeDetector: {fileID: 3054874260983058918}
   PropulsionVector: {x: 0, y: 0, z: 0}
   _propulsionCurve:
     serializedVersion: 2
@@ -224,7 +228,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 7173648767454427127}
   _cameraFollow: {fileID: 7173648767827863902}
   _dead: 0
-  PressInterruptor: 0
+  _testSounds: 0
 --- !u!114 &6966424010586333689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e55c80373e2054ab739b13aefe560b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentlyPostion: {x: 0, y: 0, z: 0}
+  _timeCheckPos: 0
+  _timeCheckPosTemp: 0
+  Respawn: 0
 --- !u!95 &6966424010586333691
 Animator:
   serializedVersion: 3
@@ -322,7 +330,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6966424010586333635}
-  m_Material: {fileID: 13400000, guid: 05c601b28a1103f4496f7eda69e9b7ea, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35

@@ -13,6 +13,8 @@ public class ZoneDetector : MonoBehaviour
     [SerializeField] protected PlayerControllerV3 _player;
     private InputMechanics _mechanics;
 
+	public SelectionParticle _selectionParticle;
+
     private void Update()
     {
         GetInput();
@@ -68,9 +70,39 @@ public class ZoneDetector : MonoBehaviour
 
     void FeatBack()
     {
+		SelectionParticle();
+
         if(Faults.Count != 0)
-            Faults[0].GetComponent<Renderer>().material.SetColor("_Color",Color.red);
+		{
+			Faults[0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+		}
     }
+
+	void SelectionParticle()
+	{
+		if (Faults.Count != 0)
+		{
+			for(int i =0; i<Faults.Count; i++)
+			{
+				if(Faults[i]._activatedElements.Count !=0)
+					continue;
+				else
+				{
+					_selectionParticle.Target = Faults[i].GetComponent<ZoneController>()._feedbackSelection.position;
+					break;
+				}
+			}
+
+			if (Faults[Faults.Count - 1]._activatedElements.Count != 0)
+			{
+				_selectionParticle.Target = Vector3.zero;
+			}
+		}
+		else
+		{
+			_selectionParticle.Target = Vector3.zero;
+		}
+	}
 
 #if UNITY_EDITOR
     void VisualizeBox()

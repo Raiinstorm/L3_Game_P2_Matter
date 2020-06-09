@@ -56,13 +56,15 @@ public class PlayerControllerV3 : CharacterV3
 
 	[Header("Propulsion")]
 	public Vector3 PropulsionVector;
+
 	[SerializeField] AnimationCurve _propulsionCurve;
 	[SerializeField] float _propulsionTime;
 	[SerializeField] float _propulsionPower;
 	public float _propulsionIntensity;
 	float _lerpValue;
-	[HideInInspector] public bool _propulsed;
 	float _propulsionInterpolator;
+
+	[HideInInspector] public bool _propulsed;
 	[HideInInspector] public bool AntiSpamPropulsion;
 	float _targetRotationPropulsion;
 
