@@ -7,7 +7,6 @@ public class GameMaster : MonoBehaviour
 {
 	public GenericElement Exception;
 
-	public bool playSounds;
 	[SerializeField] float _volume = 1;
 	[SerializeField] float _minWaitForSounds = 1;
 	[SerializeField] float _maxWaitForSounds = 100;
@@ -43,17 +42,17 @@ public class GameMaster : MonoBehaviour
 
 	void Start()
 	{
-
-		if (playSounds)
-		{
-			StartCoroutine(PlayLoops());
-			RockAndDust();
-		}
 		if(AutoSwitchExtrudes.Count != 0)
 		{
 			_extrudesSwitch = ExtrudesAutoSwitch();
 			StartCoroutine(_extrudesSwitch);
 		}
+	}
+
+	public void PlaySounds()
+	{
+		StartCoroutine(PlayLoops());
+		RockAndDust();
 	}
 
 	public void Hello()

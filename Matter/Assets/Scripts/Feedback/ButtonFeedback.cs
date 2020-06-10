@@ -21,18 +21,24 @@ public class ButtonFeedback : MonoBehaviour
 
 	public void Off()
 	{
-		_off = Instantiate(_offPrefab);
-		_off.transform.position = _fxPos.position;
-		StartCoroutine(DestroyObject(_on));
+		if(_onPrefab != null && _offPrefab != null)
+		{
+			_off = Instantiate(_offPrefab);
+			_off.transform.position = _fxPos.position;
+			StartCoroutine(DestroyObject(_on));
+		}
 
 		_animator.SetBool("activation", false);
 	}
 
 	public void On()
 	{
-		_on = Instantiate(_onPrefab);
+		if (_onPrefab != null && _offPrefab != null)
+		{
+					_on = Instantiate(_onPrefab);
 		_on.transform.position = _fxPos.position;
 		StartCoroutine(DestroyObject(_off));
+		}
 
 		_animator.SetBool("activation",true);
 		SoundManager.PlaySound(SoundManager.Sound.Button);

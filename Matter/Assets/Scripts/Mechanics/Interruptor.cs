@@ -16,6 +16,12 @@ public class Interruptor : MonoBehaviour
 	CameraSnapping _snap;
 
 	[SerializeField] GameObject _button;
+	[SerializeField] GameObject _relic;
+
+	[SerializeField] SoundManager.Sound feedBackSound;
+
+	[SerializeField] GameObject _canvas;
+	[SerializeField] GameObject _imageCanvas;
 
 	private void Start()
 	{
@@ -53,14 +59,31 @@ public class Interruptor : MonoBehaviour
 
 	void ActivateInterruptor()
 	{
-		foreach(Extrude extrude in _bigExtrudes)
+		if(_bigExtrudes.Length !=0)
 		{
-			extrude.Activated = true;
+			foreach (Extrude extrude in _bigExtrudes)
+			{
+				extrude.Activated = true;
+			}
 		}
-
-		SoundManager.PlaySound(SoundManager.Sound.BigExtrude);
+		SoundManager.PlaySound(SoundManager.Sound.Button);
+		SoundManager.PlaySound(feedBackSound);
 		_cameraShaking.Shaking = true;
 		_snap.ActivateLerp = true;
 		_button.GetComponent<ButtonFeedback>().On();
+
+		if (_relic != null)
+		{
+			_relic.GetComponent<RelicFeedback>().On();
+			StartCoroutine(ThanksForPlaying());
+		}
+	}
+
+	IEnumerator ThanksForPlaying()
+	{
+		yield return new WaitForSeconds(5);
+		_canvas.SetActive(true);
+		yield return new WaitForSeconds(1);
+		_imageCanvas.SetActive(true);
 	}
 }

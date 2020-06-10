@@ -100,6 +100,7 @@ public class PlayerControllerV3 : CharacterV3
 	private void Start()
 	{
 		GameMaster.i.Hello();
+		GameMaster.i.PlaySounds();
 
 		_canRespawn = true;
 		RespawnPosition = transform.position;

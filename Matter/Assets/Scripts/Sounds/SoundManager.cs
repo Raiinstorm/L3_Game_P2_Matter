@@ -47,6 +47,7 @@ public static class SoundManager
 
 		TitleMusicFirst,
 		Button,
+		EarthQuake,
 	}
 
 	public static void PlayLoop(string name, Sound sound, float volume = 1f, bool bypassFilter = false, bool isMusic = false)

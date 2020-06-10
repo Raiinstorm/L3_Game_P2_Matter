@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _ColorEmissive: 1.75
+    - _ColorEmissive: 0.5
     - _Hardness: 0.2
     - __dirty: 0
     m_Colors:
