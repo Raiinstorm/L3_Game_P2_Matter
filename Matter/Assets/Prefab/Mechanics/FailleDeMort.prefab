@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 5310648551280050178}
   - component: {fileID: 3812349893326060084}
   - component: {fileID: 7481808755348817613}
+  - component: {fileID: 1067647830923551241}
   m_Layer: 0
   m_Name: Energy
   m_TagString: Untagged
@@ -203,6 +204,25 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!95 &1067647830923551241
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216739097776452113}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cc4c8c4da6adfa439734e678359c22c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &628116807027922199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,6 +370,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9207460227021290515, guid: 04ae8506b43abc34aba6581e543a22c9,
+        type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 1067647830923551241}
     - target: {fileID: 8773583639391774976, guid: 04ae8506b43abc34aba6581e543a22c9,
         type: 3}
       propertyPath: _zoneController
@@ -359,12 +384,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 276f96d530967304e9490d7807b8f690, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 496859599962270839, guid: 04ae8506b43abc34aba6581e543a22c9,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 276f96d530967304e9490d7807b8f690, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1025394748776861500, guid: 04ae8506b43abc34aba6581e543a22c9,
         type: 3}
       propertyPath: m_LocalPosition.y

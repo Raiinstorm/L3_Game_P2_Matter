@@ -8,6 +8,9 @@ public static class SoundManager
 	static GameObject _oneShotGameObject;
 	static AudioSource _oneShotAudioSource;
 
+	public static float MusicIntensity = 1;
+	public static float SoundIntensity = 1;
+
 
 	public enum Sound
 	{
@@ -41,15 +44,29 @@ public static class SoundManager
 		PlayerPower,
 		Genial,
 		feetBack,
+
+		TitleMusicFirst,
+		Button,
 	}
 
-	public static void PlayLoop(string name, Sound sound, float volume = 1f,bool bypassFilter = false)
+	public static void PlayLoop(string name, Sound sound, float volume = 1f, bool bypassFilter = false, bool isMusic = false)
 	{
 		GameObject loop = new GameObject(name);
 		AudioSource sourceLoop = loop.AddComponent<AudioSource>();
 
+		float volumeOptions;
+
+		if (isMusic)
+		{
+			volumeOptions = MusicIntensity;
+		}
+		else
+		{
+			volumeOptions = SoundIntensity;
+		}
+
 		sourceLoop.loop = true;
-		sourceLoop.volume = volume;
+		sourceLoop.volume = volume * volumeOptions;
 		sourceLoop.clip = GetAudioClip(sound);
 		if (bypassFilter)
 		{
@@ -62,7 +79,7 @@ public static class SoundManager
 	}
 
 
-	public static void PlaySound(Sound sound, float volume = 1f,bool bypassFilter = false,float pitch = 1) //not Spacialized
+	public static void PlaySound(Sound sound, float volume = 1f,bool bypassFilter = false,float pitch = 1,bool isMusic = false) //not Spacialized
 	{
 		if (_oneShotGameObject == null)
 		{
@@ -76,7 +93,18 @@ public static class SoundManager
 			_oneShotAudioSource.bypassEffects = true;
 		}
 
-		_oneShotAudioSource.PlayOneShot(GetAudioClip(sound), volume);
+		float volumeOptions;
+
+		if(isMusic)
+		{
+			volumeOptions = MusicIntensity;
+		}
+		else
+		{
+			volumeOptions = SoundIntensity;
+		}
+
+		_oneShotAudioSource.PlayOneShot(GetAudioClip(sound), volume * volumeOptions);
 	}
 
 	public static void PlaySoundSpacialized(string name,Sound sound, Vector3 position,float maxDistance = 50,float volume = 1f, bool loop = false, bool bypassFilter = false, bool objectParent = false, Transform parent = null, AudioClip audioClip = null)
@@ -157,7 +185,7 @@ public static class SoundManager
 		}
 	}
 
-	static AudioClip GetAudioClip(Sound sound)
+	public static AudioClip GetAudioClip(Sound sound)
 	{
 		List<AudioClip> audioClips = new List<AudioClip>();
 		foreach(SoundAssets.SoundAudioClip soundAudioClip in SoundAssets.i.soundAudioClips)

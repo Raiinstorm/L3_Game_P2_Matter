@@ -12,6 +12,17 @@ public class Interruptor : MonoBehaviour
 
 	[SerializeField] bool _forceActivation;
 
+	[SerializeField] CameraShaking _cameraShaking;
+	CameraSnapping _snap;
+
+	[SerializeField] GameObject _button;
+
+	private void Start()
+	{
+		_snap = _cameraShaking.gameObject.GetComponent<CameraSnapping>();
+	}
+
+
 	void Update()
 	{
 		if((Input.GetButtonDown("Interract") && _canBeActivated || _forceActivation) && !_activated)
@@ -48,5 +59,8 @@ public class Interruptor : MonoBehaviour
 		}
 
 		SoundManager.PlaySound(SoundManager.Sound.BigExtrude);
+		_cameraShaking.Shaking = true;
+		_snap.ActivateLerp = true;
+		_button.GetComponent<ButtonFeedback>().On();
 	}
 }

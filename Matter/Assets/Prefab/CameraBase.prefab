@@ -135,9 +135,11 @@ GameObject:
   m_Component:
   - component: {fileID: 225283549949723836}
   - component: {fileID: 225283549949723839}
+  - component: {fileID: 6963339262571119084}
+  - component: {fileID: 600272697772397510}
   m_Layer: 0
   m_Name: CameraBase
-  m_TagString: Untagged
+  m_TagString: Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,3 +187,70 @@ MonoBehaviour:
   smoothY: 0
   rotX: 0
   rotY: 0
+  BlockRotation: 0
+--- !u!114 &6963339262571119084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225283549949723837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87e4a298d1ef2942a0662ba54b9b576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shaking: 0
+  _intensity: 0.25
+  _intensityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _shakingTime: 8
+--- !u!114 &600272697772397510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225283549949723837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424fee556a4f3dc428c7054dc5ab673b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotXTarget: 0
+  RotYTarget: 0
+  _snappingTime: 3
+  _waitingTime: 6
+  EnableLerp: 0
+  ActivateLerp: 0

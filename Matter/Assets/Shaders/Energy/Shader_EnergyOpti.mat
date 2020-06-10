@@ -52,9 +52,9 @@ Material:
     - _DissolveAmount: 0.121
     - _EdgeThickness: 0.15
     - _Float0: 0
-    - _HUE: 0.246
+    - _HUE: 0.206
     - _HUEAlpha: 1
-    - _Luminosity: 2.3
+    - _Luminosity: 1
     - _Luminositynoise: 0.1
     - _MaskBias: 1
     - _MaskNoise: 0.5
@@ -65,11 +65,12 @@ Material:
     - _OpacityLayerStar2: 0.5
     - _ParallaxMapping: 100
     - _RotationUV: 5.25
-    - _Saturation: 0.5
+    - _Saturation: 0.75
     - _SpeedBackground: 0.005
     - _SpeedStar1: 0.01
     - _SpeedStar2: 0.03
     - _Toogle: 0
+    - _ToogleHUE: 0
     - _ToogleHUe: 1
     - _ToogleHue: 0
     - __dirty: 0

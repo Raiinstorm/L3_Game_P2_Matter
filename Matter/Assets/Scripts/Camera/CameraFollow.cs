@@ -3,7 +3,8 @@
 public class CameraFollow : MonoBehaviour
 {
     public GameObject cameraFollowObj; 
-    public GameObject cameraObj; 
+    public GameObject cameraObj;
+	CameraSnapping _snap;
 
     Vector3 FollowPos; // position
     
@@ -19,14 +20,22 @@ public class CameraFollow : MonoBehaviour
     public float finalInputZ;
     public float smoothX;
     public float smoothY;
-    [HideInInspector] public float rotX = 0.0f; // rotation cam
+
+    public float rotX = 0.0f; // rotation cam
     public float rotY = 0.0f;
+	[HideInInspector] public bool BlockRotation;
+	[HideInInspector] public bool Lerping;
+
+	float _oldRotY;
+	float _oldRotX;
+	bool _antispam;
         
     void Start()
     {
         Vector3 rotation = transform.localRotation.eulerAngles; //obtenir la rotation de l'objet camera dans l'espace sur lui même
         rotX = rotation.x;
         rotY = rotation.y;
+		_snap = GetComponent<CameraSnapping>();
         //Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
         //Cursor.visible = false; // Rend le curseur de la souris invisible
     }
@@ -43,9 +52,18 @@ public class CameraFollow : MonoBehaviour
         finalInputX = inputX + mouseX;
         finalInputZ = inputZ + mouseY;
 
-        //action de rotation de la caméra
-        rotY += finalInputX * inputSensibility * Time.deltaTime;
-        rotX += finalInputZ * inputSensibility * Time.deltaTime;
+		if(!BlockRotation)
+		{
+			//action de rotation de la caméra
+			rotY += finalInputX * inputSensibility * Time.deltaTime;
+			rotX += finalInputZ * inputSensibility * Time.deltaTime;
+		}
+
+		if((finalInputX != 0 || finalInputZ !=0) && !BlockRotation)//final Input
+		{
+			_snap.ActivateLerp = false;
+			_snap.StopCoroutine();
+		}
 
 		//clamp Rotation Y
 		if (rotY < 0)
@@ -73,7 +91,7 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        CameraUpdater ();    
+        CameraUpdater();    
     }
     
     void CameraUpdater()

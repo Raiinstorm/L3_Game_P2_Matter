@@ -7,6 +7,7 @@ public class Extrude : GenericElement
 {
 	public override ElementType Type { get { return ElementType.Extrude; } }
 	public ZoneController _zoneController;
+	[SerializeField] AnimDissolve _animDissolve;
 	Transform _zoneControllerTransform;
 
 	[Header ("Extrude")]
@@ -23,9 +24,6 @@ public class Extrude : GenericElement
 
 	Propulsion _propulsionScript;
 	public GameObject _propulsionGameObject;
-
-	[SerializeField] MeshRenderer[] _meshRenderers;
-
 
 	Vector3 _direction;
 
@@ -67,6 +65,7 @@ public class Extrude : GenericElement
 		{
 			_propulsionGameObject = new GameObject("generatedPropulsionGameObject");
 			_propulsionGameObject.AddComponent<Propulsion>();
+			_propulsionGameObject.transform.position = transform.position;
 			_propulsionGameObject.transform.parent = GameMaster.i.TrashCan.transform;
 		}
 
@@ -74,6 +73,7 @@ public class Extrude : GenericElement
 		{
 			_zoneControllerTransform = _zoneController.transform;
 			_oldPos = _zoneControllerTransform.position;
+			GameMaster.i.Faults.Add(_zoneController);
 		}
 		else
 			_oldPos = transform.position;
@@ -84,11 +84,6 @@ public class Extrude : GenericElement
 		if(!_isBigExtrude || _zoneController !=null)
 		SoundManager.PlaySoundSpacialized("Energie", SoundManager.Sound.Energy, _oldPos, 50, .25f, true,false,true,_zoneControllerTransform);
 
-		foreach (MeshRenderer mesh in _meshRenderers)
-		{
-			mesh.enabled = false;
-		}
-
 		if(AutoSwitch)
 		{
 			GameMaster.i.AutoSwitchExtrudes.Add(this);
@@ -98,6 +93,7 @@ public class Extrude : GenericElement
 	}
 	private void Update()
 	{
+
 		if(_zoneControllerTransform != null)
 		_oldPos = _zoneControllerTransform.position;
 
@@ -109,19 +105,18 @@ public class Extrude : GenericElement
 			if(!_switchReset)
 			{
 				ResetInterpolator();
-
 				SoundExtrude();
+
+				if(_animDissolve != null)
+				{
+					_animDissolve.Activate();
+				}
 
 				if(_disableExtrudeSwitch)
 				{
 					StopCoroutine(_disableCooldown);
 					_disableCooldown = DisableCooldown();
 					StartCoroutine(_disableCooldown);
-				}
-
-				foreach (MeshRenderer mesh in _meshRenderers)
-				{
-					mesh.enabled = true;
 				}
 
 			}
@@ -140,6 +135,11 @@ public class Extrude : GenericElement
 			{
 				ResetInterpolator();
 				SoundExtrude(true);
+
+				if (_animDissolve != null)
+				{
+					_animDissolve.Desactivate();
+				}
 			}
 
 			_CoroutineAntiSpam = false;

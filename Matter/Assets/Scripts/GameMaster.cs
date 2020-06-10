@@ -14,6 +14,9 @@ public class GameMaster : MonoBehaviour
 
 	[HideInInspector] public bool ResetRotation;
 
+	public List<ZoneController> Faults = new List<ZoneController>(); 
+	[HideInInspector] public ZoneController FaultSelected;
+
 	static GameMaster _i;
 	public static GameMaster i
 	{
@@ -145,5 +148,20 @@ public class GameMaster : MonoBehaviour
 			SoundManager.PlaySound(SoundManager.Sound.RockSliding, _volume / 2);
 
 		RockAndDust();
+	}
+
+	public void CheckingFaultSelected()
+	{
+		foreach (ZoneController fault in Faults)
+		{
+			if (fault == FaultSelected)
+			{
+				continue;
+			}
+			else
+			{
+				fault._animator.SetBool("activation", false);
+			}
+		}
 	}
 }

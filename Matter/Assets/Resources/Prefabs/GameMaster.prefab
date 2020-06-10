@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _guest1: {fileID: 3047442969449910192, guid: fa23916c9a2b5fd4abcddb1a9546d487, type: 3}
   _guest2: {fileID: 9095124217402502469, guid: 73c6e97da6c61ab448d06fff298e6c60, type: 3}
+  LockRot: 0
 --- !u!1 &5706159893305170340
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +95,7 @@ MonoBehaviour:
   _volume: 0.2
   _minWaitForSounds: 25
   _maxWaitForSounds: 50
+  ResetRotation: 0
   AutoSwitchExtrudes: []
   _switchTime: 2
   Elements: []
