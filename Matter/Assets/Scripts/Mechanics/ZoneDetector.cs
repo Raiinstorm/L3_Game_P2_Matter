@@ -21,7 +21,7 @@ public class ZoneDetector : MonoBehaviour
     {
         GetInput();
 #if UNITY_EDITOR
-        //VisualizeBox();
+        VisualizeBox();
 #endif
     }
 
