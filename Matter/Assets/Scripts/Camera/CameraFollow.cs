@@ -36,8 +36,8 @@ public class CameraFollow : MonoBehaviour
         rotX = rotation.x;
         rotY = rotation.y;
 		_snap = GetComponent<CameraSnapping>();
-        //Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
-        //Cursor.visible = false; // Rend le curseur de la souris invisible
+        Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
+        Cursor.visible = false; // Rend le curseur de la souris invisible
     }
 
     void Update()
