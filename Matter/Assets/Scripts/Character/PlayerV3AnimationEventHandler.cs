@@ -14,6 +14,7 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
+		_animator.SetBool("respawn_V1", false);  // ADD V1.02
 		_playerController = GetComponent<PlayerControllerV3>();
 		_canMove = true;
 		_deathPlayer = GetComponent<DeathPlayer>();
@@ -117,13 +118,15 @@ public class PlayerV3AnimationEventHandler : MonoBehaviour
 	{
 		if (_deathPlayer.Respawn)
 		{
-			_animator.SetTrigger("respawn");
+			//_animator.SetTrigger("respawn"); // ADD V1.02
+			_animator.SetBool("respawn_V1", true); // ADD V1.02
 			_deathPlayer.Respawn = false;
 			_playerController._canMove = false;
 		}
 	}
 	public void CanMove()
 	{
+		_animator.SetBool("respawn_V1", false); // ADD V1.02
 		_playerController._canMove = true;
 	}
 
