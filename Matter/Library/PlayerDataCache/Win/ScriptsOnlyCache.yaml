@@ -67,7 +67,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
     - UnityEditor.Graphs.AnimationStateMachine.StateNode
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -1268,7 +1267,7 @@ ScriptsOnlyBuild:
     className: CameraController
   - hash:
       serializedVersion: 2
-      Hash: 43f88a0a254a89897b6252ff0b1e5619
+      Hash: 4fa41ffac341817ed4ebf3a537e52ec9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -1774,4 +1773,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/_Scenes/Menu3D.unity
   - Assets/_Scenes/Game.unity
-  playerPath: "C:/Users/Rapha\xEBl/Desktop/Matter_build_2/MATTER.exe"
+  playerPath: "C:/Users/Rapha\xEBl/Desktop/Matter V1.02/MATTER.exe"

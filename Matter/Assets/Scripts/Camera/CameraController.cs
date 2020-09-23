@@ -33,9 +33,6 @@ public class CameraController : MonoBehaviour
         Pivot.transform.position = Target.transform.position;
         //Pivot.transform.parent = Target.transform;
         Pivot.transform.parent = null;
-
-        //Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
-        //Cursor.visible = false; // Rend le curseur de la souris invisible
     }
 
     void LateUpdate()

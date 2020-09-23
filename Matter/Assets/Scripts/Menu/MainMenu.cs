@@ -2,15 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
 	[SerializeField] bool _playMusic;
 	[SerializeField] float _volume;
+	[SerializeField] GameObject _playButton;
+	[SerializeField] GameObject _eventSystem;
 
 	private void Start()
 	{
-		if(_playMusic)
+		Cursor.lockState = CursorLockMode.Locked; //bloquer le curseur de la souris 
+		Cursor.visible = false; // Rend le curseur de la souris invisible
+		if (_playMusic)
 		{
 			PlayMusic();
 		}
