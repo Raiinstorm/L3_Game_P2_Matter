@@ -58,7 +58,6 @@ public class ZoneDetector : MonoBehaviour
         }
         else if (Input.GetButtonDown("InfuseEnergy"))
         {
-            Debug.Log("insuffler de l'energy");
             ZoneController zoneController = GetClosestGameObject(Faults, false);
             if (zoneController != null)
             {

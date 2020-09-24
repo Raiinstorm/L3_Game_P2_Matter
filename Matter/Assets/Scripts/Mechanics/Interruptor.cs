@@ -23,6 +23,8 @@ public class Interruptor : MonoBehaviour
 	[SerializeField] GameObject _canvas;
 	[SerializeField] GameObject _imageCanvas;
 
+	[SerializeField] PlayerControllerV3 _playerController;
+
 	private void Start()
 	{
 		_snap = _cameraShaking.gameObject.GetComponent<CameraSnapping>();
@@ -31,6 +33,8 @@ public class Interruptor : MonoBehaviour
 
 	void Update()
 	{
+		
+		
 		if((Input.GetButtonDown("Interract") && _canBeActivated || _forceActivation) && !_activated)
 		{
 			ActivateInterruptor();
@@ -75,6 +79,7 @@ public class Interruptor : MonoBehaviour
 		if (_relic != null)
 		{
 			_relic.GetComponent<RelicFeedback>().On();
+			_playerController._canMove = false;
 			StartCoroutine(ThanksForPlaying());
 		}
 	}

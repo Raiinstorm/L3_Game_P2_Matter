@@ -113,8 +113,6 @@ public class PlayerControllerV3 : CharacterV3
 		_moveSpeedRun = MoveSpeed * _runMultiplicator;
 		_thisTransform = GetComponent<Transform>();
 		_physicMaterial = GetComponent<Collider>().material;
-
-		Debug.Log(SoundAssets.i.Hello());
 	}
 	private void FixedUpdate()
 	{

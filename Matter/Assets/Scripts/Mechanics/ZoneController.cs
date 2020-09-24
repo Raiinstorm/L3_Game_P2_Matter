@@ -41,7 +41,7 @@ public class ZoneController : MonoBehaviour
 			_elementsByType.Add (element.Type, element);
 		}
 
-		Debug.Log ("ZoneController INFO: Dictionnaire généré avec " + _elementsByType.Count + " éléments.", gameObject);
+		// Debug.Log ("ZoneController INFO: Dictionnaire généré avec " + _elementsByType.Count + " éléments.", gameObject);
 	}
 
 	/// <summary>
