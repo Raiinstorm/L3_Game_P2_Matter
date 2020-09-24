@@ -18,8 +18,8 @@ public class InputMechanics : MonoBehaviour
             returnMode = myMode.Selection();
         }
 
-        if (Input.GetButtonDown("Reset"))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //if (Input.GetButtonDown("Reset")) // Commentaire add V1.07
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Commentaire add V1.07
     }
 
     public ElementType ReturnMode => returnMode;
