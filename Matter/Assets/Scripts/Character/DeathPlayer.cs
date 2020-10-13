@@ -6,6 +6,8 @@ public class DeathPlayer : MonoBehaviour
 {
     PlayerControllerV3 _player;
     [SerializeField] Vector3 _currentlyPostion;
+    [SerializeField] GameObject _AnimCheckPoint;
+    [SerializeField] GameObject _AnimCheckPointRoue;
     [HideInInspector] public bool Respawn;
 
     void Start()
@@ -21,6 +23,8 @@ public class DeathPlayer : MonoBehaviour
         {
             _currentlyPostion = other.gameObject.transform.position;
             other.gameObject.SetActive(false);
+            _AnimCheckPoint.SetActive(true);
+            _AnimCheckPointRoue.SetActive(true);
             // ADD ici l'activation du canvas pour montrer que ça save
         }
 
