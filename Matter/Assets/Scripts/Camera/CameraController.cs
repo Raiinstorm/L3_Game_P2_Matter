@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
 
     private float m_rotY;
     private float m_rotX;
+
     void Start()
     {
         if(!UseOffsetValues)

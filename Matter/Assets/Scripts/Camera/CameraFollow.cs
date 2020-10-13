@@ -26,7 +26,7 @@ public class CameraFollow : MonoBehaviour
 	[HideInInspector] public bool BlockRotation;
 	[HideInInspector] public bool Lerping;
 
-	float _oldRotY;
+    float _oldRotY;
 	float _oldRotX;
 	bool _antispam;
         
